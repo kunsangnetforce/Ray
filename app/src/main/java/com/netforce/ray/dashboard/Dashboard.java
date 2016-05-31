@@ -34,6 +34,7 @@ public class Dashboard extends AppCompatActivity {
 
     private void setupNavigation() {
         setupHeader();
+        PrimaryDrawerItem home = new PrimaryDrawerItem().withName(R.string.home).withIcon(R.drawable.ic_home);
         PrimaryDrawerItem special = new PrimaryDrawerItem().withName(R.string.special).withIcon(R.drawable.ic_star);
         PrimaryDrawerItem category = new PrimaryDrawerItem().withName(R.string.category).withIcon(R.drawable.ic_tag);
         PrimaryDrawerItem sell = new PrimaryDrawerItem().withName(R.string.sell).withIcon(R.drawable.ic_camera);
@@ -48,7 +49,7 @@ public class Dashboard extends AppCompatActivity {
                 .withAccountHeader(headerResult)
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        special, category, sell, invite, help
+                        home,special, category, sell, invite, help
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
