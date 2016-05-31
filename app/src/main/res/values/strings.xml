@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Ray</string>
+    <string name="special">Special</string>
+    <string name="category">Category</string>
+    <string name="sell">Sell</string>
+    <string name="invite">Invite Friends</string>
+    <string name="help">Help</string>
 </resources>
