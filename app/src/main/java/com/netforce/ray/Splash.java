@@ -1,11 +1,13 @@
 package com.netforce.ray;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.netforce.ray.dashboard.Dashboard;
 import com.nineoldandroids.animation.Animator;
 
 public class Splash extends AppCompatActivity {
@@ -23,7 +25,9 @@ public class Splash extends AppCompatActivity {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        showMessage("This is it");
+                        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                        startActivity(intent);
+
                     }
 
                     @Override
