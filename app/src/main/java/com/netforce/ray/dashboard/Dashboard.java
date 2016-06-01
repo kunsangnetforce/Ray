@@ -1,5 +1,7 @@
 package com.netforce.ray.dashboard;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,11 +20,13 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.netforce.ray.R;
+import com.netforce.ray.home.HomeFragment;
 
 public class Dashboard extends AppCompatActivity {
 
     private Toolbar toolbar;
     private AccountHeader headerResult;
+    private HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         setupToolBar();
         setupNavigation();
+        setupHomeFragment();
     }
 
     private void setupNavigation() {
@@ -49,7 +54,7 @@ public class Dashboard extends AppCompatActivity {
                 .withAccountHeader(headerResult)
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        home,special, category, sell, invite, help
+                        home, special, category, sell, invite, help
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -97,5 +102,22 @@ public class Dashboard extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String teams = "Home";
         getSupportActionBar().setTitle(teams);
+    }
+
+    private void replaceFragment(Fragment newFragment, String tag) {
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.drawer_layout, newFragment, tag);
+        transaction.commit();
+    }
+
+    private void setupHomeFragment() {
+        String teams = "Home";
+        getSupportActionBar().setTitle(teams);
+        if (homeFragment == null) {
+            homeFragment = new HomeFragment();
+        }
+        String tagName = homeFragment.getClass().getName();
+        replaceFragment(homeFragment, tagName);
     }
 }
