@@ -2,12 +2,11 @@ package com.netforce.ray.home;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.netforce.ray.R;
 
@@ -32,20 +31,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         inflater = LayoutInflater.from(context);
     }
 
-    /*  @Override
-      public int getItemViewType(int position) {
-          if (itemList.get(position).image.isEmpty()) {
-              return SIMPLE_TYPE;
-          } else {
-              return IMAGE_TYPE;
-          }
-      }
-  */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.row_home, parent, false);
-        RecyclerViewHolderImage viewHolder = new RecyclerViewHolderImage(view);
+        HomeHolder viewHolder = new HomeHolder(view);
         return viewHolder;
 
 
@@ -53,8 +43,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        HomeHolder homeHolder = (HomeHolder) holder;
+        homeHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMessage("yet to implement");
+            }
+        });
 
+    }
 
+    private void showMessage(String s) {
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
 
