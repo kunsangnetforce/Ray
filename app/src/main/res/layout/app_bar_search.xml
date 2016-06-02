@@ -1,0 +1,45 @@
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:theme="@style/AppTheme.AppBarOverlay">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/editTextSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="90"
+            android:focusable="true"
+            android:fontFamily="sans-serif"
+            android:hint="@string/Label_Search"
+            android:imeOptions="actionSearch"
+            android:inputType="textAutoComplete"
+            android:textColorHint="@color/white"
+            android:textSize="16sp"
+            android:visibility="visible"
+            app:met_baseColor="@color/white"
+            app:met_floatingLabel="none"
+            app:met_hideUnderline="true"
+            app:met_iconPadding="0dp"
+            app:met_primaryColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/imageViewClose"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_weight="10"
+            android:src="@drawable/ic_close" />
+    </LinearLayout>
+
+</android.support.v7.widget.Toolbar>
