@@ -1,0 +1,382 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <FrameLayout
+            android:id="@+id/toolbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/app_bar" />
+
+        </FrameLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_filter" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="What are you searching for?" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/ic_map_marker" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current Location" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tap on the map to change the location"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                tools:context="com.netforce.ray.search.AdvanceSearch" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Search radius:" />
+
+                <TextView
+                    android:id="@+id/textviewrange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:text="Everywhere" />
+
+            </RelativeLayout>
+
+            <com.gc.materialdesign.views.Slider
+
+                android:id="@+id/slider"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#1E88E5"
+                materialdesign:max="18"
+                materialdesign:min="0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/textviewAll"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:text="All"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/textviewNew"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:text="New In Your Area"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/textviewFashion"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:text="Fashion and Accessories"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/textviewHome"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:text="Home and Garden"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/textviewElectronics"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:text="Electronics"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/textviewMovie"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:text="Movies, Books and Musics"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/textviewBaby"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:text="Baby And Child"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/textviewSports"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:text="Sports, Liesure and Games"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/textviewCars"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:text="Cars and Motors"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/textviewServices"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:text="Services"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:id="@+id/textviewOther"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:layout_weight="50"
+                        android:background="@color/grey"
+                        android:gravity="center"
+                        android:text="Other"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:padding="16dp"
+                android:text="Set your price range" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="horizontal"
+                android:weightSum="100">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="50"
+                    android:hint="Min. price"
+                    android:inputType="number"
+                    app:met_floatingLabel="highlight" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="50"
+                    android:hint="Max. price"
+                    android:inputType=""
+                    app:met_floatingLabel="highlight" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <com.gc.materialdesign.views.ButtonRectangle
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/grey"
+                    android:text="Clear Filter"
+                    android:layout_marginBottom="16dp"
+                    android:textColor="@color/red">
+
+
+                </com.gc.materialdesign.views.ButtonRectangle>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
