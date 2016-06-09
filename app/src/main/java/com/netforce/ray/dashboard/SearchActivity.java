@@ -1,6 +1,9 @@
 package com.netforce.ray.dashboard;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.netforce.ray.R;
+import com.netforce.ray.search.AdvanceSearch;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -26,6 +30,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         setupToolBar();
         showkeyboard();
         findViewById(R.id.advanceSearch).setOnClickListener(this);
+        getPermission();
 
     }
 
@@ -79,7 +84,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 editTextSearch.setText("");
                 break;
             case R.id.advanceSearch:
-                showMessage("yet to show");
+                Intent intent=new Intent(getApplicationContext(), AdvanceSearch.class);
+                startActivity(intent);
+                hideKeyboard();
                 break;
         }
     }
@@ -87,4 +94,22 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private void showMessage(String s) {
         Toast.makeText(SearchActivity.this, s, Toast.LENGTH_SHORT).show();
     }
+
+    private void getPermission() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            String[] permission = {
+                    "android.permission.ACCESS_FINE_LOCATION",
+                    "android.permission.INTERNET",
+                    "android.permission.WAKE_LOCK"
+            };
+
+            ActivityCompat.requestPermissions(this,
+                    permission, 1);
+
+
+        }
+    }
+
 }
