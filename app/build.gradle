@@ -45,7 +45,5 @@ dependencies {
     compile 'io.nlopez.smartlocation:library:3.2.2'
     compile 'com.seatgeek:placesautocomplete:0.2-SNAPSHOT'
     compile 'de.hdodenhof:circleimageview:2.0.0'
-
-
-
+    compile 'com.github.clans:fab:1.6.4'
 }
