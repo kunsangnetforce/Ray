@@ -7,8 +7,11 @@ import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
 import android.transition.Transition;
@@ -30,7 +33,12 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.netforce.ray.R;
+import com.netforce.ray.dashboard.navigation.NavigationFragment;
 import com.netforce.ray.home.HomeFragment;
+import com.netforce.ray.home.RecyclerViewAdapter;
+import com.netforce.ray.home.RowData;
+
+import java.util.ArrayList;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -38,14 +46,21 @@ public class Dashboard extends AppCompatActivity {
     private AccountHeader headerResult;
     private HomeFragment homeFragment;
     private Menu menu;
+    private NavigationFragment drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         setupToolBar();
-        setupNavigation();
+        //setupNavigation();
+        setupNavigationCustom();
         setupHomeFragment();
+    }
+
+    private void setupNavigationCustom() {
+        drawer = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+        drawer.setup(R.id.fragment, (DrawerLayout) findViewById(R.id.drawer), toolbar);
     }
 
     private void setupNavigation() {
