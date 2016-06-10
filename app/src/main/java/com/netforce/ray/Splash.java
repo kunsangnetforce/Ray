@@ -27,6 +27,7 @@ public class Splash extends AppCompatActivity {
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                         startActivity(intent);
+                        finish();
 
                     }
 

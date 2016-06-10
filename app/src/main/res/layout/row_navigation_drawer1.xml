@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="32dp"
+    android:layout_marginRight="16dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="90"
+            android:text="Search Alerts" />
+
+        <ImageView
+            android:id="@+id/info"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="10"
+            android:src="@drawable/ic_info" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="100">
+
+        <EditText
+            android:id="@+id/editTextSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="90"
+            android:hint="New Search Alerts" />
+
+        <ImageView
+            android:id="@+id/addAlert"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="10"
+            android:src="@drawable/ic_add" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/textviewAlert1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="90"
+            android:text="Search Alerts"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/imageviewalert1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="10"
+            android:src="@drawable/ic_close_outline" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/textviewAlert2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="90"
+            android:text="Search Alerts"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/imageviewalert2"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="10"
+            android:src="@drawable/ic_close_outline" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/textviewAlert3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="90"
+            android:text="Search Alerts"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/imageviewalert3"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="10"
+            android:src="@drawable/ic_close_outline" />
+    </LinearLayout>
+
+</LinearLayout>

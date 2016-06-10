@@ -44,6 +44,8 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.0.2'
     compile 'io.nlopez.smartlocation:library:3.2.2'
     compile 'com.seatgeek:placesautocomplete:0.2-SNAPSHOT'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+
 
 
 }
