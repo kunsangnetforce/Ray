@@ -13,5 +13,11 @@
     <color name="colorPrimary1">#99009688</color>
     <color name="greendark">#2a990b</color>
     <color name="statusbar_splash">#347fb1</color>
+    <color name="statusbar_nointernet">#d4c7c7</color>
+    <color name="colorPrimaryText">#515151</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorText">#FFFFFF</color>
+    <color name="textviewBackground1">#ef1940</color>
+
 
 </resources>
