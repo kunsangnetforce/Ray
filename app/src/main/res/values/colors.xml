@@ -12,4 +12,6 @@
     <color name="footer">#d97ba5</color>
     <color name="colorPrimary1">#99009688</color>
     <color name="greendark">#2a990b</color>
+    <color name="statusbar_splash">#347fb1</color>
+
 </resources>

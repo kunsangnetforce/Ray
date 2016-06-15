@@ -352,7 +352,7 @@
                     android:layout_margin="8dp"
                     android:layout_weight="50"
                     android:hint="Max. price"
-                    android:inputType=""
+                    android:inputType="number"
                     app:met_floatingLabel="highlight" />
 
             </LinearLayout>
@@ -366,10 +366,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/grey"
+                    android:background="@color/colorPrimary"
                     android:text="Clear Filter"
                     android:layout_marginBottom="16dp"
-                    android:textColor="@color/red">
+
+                    >
 
 
                 </com.gc.materialdesign.views.ButtonRectangle>

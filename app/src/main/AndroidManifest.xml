@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".dashboard.Dashboard" />
-        <activity android:name=".dashboard.SearchActivity" />
+        <activity android:name=".search.SearchActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -47,7 +47,9 @@
         <activity
             android:name=".search.AdvanceSearch"
             android:label="@string/title_activity_advance_search" />
-        <activity android:name=".search.ChooseLocation"></activity>
+        <activity android:name=".search.ChooseLocation" />
+        <activity android:name=".profile.UserProfile" />
+        <activity android:name=".general.NoInternet"></activity>
     </application>
 
 </manifest>

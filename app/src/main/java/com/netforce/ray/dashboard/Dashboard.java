@@ -1,21 +1,14 @@
 package com.netforce.ray.dashboard;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,19 +19,15 @@ import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.netforce.ray.R;
 import com.netforce.ray.dashboard.navigation.NavigationFragment;
 import com.netforce.ray.home.HomeFragment;
-import com.netforce.ray.home.RecyclerViewAdapter;
-import com.netforce.ray.home.RowData;
-
-import java.util.ArrayList;
+import com.netforce.ray.profile.UserProfile;
+import com.netforce.ray.search.SearchActivity;
 
 public class Dashboard extends AppCompatActivity {
 
@@ -178,6 +167,8 @@ public class Dashboard extends AppCompatActivity {
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 return true;
             case R.id.profile:
+                startActivity(new Intent(this, UserProfile.class));
+                overridePendingTransition(R.anim.enter, R.anim.exit);
                 return true;
 
             default:
