@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.netforce.ray.dashboard.Dashboard;
+import com.netforce.ray.general.NoInternet;
 import com.nineoldandroids.animation.Animator;
 
 public class Splash extends AppCompatActivity {
@@ -50,6 +51,8 @@ public class Splash extends AppCompatActivity {
                             finish();
                         }
                         else {
+                            Intent intent = new Intent(getApplicationContext(), NoInternet.class);
+                            startActivity(intent);
                             finish();
                         }
 
