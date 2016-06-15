@@ -1,4 +1,4 @@
-package com.netforce.ray.dashboard;
+package com.netforce.ray.search;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.netforce.ray.R;
-import com.netforce.ray.search.AdvanceSearch;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
