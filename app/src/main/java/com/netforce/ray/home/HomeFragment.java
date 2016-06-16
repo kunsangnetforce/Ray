@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.netforce.ray.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,8 +21,8 @@ public class HomeFragment extends Fragment {
 
     Context context;
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter adapter;
-    private ArrayList<RowData> rowDatas = new ArrayList<>();
+    private HomeAdapter adapter;
+    private ArrayList<HomeData> homeDatas = new ArrayList<>();
     private GridLayoutManager layoutManager;
 
     public HomeFragment() {
@@ -43,7 +42,7 @@ public class HomeFragment extends Fragment {
 
     private void setupRecyclerView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        adapter = new RecyclerViewAdapter(context, rowDatas);
+        adapter = new HomeAdapter(context, homeDatas);
         setupData();
         layoutManager = new GridLayoutManager(context, 2);
         recyclerView.setLayoutManager(layoutManager);
@@ -53,24 +52,24 @@ public class HomeFragment extends Fragment {
 
     private void setupData() {
         try {
-            rowDatas.clear();
+            homeDatas.clear();
         } catch (Exception ex) {
 
         }
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
-        rowDatas.add(new RowData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        homeDatas.add(new HomeData("imageurl", "title", "price"));
 
 
     }

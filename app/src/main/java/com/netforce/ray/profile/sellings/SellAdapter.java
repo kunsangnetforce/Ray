@@ -10,23 +10,23 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforce.ray.R;
-import com.netforce.ray.profile.sellings.offer_list.InnerRecyclerViewAdapter;
+import com.netforce.ray.profile.sellings.offer_list.OfferAdapter;
 
 import java.util.List;
 
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SOLD = 0;
     private static final int AVAILABLE = 1;
     private final LayoutInflater inflater;
-    private List<RowData> itemList;
+    private List<SellData> itemList;
     private Context context;
-    private InnerRecyclerViewAdapter adapter;
+    private OfferAdapter adapter;
 
-    public RecyclerViewAdapter(Context context, List<RowData> itemList) {
+    public SellAdapter(Context context, List<SellData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -64,7 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 SellHolderAvailable sellHolderAvailable = (SellHolderAvailable) holder;
                 LinearLayoutManager layoutManager = new LinearLayoutManager(context);
                 sellHolderAvailable.recyclerView.setLayoutManager(layoutManager);
-                adapter = new InnerRecyclerViewAdapter(context, itemList.get(position).innerRowDatas);
+                adapter = new OfferAdapter(context, itemList.get(position).offerDatas);
                 sellHolderAvailable.recyclerView.setAdapter(adapter);
                 break;
             case SOLD:

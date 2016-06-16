@@ -8,14 +8,14 @@ import android.widget.TextView;
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class InnerRecyclerViewHolder extends RecyclerView.ViewHolder {
+public class OfferHolder extends RecyclerView.ViewHolder {
 
     public TextView textViewPos, textViewTeamName, textViewGP, textViewW, textViewD, textViewL, textViewGD, textViewPts;
     public ImageView imageViewTeamLogo;
     public View view;
 
 
-    public InnerRecyclerViewHolder(View itemView) {
+    public OfferHolder(View itemView) {
         super(itemView);
         view=itemView;
 

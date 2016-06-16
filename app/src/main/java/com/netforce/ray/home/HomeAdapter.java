@@ -17,15 +17,15 @@ import java.util.List;
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<RowData> itemList;
+    private List<HomeData> itemList;
     private Context context;
 
-    public RecyclerViewAdapter(Context context, List<RowData> itemList) {
+    public HomeAdapter(Context context, List<HomeData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);

@@ -2,8 +2,6 @@ package com.netforce.ray.profile.news;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,22 +10,20 @@ import android.widget.Toast;
 
 import com.netforce.ray.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<RowData> itemList;
+    private List<NewsData> itemList;
     private Context context;
 
-    public RecyclerViewAdapter(Context context, List<RowData> itemList) {
+    public NewsAdapter(Context context, List<NewsData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);

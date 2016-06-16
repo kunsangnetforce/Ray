@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.netforce.ray.R;
-import com.netforce.ray.profile.sellings.offer_list.InnerRowData;
+import com.netforce.ray.profile.sellings.offer_list.OfferData;
 
 import java.util.ArrayList;
 
@@ -23,9 +23,9 @@ public class Sellings extends Fragment {
 
     private Context context;
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter adapter;
+    private SellAdapter adapter;
     private LinearLayoutManager layoutManager;
-    private ArrayList<RowData> rowDatas = new ArrayList<>();
+    private ArrayList<SellData> sellDatas = new ArrayList<>();
 
     public Sellings() {
         // Required empty public constructor
@@ -45,7 +45,7 @@ public class Sellings extends Fragment {
     private void setupRecyclerView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         setupData();
-        adapter = new RecyclerViewAdapter(context, rowDatas);
+        adapter = new SellAdapter(context, sellDatas);
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -54,20 +54,20 @@ public class Sellings extends Fragment {
 
     private void setupData() {
         try {
-            rowDatas.clear();
+            sellDatas.clear();
         } catch (Exception ex) {
 
         }
-        ArrayList<InnerRowData> innerRowDatas = new ArrayList<>();
-        innerRowDatas.add(new InnerRowData());
-        rowDatas.add(new RowData(innerRowDatas, "sold"));
-        rowDatas.add(new RowData(innerRowDatas, "sold"));
-        rowDatas.add(new RowData(innerRowDatas, "available"));
-        rowDatas.add(new RowData(innerRowDatas, "available"));
-        rowDatas.add(new RowData(innerRowDatas, "sold"));
-        rowDatas.add(new RowData(innerRowDatas, "sold"));
-        rowDatas.add(new RowData(innerRowDatas, "sold"));
-        rowDatas.add(new RowData(innerRowDatas, "available"));
+        ArrayList<OfferData> offerDatas = new ArrayList<>();
+        offerDatas.add(new OfferData());
+        sellDatas.add(new SellData(offerDatas, "sold"));
+        sellDatas.add(new SellData(offerDatas, "sold"));
+        sellDatas.add(new SellData(offerDatas, "available"));
+        sellDatas.add(new SellData(offerDatas, "available"));
+        sellDatas.add(new SellData(offerDatas, "sold"));
+        sellDatas.add(new SellData(offerDatas, "sold"));
+        sellDatas.add(new SellData(offerDatas, "sold"));
+        sellDatas.add(new SellData(offerDatas, "available"));
 
 
     }
