@@ -1,4 +1,4 @@
-package com.netforce.ray.profile.sellings;
+package com.netforce.ray.profile.favourites;
 
 
 import android.content.Context;
@@ -11,23 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.netforce.ray.R;
-import com.netforce.ray.profile.sellings.offer_list.OfferData;
+import com.netforce.ray.profile.favourites.offer_list.OfferData;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Sellings extends Fragment {
+public class Favourite extends Fragment {
 
 
     private Context context;
     private RecyclerView recyclerView;
-    private SellAdapter adapter;
+    private FavouriteAdapter adapter;
     private LinearLayoutManager layoutManager;
-    private ArrayList<SellData> sellDatas = new ArrayList<>();
+    private ArrayList<FavouriteData> favouriteDatas = new ArrayList<>();
 
-    public Sellings() {
+    public Favourite() {
         // Required empty public constructor
     }
 
@@ -45,7 +45,7 @@ public class Sellings extends Fragment {
     private void setupRecyclerView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         setupData();
-        adapter = new SellAdapter(context, sellDatas);
+        adapter = new FavouriteAdapter(context, favouriteDatas);
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -54,7 +54,7 @@ public class Sellings extends Fragment {
 
     private void setupData() {
         try {
-            sellDatas.clear();
+            favouriteDatas.clear();
         } catch (Exception ex) {
 
         }
@@ -62,14 +62,24 @@ public class Sellings extends Fragment {
         offerDatas.add(new OfferData());
         offerDatas.add(new OfferData());
         offerDatas.add(new OfferData());
-        sellDatas.add(new SellData(offerDatas, "sold"));
-        sellDatas.add(new SellData(offerDatas, "sold"));
-        sellDatas.add(new SellData(offerDatas, "available"));
-        sellDatas.add(new SellData(offerDatas, "available"));
-        sellDatas.add(new SellData(offerDatas, "sold"));
-        sellDatas.add(new SellData(offerDatas, "sold"));
-        sellDatas.add(new SellData(offerDatas, "sold"));
-        sellDatas.add(new SellData(offerDatas, "available"));
+        favouriteDatas.add(new FavouriteData(offerDatas, ""));
+        favouriteDatas.add(new FavouriteData(offerDatas, ""));
+        offerDatas = new ArrayList<>();
+        offerDatas.add(new OfferData());
+        offerDatas.add(new OfferData());
+        favouriteDatas.add(new FavouriteData(offerDatas, ""));
+        favouriteDatas.add(new FavouriteData(offerDatas, "available"));
+        offerDatas = new ArrayList<>();
+        favouriteDatas.add(new FavouriteData(offerDatas, "sold"));
+        favouriteDatas.add(new FavouriteData(offerDatas, "sold"));
+        offerDatas = new ArrayList<>();
+        offerDatas.add(new OfferData());
+        favouriteDatas.add(new FavouriteData(offerDatas, "sold"));
+        offerDatas = new ArrayList<>();
+        offerDatas.add(new OfferData());
+        offerDatas.add(new OfferData());
+        offerDatas.add(new OfferData());
+        favouriteDatas.add(new FavouriteData(offerDatas, "available"));
 
 
     }

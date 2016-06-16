@@ -4,8 +4,8 @@ package com.netforce.ray.home;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +23,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private HomeAdapter adapter;
     private ArrayList<HomeData> homeDatas = new ArrayList<>();
-    private GridLayoutManager layoutManager;
+    private StaggeredGridLayoutManager layoutManager;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         adapter = new HomeAdapter(context, homeDatas);
         setupData();
-        layoutManager = new GridLayoutManager(context, 2);
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
