@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.netforce.ray.profile.favourites.Favourite;
 import com.netforce.ray.profile.news.News;
 import com.netforce.ray.profile.sellings.Sellings;
 
@@ -26,8 +27,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 Sellings sellings = new Sellings();
                 return sellings;
             case 2:
-                Favourites favourites = new Favourites();
-                return favourites;
+                Favourite favourite = new Favourite();
+                return favourite;
             case 3:
                 Profile profile = new Profile();
                 return profile;
