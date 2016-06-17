@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.netforce.ray.R;
+import com.netforce.ray.profile.PagerAdapter;
 
 public class UserProfile extends AppCompatActivity {
 

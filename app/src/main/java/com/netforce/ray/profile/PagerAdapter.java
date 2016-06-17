@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.netforce.ray.profile.favourites.Favourite;
 import com.netforce.ray.profile.news.News;
 import com.netforce.ray.profile.sellings.Sellings;
+import com.netforce.ray.profile.userprofile.Profile;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
