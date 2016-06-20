@@ -25,7 +25,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.netforce.ray.R;
 import com.netforce.ray.dashboard.navigation.NavigationFragment;
+import com.netforce.ray.general.UserSessionManager;
 import com.netforce.ray.home.HomeFragment;
+import com.netforce.ray.login.LoginActivity;
 import com.netforce.ray.profile.UserProfile;
 import com.netforce.ray.search.SearchActivity;
 
@@ -36,6 +38,7 @@ public class Dashboard extends AppCompatActivity {
     private HomeFragment homeFragment;
     private Menu menu;
     private NavigationFragment drawer;
+    private UserSessionManager userSessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,9 +170,17 @@ public class Dashboard extends AppCompatActivity {
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 return true;
             case R.id.profile:
-                startActivity(new Intent(this, UserProfile.class));
-                overridePendingTransition(R.anim.enter, R.anim.exit);
-                return true;
+                userSessionManager = new UserSessionManager(getApplicationContext());
+                if (userSessionManager.getToken().length() < 1) {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                    return true;
+
+                } else {
+                    startActivity(new Intent(this, UserProfile.class));
+                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                    return true;
+                }
 
             default:
                 return super.onOptionsItemSelected(item);
