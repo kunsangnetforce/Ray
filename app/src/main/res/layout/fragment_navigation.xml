@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/imageViewBG"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
@@ -42,7 +43,7 @@
                 android:gravity="center">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/profile_image"
+                    android:id="@+id/imageViewProfilePic"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/ic_add" />

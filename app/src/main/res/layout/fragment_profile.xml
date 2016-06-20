@@ -26,8 +26,14 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:background="@drawable/pro_pic">
+                    android:layout_height="180dp">
+
+                    <ImageView
+                        android:id="@+id/imageViewBG"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/pro_pic" />
 
                     <View
                         android:id="@+id/view2"
@@ -38,11 +44,12 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="48dp"
                         android:orientation="horizontal">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/view"
+                            android:id="@+id/imageViewProfilePic"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:src="@drawable/pro_pic" />
@@ -54,7 +61,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/textView3"
+                                android:id="@+id/textViewName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Kunsang W."
@@ -119,6 +126,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/imageViewFacebook"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_margin="6dp"
@@ -126,6 +134,7 @@
                         android:src="@drawable/facebook_icon" />
 
                     <ImageView
+                        android:id="@+id/imageViewTwitter"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_margin="6dp"
@@ -133,6 +142,7 @@
                         android:src="@drawable/twittericon" />
 
                     <ImageView
+                        android:id="@+id/imageViewWhatsup"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_margin="6dp"
@@ -140,6 +150,7 @@
                         android:src="@drawable/whatsapp_icon" />
 
                     <ImageView
+                        android:id="@+id/imageViewGoogle"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_margin="6dp"
@@ -148,6 +159,7 @@
                         android:src="@drawable/google_plus_icon" />
 
                     <ImageView
+                        android:id="@+id/imageViewSMS"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_margin="6dp"
@@ -155,7 +167,7 @@
                         android:src="@drawable/sms_icon" />
 
                     <ImageView
-
+                        android:id="@+id/imageViewEmail"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_margin="6dp"
@@ -171,9 +183,10 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                >
+                android:visibility="gone">
 
                 <LinearLayout
+                    android:id="@+id/linearLayoutPremium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -209,6 +222,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/linearLayoutReview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -220,6 +234,7 @@
                         android:src="@color/colorAccent" />
 
                     <LinearLayout
+                        android:id="@+id/linearLayoutSetting"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -283,10 +298,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grey"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/textViewFollowFB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1dp"
@@ -298,62 +313,57 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textViewFollowTwitter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:padding="16dp"
-                    android:text="Like us on Facebook"
+                    android:text="Follow us on Twitter"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textviewFeedback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:padding="16dp"
-                    android:text="Like us on Facebook"
+                    android:text="Feedback"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textviewHelp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:padding="16dp"
-                    android:text="Like us on Facebook"
+                    android:text="Help"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textViewTnC"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:padding="16dp"
-                    android:text="Like us on Facebook"
+                    android:text="Terms and Condition"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textviewAbout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:padding="16dp"
-                    android:text="Like us on Facebook"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="1dp"
-                    android:background="@color/white"
-                    android:padding="16dp"
-                    android:text="Like us on Facebook"
+                    android:text="About"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -365,9 +375,19 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/textViewLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="Log out"
+                    android:textColor="@color/colorSecondaryText"
+                    android:textStyle="bold" />
+
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
                     android:src="@drawable/pro_pic" />
 
                 <TextView
