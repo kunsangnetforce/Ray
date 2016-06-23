@@ -25,6 +25,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.share.model.AppInviteContent;
 import com.facebook.share.widget.AppInviteDialog;
+import com.google.android.gms.plus.PlusShare;
 import com.netforce.ray.R;
 import com.netforce.ray.dashboard.Dashboard;
 import com.netforce.ray.general.UserSessionManager;
@@ -82,6 +83,9 @@ public class Profile extends Fragment implements View.OnClickListener {
         imageViewFacebook.setOnClickListener(this);
         imageViewTwitter.setOnClickListener(this);
         view.findViewById(R.id.imageViewWhatsup).setOnClickListener(this);
+        view.findViewById(R.id.imageViewGoogle).setOnClickListener(this);
+        view.findViewById(R.id.imageViewSMS).setOnClickListener(this);
+        view.findViewById(R.id.imageViewEmail).setOnClickListener(this);
         return view;
 
     }
@@ -156,6 +160,15 @@ public class Profile extends Fragment implements View.OnClickListener {
             case R.id.imageViewWhatsup:
                 whatsappAppInvite();
                 break;
+            case R.id.imageViewGoogle:
+                googleAppInvite();
+                break;
+            case R.id.imageViewSMS:
+                smsAppInvite();
+                break;
+            case R.id.imageViewEmail:
+                emailAppInvite();
+                break;
             case R.id.textViewLogout:
                 UserSessionManager userSessionManager = new UserSessionManager(getActivity());
                 userSessionManager.setToken("");
@@ -174,6 +187,35 @@ public class Profile extends Fragment implements View.OnClickListener {
 
                 break;
         }
+    }
+
+    private void emailAppInvite() {
+        Intent intent = new Intent(
+                Intent.ACTION_SENDTO,
+                Uri.parse("mailto:")
+        );
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "Text");
+        startActivity(intent);
+
+    }
+
+    private void smsAppInvite() {
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+        sendIntent.setType("vnd.android-dir/mms-sms");
+        sendIntent.setData(Uri.parse("sms:"));
+        sendIntent.putExtra("sms_body", getResources().getString(R.string.smsinvite));
+        startActivity(sendIntent);
+    }
+
+    private void googleAppInvite() {
+        Intent shareIntent = new PlusShare.Builder(context)
+                .setType("text/plain")
+                .setText("Welcome to the Google+ platform.")
+                .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.yaksolution.gcm"))
+                .getIntent();
+
+        startActivityForResult(shareIntent, 0);
     }
 
     private void whatsappAppInvite() {

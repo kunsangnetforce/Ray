@@ -6,6 +6,7 @@
     tools:context="com.netforce.ray.home.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
