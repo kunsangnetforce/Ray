@@ -182,116 +182,133 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/linearLayoutPremium"
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:id="@+id/ripplePremium"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:src="@color/red" />
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/linearLayoutPremium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:padding="16dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Premium features"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:src="@color/red" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Promote your items"
-                            android:textSize="14sp" />
+                            android:layout_marginLeft="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Premium features"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Promote your items"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
                     </LinearLayout>
+                </com.balysv.materialripple.MaterialRippleLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayoutReview"
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:id="@+id/rippleReview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:src="@color/colorAccent" />
+                    <LinearLayout
+                        android:id="@+id/linearLayoutReview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:src="@color/colorAccent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Your reviews"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Nobody has reviewed you yet"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:id="@+id/rippleSetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:id="@+id/linearLayoutSetting"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:padding="16dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Your reviews"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:src="@color/grey" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Nobody has reviewed you yet"
-                            android:textSize="14sp" />
+                            android:layout_marginLeft="16dp"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Settings"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="Change profile images &amp; profile settings"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
                     </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:src="@color/grey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Settings"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Change profile images &amp; profile settings"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
+                </com.balysv.materialripple.MaterialRippleLayout>
             </LinearLayout>
 
             <LinearLayout

@@ -86,6 +86,12 @@ public class Profile extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.imageViewGoogle).setOnClickListener(this);
         view.findViewById(R.id.imageViewSMS).setOnClickListener(this);
         view.findViewById(R.id.imageViewEmail).setOnClickListener(this);
+        view.findViewById(R.id.rippleSetting).setOnClickListener(this);
+        view.findViewById(R.id.rippleReview).setOnClickListener(this);
+        view.findViewById(R.id.ripplePremium).setOnClickListener(this);
+        view.findViewById(R.id.linearLayoutPremium).setOnClickListener(this);
+        view.findViewById(R.id.linearLayoutReview).setOnClickListener(this);
+        view.findViewById(R.id.linearLayoutSetting).setOnClickListener(this);
         return view;
 
     }
@@ -168,6 +174,16 @@ public class Profile extends Fragment implements View.OnClickListener {
                 break;
             case R.id.imageViewEmail:
                 emailAppInvite();
+                break;
+            case R.id.ripplePremium:
+            case R.id.linearLayoutPremium:
+                break;
+            case R.id.linearLayoutReview:
+            case R.id.rippleReview:
+                break;
+            case R.id.rippleSetting:
+            case R.id.linearLayoutSetting:
+                startActivity(new Intent(context,SettingActivity.class));
                 break;
             case R.id.textViewLogout:
                 UserSessionManager userSessionManager = new UserSessionManager(getActivity());
