@@ -51,7 +51,7 @@ public class Splash extends AppCompatActivity {
                             finish();
                         }
                         else {
-                            Intent intent = new Intent(getApplicationContext(), NoInternet.class);
+                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                             startActivity(intent);
                             finish();
                         }

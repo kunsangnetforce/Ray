@@ -52,5 +52,6 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.github.orangegangsters:swipy:1.2.3@aar'
+    compile 'com.afollestad.material-dialogs:core:0.8.6.0'
 
 }

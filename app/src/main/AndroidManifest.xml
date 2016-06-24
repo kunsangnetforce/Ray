@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -28,6 +30,7 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="adjustResize" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"
@@ -60,7 +63,9 @@
         <activity android:name=".search.ChooseLocation" />
         <activity android:name=".profile.UserProfile" />
         <activity android:name=".general.NoInternet" />
-        <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".profile.userprofile.SettingActivity" />
+        <activity android:name=".profile.userprofile.OtherActivity"></activity>
     </application>
 
 </manifest>

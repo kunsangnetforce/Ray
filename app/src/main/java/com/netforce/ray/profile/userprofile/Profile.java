@@ -45,13 +45,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class Profile extends Fragment implements View.OnClickListener {
 
-
+    public static String FACEBOOK_URL = "https://www.facebook.com/netforceinfotech";
+    public static String FACEBOOK_PAGE_ID = "netforceinfotech";
     private static final String TAG = "RAY_SCHPOCK";
     private ImageView imageViewFacebook, imageViewBG, imageViewTwitter;
     TextView textViewName;
     CircleImageView imageViewDP;
     UserSessionManager userSessionManager;
     private Context context;
+    private String twitter_user_name="asknetforce";
+    private Bundle bundle;
+    private Intent intent;
 
     public Profile() {
         // Required empty public constructor
@@ -62,6 +66,7 @@ public class Profile extends Fragment implements View.OnClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
+        bundle=new Bundle();
         FacebookSdk.sdkInitialize(context);
         AppEventsLogger.activateApp(((AppCompatActivity) context).getApplication());
         userSessionManager = new UserSessionManager(context);
@@ -86,6 +91,18 @@ public class Profile extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.imageViewGoogle).setOnClickListener(this);
         view.findViewById(R.id.imageViewSMS).setOnClickListener(this);
         view.findViewById(R.id.imageViewEmail).setOnClickListener(this);
+        view.findViewById(R.id.rippleSetting).setOnClickListener(this);
+        view.findViewById(R.id.rippleReview).setOnClickListener(this);
+        view.findViewById(R.id.ripplePremium).setOnClickListener(this);
+        view.findViewById(R.id.linearLayoutPremium).setOnClickListener(this);
+        view.findViewById(R.id.linearLayoutReview).setOnClickListener(this);
+        view.findViewById(R.id.linearLayoutSetting).setOnClickListener(this);
+        view.findViewById(R.id.textViewFollowFB).setOnClickListener(this);
+        view.findViewById(R.id.textViewFollowTwitter).setOnClickListener(this);
+        view.findViewById(R.id.textviewFeedback).setOnClickListener(this);
+        view.findViewById(R.id.textviewHelp).setOnClickListener(this);
+        view.findViewById(R.id.textViewTnC).setOnClickListener(this);
+        view.findViewById(R.id.textviewAbout).setOnClickListener(this);
         return view;
 
     }
@@ -169,26 +186,94 @@ public class Profile extends Fragment implements View.OnClickListener {
             case R.id.imageViewEmail:
                 emailAppInvite();
                 break;
+            case R.id.ripplePremium:
+            case R.id.linearLayoutPremium:
+                break;
+            case R.id.linearLayoutReview:
+            case R.id.rippleReview:
+                break;
+            case R.id.rippleSetting:
+            case R.id.linearLayoutSetting:
+                startActivity(new Intent(context, SettingActivity.class));
+                break;
             case R.id.textViewLogout:
-                UserSessionManager userSessionManager = new UserSessionManager(getActivity());
-                userSessionManager.setToken("");
-                userSessionManager.setFBID("");
-                userSessionManager.setEmail("");
+               logout();
+                break;
+            case R.id.textViewFollowFB:
+               followFacebook();
+                break;
+            case R.id.textViewFollowTwitter:
+               followTwitter();
+                break;
+            case R.id.textviewFeedback:
+                openOtherActivity("Feedback");
+                break;
+            case R.id.textviewHelp:
+                openOtherActivity("Help");
+                break;
+            case R.id.textViewTnC:
+                openOtherActivity("Terms and Condition");
 
-                try {
-                    LoginManager.getInstance().logOut();
-                } catch (Exception ex) {
-
-                }
-                Intent intent = new Intent(getActivity(), Dashboard.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
-
+                break;
+            case R.id.textviewAbout:
+                openOtherActivity("About");
                 break;
         }
     }
 
+    private void followFacebook() {
+        Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
+        String facebookUrl = getFacebookPageURL();
+        facebookIntent.setData(Uri.parse(facebookUrl));
+        startActivity(facebookIntent);
+    }
+
+    private void followTwitter() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=" + twitter_user_name)));
+        }catch (Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/#!/" + twitter_user_name)));
+        }
+    }
+
+    private void logout() {
+        UserSessionManager userSessionManager = new UserSessionManager(getActivity());
+        userSessionManager.setToken("");
+        userSessionManager.setFBID("");
+        userSessionManager.setEmail("");
+
+        try {
+            LoginManager.getInstance().logOut();
+        } catch (Exception ex) {
+
+        }
+        Intent intent = new Intent(getActivity(), Dashboard.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+
+    }
+
+    private void openOtherActivity(String about) {
+        intent=new Intent(context,OtherActivity.class);
+        bundle.putString("title",about);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public String getFacebookPageURL() {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            int versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode;
+            if (versionCode >= 3002850) { //newer versions of fb app
+                return "fb://facewebmodal/f?href=" + FACEBOOK_URL;
+            } else { //older versions of fb app
+                return "fb://page/" + FACEBOOK_PAGE_ID;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            return FACEBOOK_URL; //normal web url
+        }
+    }
     private void emailAppInvite() {
         Intent intent = new Intent(
                 Intent.ACTION_SENDTO,

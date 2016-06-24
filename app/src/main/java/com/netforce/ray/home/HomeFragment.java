@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.netforce.ray.R;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.util.ArrayList;
 
@@ -24,6 +27,7 @@ public class HomeFragment extends Fragment {
     private HomeAdapter adapter;
     private ArrayList<HomeData> homeDatas = new ArrayList<>();
     private StaggeredGridLayoutManager layoutManager;
+    private SwipyRefreshLayout mSwipyRefreshLayout;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -44,10 +48,27 @@ public class HomeFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         adapter = new HomeAdapter(context, homeDatas);
         setupData();
+        mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+        mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+              refreshItem();
+            }
+        });
+
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
+    }
+
+    private void refreshItem() {
+        try {
+            Thread.sleep(2000);
+            mSwipyRefreshLayout.setRefreshing(false);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupData() {
