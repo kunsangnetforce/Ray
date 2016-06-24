@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -62,7 +64,8 @@
         <activity android:name=".profile.UserProfile" />
         <activity android:name=".general.NoInternet" />
         <activity android:name=".login.LoginActivity" />
-        <activity android:name=".profile.userprofile.SettingActivity"></activity>
+        <activity android:name=".profile.userprofile.SettingActivity" />
+        <activity android:name=".profile.userprofile.OtherActivity"></activity>
     </application>
 
 </manifest>
