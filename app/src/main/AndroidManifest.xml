@@ -65,7 +65,8 @@
         <activity android:name=".general.NoInternet" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".profile.userprofile.SettingActivity" />
-        <activity android:name=".profile.userprofile.OtherActivity"></activity>
+        <activity android:name=".profile.userprofile.OtherActivity" />
+        <activity android:name=".sell.SellActivity"></activity>
     </application>
 
 </manifest>
