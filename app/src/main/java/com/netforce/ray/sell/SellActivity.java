@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.netforce.ray.R;
+import com.netforce.ray.general.MyCustomAdapter;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,6 +47,8 @@ public class SellActivity extends AppCompatActivity {
     protected static ArrayList<SellData> sellDatas = new ArrayList<>();
     ImageView imageViewDP;
     private Toolbar toolbar;
+    private MaterialBetterSpinner category;
+    private MaterialBetterSpinner currency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,9 @@ public class SellActivity extends AppCompatActivity {
         imageViewDP = (ImageView) findViewById(R.id.imageViewDP);
         setupToolBar("Sell");
         setupRecyclerView();
+        setupDropDown();
     }
+
     private void setupToolBar(String s) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,6 +88,7 @@ public class SellActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         setupData();
@@ -220,5 +227,36 @@ public class SellActivity extends AppCompatActivity {
         cursor.moveToFirst();
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
+    }
+
+    private void setupDropDown() {
+        ArrayList<String> categoriesName = new ArrayList<>();
+        categoriesName.add("Fashion and Accessories");
+        categoriesName.add("Home and Garden");
+        categoriesName.add("Electronics");
+        categoriesName.add("Movies, Books and Musics");
+        categoriesName.add("Baby and Child");
+        categoriesName.add("Sport,Leisure and Games");
+        categoriesName.add("Cars and Motors");
+        categoriesName.add("Services");
+        categoriesName.add("Other");
+        MyCustomAdapter adapter1 = new MyCustomAdapter(this, R.layout.spinner_text_layout, categoriesName);
+        category = (MaterialBetterSpinner)findViewById(R.id.category);
+        category.setAdapter(adapter1);
+        category.setHint(getResources().getString(R.string.choose_category));
+
+        ArrayList<String> curruncy = new ArrayList<>();
+        curruncy.add("EUR");
+        curruncy.add("USD");
+        curruncy.add("GBP");
+        curruncy.add("CHF");
+        curruncy.add("NOK");
+        curruncy.add("SEK");
+        curruncy.add("INR");
+        MyCustomAdapter adapter2 = new MyCustomAdapter(this, R.layout.spinner_text_layout, curruncy);
+        currency = (MaterialBetterSpinner)findViewById(R.id.currency);
+        currency.setAdapter(adapter2);
+        currency.setHint(getResources().getString(R.string.currency));
+
     }
 }
