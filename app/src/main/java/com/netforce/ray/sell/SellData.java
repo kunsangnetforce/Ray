@@ -9,11 +9,8 @@ import java.util.ArrayList;
  */
 public class SellData {
 
-    public String status;
-    public ArrayList<OfferData> offerDatas;
-
-    SellData(ArrayList<OfferData> offerDatas, String status) {
-        this.offerDatas = offerDatas;
-        this.status=status;
+    public String path;
+    SellData( String path) {
+        this.path =path;
     }
 }
