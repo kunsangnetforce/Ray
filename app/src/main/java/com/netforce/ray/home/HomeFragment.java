@@ -2,6 +2,7 @@ package com.netforce.ray.home;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.netforce.ray.R;
+import com.netforce.ray.sell.SellActivity;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
@@ -20,7 +23,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     Context context;
     private RecyclerView recyclerView;
@@ -28,6 +31,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<HomeData> homeDatas = new ArrayList<>();
     private StaggeredGridLayoutManager layoutManager;
     private SwipyRefreshLayout mSwipyRefreshLayout;
+    FloatingActionButton floatingActionButtonSell;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -46,13 +50,15 @@ public class HomeFragment extends Fragment {
 
     private void setupRecyclerView(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
+        floatingActionButtonSell.setOnClickListener(this);
         adapter = new HomeAdapter(context, homeDatas);
         setupData();
         mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
         mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-              refreshItem();
+                refreshItem();
             }
         });
 
@@ -95,4 +101,14 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fabSell:
+                Intent intent = new Intent(context, SellActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+                break;
+        }
+    }
 }

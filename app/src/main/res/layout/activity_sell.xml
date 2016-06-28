@@ -8,10 +8,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:background="@drawable/gradient_mixed">
 
         <ImageView
+            android:id="@+id/imageViewDP"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
