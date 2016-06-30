@@ -37,5 +37,19 @@
     <string name="choose_category">Choose Category</string>
     <string name="currency">Currency</string>
     <string name="sell_it">Sell It</string>
+    <string name="friendsnfollowing">Friends &amp; following</string>
+    <string name="new_in_your_area">New in your area</string>
+    <string name="summer_festival_season">Summer . Festival Season</string>
+    <string name="young_designer">Young designer</string>
+    <string name="summer_fashion">Summer . Fashion</string>
+    <string name="give_away">Giveaways</string>
+    <string name="schpock_selection">Schpock Selection</string>
+    <string name="fashion_and_accessories">Fashion and Accessories</string>
+    <string name="home_and_garden">Home and Garden</string>
+    <string name="electronics">Electronics</string>
+    <string name="movies_books_and_music">Movies, Books and Music</string>
+    <string name="baby_and_child">Baby and Child</string>
+    <string name="cars_and_motors">Cars and Motors</string>
+    <string name="hot_in_your_area">Hot in your area</string>
 
 </resources>

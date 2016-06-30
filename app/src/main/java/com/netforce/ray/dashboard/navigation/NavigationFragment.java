@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +34,8 @@ import android.widget.Toast;
 
 import com.netforce.ray.R;
 import com.netforce.ray.general.UserSessionManager;
+import com.netforce.ray.home.HomeFragment;
+import com.netforce.ray.special_categories.SpecialAndCategoryFragment;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -69,6 +72,8 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
     TextView textViewName;
     private UserSessionManager userSessionManager;
     private ImageView imageViewGB;
+    private HomeFragment homeFragment;
+    private SpecialAndCategoryFragment specialAndCategoryFragment;
 
     public NavigationFragment() {
         // Required empty public constructor
@@ -90,7 +95,7 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         list = setDrawer();
         header = (RelativeLayout) view.findViewById(R.id.header);
         circleImageViewProfilePic = (CircleImageView) view.findViewById(R.id.imageViewProfilePic);
-        imageViewGB= (ImageView) view.findViewById(R.id.imageViewBG);
+        imageViewGB = (ImageView) view.findViewById(R.id.imageViewBG);
         textViewName = (TextView) view.findViewById(R.id.textviewName);
         adapter = new RecyclerAdapterDrawer(context, list);
         adapter.setClickListner(this);
@@ -121,7 +126,6 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         }
 
     }
-
 
 
     private List<RowDataDrawer> setDrawer() {
@@ -227,7 +231,24 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
             mDrawerLayout.closeDrawers();
             switch (RecyclerAdapterDrawer.selected_item) {
                 case 0:
+
                     break;
+                case 1:
+                    setupHomeFragment();
+                    break;
+                case 2:
+                    setupSpecial_Category(0);
+                    break;
+                case 3:
+                    setupSpecial_Category(1);
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+
             }
 
         } catch (Exception e) {
@@ -236,6 +257,7 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
 
 
     }
+
 
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -259,5 +281,30 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         Toast.makeText(context, clicked, Toast.LENGTH_SHORT).show();
     }
 
+    private void replaceFragment(Fragment newFragment, String tag) {
+
+        FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.drawer_layout, newFragment, tag);
+        transaction.commit();
+    }
+
+    private void setupHomeFragment() {
+        String teams = "Home";
+        ((AppCompatActivity) context).getSupportActionBar().setTitle(teams);
+        homeFragment = new HomeFragment();
+        String tagName = homeFragment.getClass().getName();
+        replaceFragment(homeFragment, tagName);
+    }
+
+    private void setupSpecial_Category(int type) {
+        String teams = context.getString(R.string.hot_in_your_area);
+        ((AppCompatActivity) context).getSupportActionBar().setTitle(teams);
+        specialAndCategoryFragment = new SpecialAndCategoryFragment();
+        String tagName = specialAndCategoryFragment.getClass().getName();
+        Bundle args = new Bundle();
+        args.putInt("type", type);
+        specialAndCategoryFragment.setArguments(args);
+        replaceFragment(specialAndCategoryFragment, tagName);
+    }
 }
 

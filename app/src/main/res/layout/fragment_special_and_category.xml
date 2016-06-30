@@ -2,12 +2,338 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context="com.netforce.ray.special_categories.SpecialAndCategoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@color/green"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_windows" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EVERYTHING"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewSpecial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="@string/special"
+                android:textStyle="bold"
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/new_in_your_area"
+                        android:textSize="14sp" />
+
+                    <Button
+
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/give_away"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <Button
+
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/friendsnfollowing"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/young_designer"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/summer_fashion"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/summer_festival_season"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/schpock_selection"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/category"
+                android:textStyle="bold"
+
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/fashion_and_accessories"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/home_and_garden"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/electronics"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/movies_books_and_music"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/baby_and_child"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="Sports, Leisure and Games"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="@string/cars_and_motors"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="Services"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="6dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/selector"
+                        android:drawableLeft="@drawable/ic_gift"
+                        android:padding="6dp"
+                        android:text="Other"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
