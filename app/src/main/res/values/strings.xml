@@ -32,5 +32,10 @@
     <string name="cancel">Cancel</string>
     <string name="editemail">Change Email</string>
     <string name="ok">OK</string>
+    <string name="what_selling">What are you selling ...</string>
+    <string name="describe">Describe it ...</string>
+    <string name="choose_category">Choose Category</string>
+    <string name="currency">Currency</string>
+    <string name="sell_it">Sell It</string>
 
 </resources>
