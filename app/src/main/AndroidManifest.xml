@@ -36,21 +36,21 @@
             android:value="@integer/google_play_services_version"
             tools:replace="android:value" />
 
-        <activity android:name=".Splash"
-            android:configChanges="orientation|screenSize"
-            >
+        <activity
+            android:name=".Splash"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".dashboard.Dashboard"
-            android:configChanges="orientation|screenSize"
-            />
-        <activity android:name=".search.SearchActivity"
-            android:configChanges="orientation|screenSize"
-            />
+        <activity
+            android:name=".dashboard.Dashboard"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".search.SearchActivity"
+            android:configChanges="orientation|screenSize" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -64,31 +64,35 @@
             android:value="AIzaSyBui2_BxFQIT3EUhdCGY-3S0dOuDEJzRZM" />
 
         <activity
-            android:configChanges="orientation|screenSize"
             android:name=".search.AdvanceSearch"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_advance_search" />
-        <activity android:name=".search.ChooseLocation"
-            android:configChanges="orientation|screenSize"
-            />
-        <activity android:name=".profile.UserProfile"
-            android:configChanges="orientation|screenSize"
-            />
-        <activity android:name=".general.NoInternet"
-            android:configChanges="orientation|screenSize"
-            />
-        <activity android:name=".login.LoginActivity"
-            android:configChanges="orientation|screenSize"
-            />
-        <activity android:name=".profile.userprofile.SettingActivity"
-            android:configChanges="orientation|screenSize"
-            />
-        <activity android:name=".profile.userprofile.OtherActivity"
-            android:configChanges="orientation|screenSize"
-            />
-        <activity android:name=".sell.SellActivity"
-            android:configChanges="orientation|screenSize"
+        <activity
+            android:name=".search.ChooseLocation"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".profile.UserProfile"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".general.NoInternet"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".profile.userprofile.SettingActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".profile.userprofile.OtherActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".sell.SellActivity"
+            android:configChanges="orientation|screenSize" />
 
-            />
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1649383278617549"
+            android:exported="false" />
     </application>
 
 </manifest>

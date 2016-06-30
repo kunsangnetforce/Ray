@@ -20,7 +20,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.netforce.ray.R;
 import com.netforce.ray.general.MyCustomAdapter;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
@@ -34,7 +43,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class SellActivity extends AppCompatActivity {
+public class SellActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private SellAdapter adapter;
@@ -49,16 +58,36 @@ public class SellActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private MaterialBetterSpinner category;
     private MaterialBetterSpinner currency;
+    private ShareDialog shareDialog;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+        FacebookSdk.sdkInitialize(context);
+        AppEventsLogger.activateApp(((AppCompatActivity) context).getApplication());
         setContentView(R.layout.activity_sell);
         imageViewDP = (ImageView) findViewById(R.id.imageViewDP);
+        findViewById(R.id.buttonSell).setOnClickListener(this);
         setupToolBar("Sell");
         setupRecyclerView();
         setupDropDown();
+        shareDialog = new ShareDialog(this);
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog.registerCallback(callbackManager, new
+
+                FacebookCallback<Sharer.Result>() {
+                    @Override
+                    public void onSuccess(Sharer.Result result) {}
+
+                    @Override
+                    public void onCancel() {}
+
+                    @Override
+                    public void onError(FacebookException error) {}
+                });
+
     }
 
     private void setupToolBar(String s) {
@@ -126,9 +155,21 @@ public class SellActivity extends AppCompatActivity {
                 break;
             case PICK_IMAGE:
                 if (resultCode == RESULT_OK) {
-                    Log.i("result picture", "picked");
+                    Uri selectedImage = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(
+                            selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String filePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    sellDatas.add(new SellData(filePath));
+                    Log.i("result filepath1", filePath);
+                    imageViewDP.setImageURI(Uri.parse(filePath));
+                    adapter.notifyDataSetChanged();
                 }
-                break;
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -241,7 +282,7 @@ public class SellActivity extends AppCompatActivity {
         categoriesName.add("Services");
         categoriesName.add("Other");
         MyCustomAdapter adapter1 = new MyCustomAdapter(this, R.layout.spinner_text_layout, categoriesName);
-        category = (MaterialBetterSpinner)findViewById(R.id.category);
+        category = (MaterialBetterSpinner) findViewById(R.id.category);
         category.setAdapter(adapter1);
         category.setHint(getResources().getString(R.string.choose_category));
 
@@ -254,9 +295,44 @@ public class SellActivity extends AppCompatActivity {
         curruncy.add("SEK");
         curruncy.add("INR");
         MyCustomAdapter adapter2 = new MyCustomAdapter(this, R.layout.spinner_text_layout, curruncy);
-        currency = (MaterialBetterSpinner)findViewById(R.id.currency);
+        currency = (MaterialBetterSpinner) findViewById(R.id.currency);
         currency.setAdapter(adapter2);
         currency.setHint(getResources().getString(R.string.currency));
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        sellDatas.clear();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.buttonSell:
+                showMessage("Clicked");
+                shareContent();
+                break;
+        }
+    }
+
+    private void showMessage(String clicked) {
+        Toast.makeText(SellActivity.this, clicked, Toast.LENGTH_SHORT).show();
+    }
+
+    private void shareContent() {
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentTitle("Hello Facebook")
+                    .setContentDescription("The 'Hello Facebook' sample  showcases simple Facebook integration")
+
+                    .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
+                    .build();
+
+            shareDialog.show(linkContent);
+
+
+        }
     }
 }
