@@ -31,7 +31,9 @@ import com.netforce.ray.login.LoginActivity;
 import com.netforce.ray.profile.UserProfile;
 import com.netforce.ray.search.SearchActivity;
 
-public class Dashboard extends AppCompatActivity {
+public class Dashboard extends AppCompatActivity
+{
+
 
     private Toolbar toolbar;
     private AccountHeader headerResult;
@@ -40,14 +42,19 @@ public class Dashboard extends AppCompatActivity {
     private NavigationFragment drawer;
     private UserSessionManager userSessionManager;
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         setupToolBar();
         //setupNavigation();
         setupNavigationCustom();
         setupHomeFragment();
+
     }
 
     private void setupNavigationCustom() {
@@ -55,7 +62,8 @@ public class Dashboard extends AppCompatActivity {
         drawer.setup(R.id.fragment, (DrawerLayout) findViewById(R.id.drawer), toolbar);
     }
 
-    private void setupNavigation() {
+    private void setupNavigation()
+    {
         setupHeader();
         PrimaryDrawerItem home = new PrimaryDrawerItem().withName(R.string.home).withIcon(R.drawable.ic_home);
         PrimaryDrawerItem special = new PrimaryDrawerItem().withName(R.string.special).withIcon(R.drawable.ic_star);
@@ -127,7 +135,8 @@ public class Dashboard extends AppCompatActivity {
         }
     }
 
-    private void setupToolBar() {
+    private void setupToolBar()
+    {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -137,8 +146,8 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-    private void replaceFragment(Fragment newFragment, String tag) {
-
+    private void replaceFragment(Fragment newFragment, String tag)
+    {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.drawer_layout, newFragment, tag);
         transaction.commit();

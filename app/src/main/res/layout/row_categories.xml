@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+
+    <Button
+        android:id="@+id/categories_item"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="6dp"
+        android:layout_weight="50"
+        android:background="@drawable/selector"
+        android:drawableLeft="@drawable/ic_circle_outline"
+        android:padding="6dp"
+        android:text="@string/new_in_your_area"
+        android:textSize="14sp" />
+
+</LinearLayout>
