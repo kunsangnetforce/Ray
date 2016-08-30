@@ -71,7 +71,7 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
     CircleImageView circleImageViewProfilePic;
     TextView textViewName;
     private UserSessionManager userSessionManager;
-    private ImageView imageViewGB;
+
     private HomeFragment homeFragment;
     private SpecialAndCategoryFragment specialAndCategoryFragment;
 
@@ -81,8 +81,7 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
         initView();
@@ -95,9 +94,11 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         list = setDrawer();
         header = (RelativeLayout) view.findViewById(R.id.header);
         circleImageViewProfilePic = (CircleImageView) view.findViewById(R.id.imageViewProfilePic);
-        imageViewGB = (ImageView) view.findViewById(R.id.imageViewBG);
+
         textViewName = (TextView) view.findViewById(R.id.textviewName);
         adapter = new RecyclerAdapterDrawer(context, list);
+
+
         adapter.setClickListner(this);
         footer.setOnClickListener(this);
         header.setOnClickListener(this);
@@ -109,6 +110,8 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         loginPreferences = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
         userSessionManager = new UserSessionManager(context);
+
+
         if (userSessionManager.getName().length() > 0) {
             textViewName.setText(userSessionManager.getName());
             String imageURL = "https://graph.facebook.com/" + userSessionManager.getFBID() + "/picture?type=large";
@@ -121,19 +124,27 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
                     .load(imageURL)
                     .placeholder(R.drawable.pro_pic)
                     .error(R.drawable.pro_pic)
-                    .into(imageViewGB);
+                 ;
 
         }
 
     }
 
 
-    private List<RowDataDrawer> setDrawer() {
+    private List<RowDataDrawer> setDrawer()
+    {
         List<RowDataDrawer> list = new ArrayList<>();
-        String title[] = {"Alert", "Home", "Special", "Category", "Sell", "Invite friends", "Help"};
+        String title[] = {"HOME", "CATEGORY", "SPECIAL", "SELL", "INVITE FRIENDS", "HELP", "ACCOUNT", "SETTINGS"};
+
         int drawableId[];
-        drawableId = new int[]{R.drawable.ic_home, R.drawable.ic_home, R.drawable.ic_star, R.drawable.ic_tag, R.drawable.ic_camera, R.drawable.ic_invite, R.drawable.ic_help};
-        for (int i = 0; i < title.length; i++) {
+        drawableId = new int[]{
+              R.drawable.ic_home, R.drawable.ic_categories, R.drawable.icon_special, R.drawable.icon_sell, R.drawable.ic_invite_frnd, R.drawable.ic_help, R.drawable.ic_account, R.drawable.icon_setting
+        };
+
+
+
+        for (int i = 0; i < title.length; i++)
+        {
             RowDataDrawer current = new RowDataDrawer();
             current.text = title[i];
             current.id = drawableId[i];
@@ -257,7 +268,6 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
 
 
     }
-
 
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);

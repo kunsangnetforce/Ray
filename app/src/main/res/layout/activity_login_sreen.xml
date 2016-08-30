@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:weightSum="100"
     android:orientation="vertical"
     >
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="80"
+        android:layout_weight="75"
         android:background="@drawable/login_screen"
         >
-
-
-
-
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20"
+        android:layout_weight="25"
         android:padding="10dp"
         android:orientation="vertical"
+        android:background="@color/white"
         >
 
 
@@ -40,11 +36,12 @@
                 >
 
                 <Button
+                    android:id="@+id/signup_Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
-                    android:text="Apply"
-                    android:padding="10dp"
+                    android:text="Sign Up"
+                    android:padding="5dp"
                     android:background="@drawable/iteninary_editext_border"
                     android:textColor="@color/colorPrimary"
                     style="?android:attr/borderlessButtonStyle"
@@ -53,11 +50,11 @@
                     android:textAllCaps="false"
                     />
                 <Button
+                    android:id="@+id/signin_Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
                     android:text="Sign In"
-                    android:padding="10dp"
                     android:layout_marginLeft="5dp"
                     android:background="@drawable/iteninary_editext_border"
                     android:textColor="@color/colorPrimary"
@@ -67,17 +64,15 @@
                     />
 
 
-
-
         </LinearLayout>
 
         <Button
+            android:id="@+id/facebook_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="15dp"
             android:text="Clear Filter"
-
+            android:padding="5dp"
             android:background="@drawable/coonect_fb"
             android:textColor="@color/white"
             style="?android:attr/borderlessButtonStyle"

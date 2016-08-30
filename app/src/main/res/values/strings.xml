@@ -16,12 +16,13 @@
     <string name="done">Done</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-    <string name="no_message">NO UNREAD MESSAGE</string>
+    <string name="no_message">3 UNREAD MESSAGE</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
     <string name="sold">Item sold to another user</string>
 
     <!-- IDS: -->
     <string name="facebook_app_id">1649383278617549</string>
+    <string name="facebook">facebook</string>
     <string name="continue_with_facebook">Log in with Facebook</string>
     <string name="its_easier">It\'s easier than ever to become a Rayies</string>
     <string name="login_benifit">Log in and discover beautiful things in your neighbourhood or start selling in seconds</string>

@@ -17,7 +17,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="16dp"
-            android:src="@drawable/ic_filter" />
+            android:src="@drawable/ic_red_message" />
 
 
         <TextView

@@ -32,7 +32,8 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
     private final int NORMAL_DRAWER = 2;
     private Intent intent;
 
-    RecyclerAdapterDrawer(Context context, List<RowDataDrawer> data) {
+    RecyclerAdapterDrawer(Context context, List<RowDataDrawer> data)
+    {
         inflater = LayoutInflater.from(context);
         this.data = data;
         this.context = context;
@@ -41,26 +42,19 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == NORMAL_DRAWER) {
+
             View view = inflater.inflate(R.layout.row_navigation_drawer, parent, false);
             MyViewHolder viewHolder = new MyViewHolder(view);
             return viewHolder;
-        } else {
-            View view = inflater.inflate(R.layout.row_navigation_drawer1, parent, false);
-            MyViewHolder1 viewHolder1 = new MyViewHolder1(view);
-            return viewHolder1;
 
-        }
     }
 
     @Override
     public int getItemViewType(int position) {
 
-        if (position == 0) {
-            return ALERT_DRAWER;
-        } else {
+
             return NORMAL_DRAWER;
-        }
+
     }
 
     @Override
@@ -71,21 +65,6 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
                 MyViewHolder myViewHolder = (MyViewHolder) holder;
                 myViewHolder.textView.setText(data.get(position).text);
                 myViewHolder.imageView.setImageResource(data.get(position).id);
-                break;
-            case ALERT_DRAWER:
-                MyViewHolder1 myViewHolder1 = (MyViewHolder1) holder;
-                myViewHolder1.info.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("show pop up");
-                    }
-                });
-                myViewHolder1.add.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("show added message");
-                    }
-                });
                 break;
 
         }
@@ -127,19 +106,7 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
 
     }
 
-    class MyViewHolder1 extends RecyclerView.ViewHolder {
-        ImageView info, add;
-        EditText editTextSearch;
 
-        public MyViewHolder1(final View itemView) {
-            super(itemView);
-            info = (ImageView) itemView.findViewById(R.id.info);
-            add = (ImageView) itemView.findViewById(R.id.addAlert);
-            editTextSearch = (EditText) itemView.findViewById(R.id.editTextSearch);
-
-        }
-
-    }
 
 
     public interface clickListner {

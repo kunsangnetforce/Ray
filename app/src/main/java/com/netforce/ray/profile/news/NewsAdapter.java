@@ -29,53 +29,22 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         inflater = LayoutInflater.from(context);
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (itemList.get(position).imageProduct.equalsIgnoreCase("simple")) {
-            return SIMPLE_TYPE;
-        } else {
-            return IMAGE_TYPE;
-        }
-    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        if (viewType == SIMPLE_TYPE) {
-            View view = inflater.inflate(R.layout.row_news_simple, parent, false);
+
+            View view = inflater.inflate(R.layout.row_test, parent, false);
             NewsHolderSimple viewHolder = new NewsHolderSimple(view);
             return viewHolder;
-        } else {
-            View view = inflater.inflate(R.layout.row_news_image, parent, false);
-            NewsHolderImage viewHolder = new NewsHolderImage(view);
-            return viewHolder;
-        }
+
 
 
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        switch (holder.getItemViewType()) {
-            case SIMPLE_TYPE:
-                NewsHolderSimple newsHolderSimple = (NewsHolderSimple) holder;
-                newsHolderSimple.materialRippleLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("Yet to implememt");
-                    }
-                });
-                break;
-            case IMAGE_TYPE:
-                NewsHolderImage newsHolderImage = (NewsHolderImage) holder;
-                newsHolderImage.materialRippleLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("yet to implement");
-                    }
-                });
-                break;
-        }
+
     }
 
     private void showMessage(String s) {

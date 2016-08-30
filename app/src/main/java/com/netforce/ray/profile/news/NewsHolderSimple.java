@@ -23,10 +23,7 @@ public class NewsHolderSimple extends RecyclerView.ViewHolder {
     public NewsHolderSimple(View itemView) {
         super(itemView);
         //implementing onClickListener
-        textViewContent = (TextView) itemView.findViewById(R.id.textViewContent);
-        textViewDate = (TextView) itemView.findViewById(R.id.textViewDate);
-        circleImageViewProPic = (CircleImageView) itemView.findViewById(R.id.profile_image);
-        materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
+
         view = itemView;
     }
 }

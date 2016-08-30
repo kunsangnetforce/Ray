@@ -63,7 +63,8 @@ public class Profile extends Fragment implements View.OnClickListener {
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         context = getActivity();
         bundle=new Bundle();
@@ -73,10 +74,10 @@ public class Profile extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_profile, container, false);
         TextView textViewLogout = (TextView) view.findViewById(R.id.textViewLogout);
         textViewLogout.setOnClickListener(this);
         imageViewFacebook = (ImageView) view.findViewById(R.id.imageViewFacebook);
@@ -91,18 +92,18 @@ public class Profile extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.imageViewGoogle).setOnClickListener(this);
         view.findViewById(R.id.imageViewSMS).setOnClickListener(this);
         view.findViewById(R.id.imageViewEmail).setOnClickListener(this);
-        view.findViewById(R.id.rippleSetting).setOnClickListener(this);
-        view.findViewById(R.id.rippleReview).setOnClickListener(this);
-        view.findViewById(R.id.ripplePremium).setOnClickListener(this);
-        view.findViewById(R.id.linearLayoutPremium).setOnClickListener(this);
-        view.findViewById(R.id.linearLayoutReview).setOnClickListener(this);
-        view.findViewById(R.id.linearLayoutSetting).setOnClickListener(this);
-        view.findViewById(R.id.textViewFollowFB).setOnClickListener(this);
+        //view.findViewById(R.id.rippleSetting).setOnClickListener(this);
+       // view.findViewById(R.id.rippleReview).setOnClickListener(this);
+       // view.findViewById(R.id.ripplePremium).setOnClickListener(this);
+       // view.findViewById(R.id.linearLayoutPremium).setOnClickListener(this);
+       // view.findViewById(R.id.linearLayoutReview).setOnClickListener(this);
+       // view.findViewById(R.id.linearLayoutSetting).setOnClickListener(this);
+       /* view.findViewById(R.id.textViewFollowFB).setOnClickListener(this);
         view.findViewById(R.id.textViewFollowTwitter).setOnClickListener(this);
         view.findViewById(R.id.textviewFeedback).setOnClickListener(this);
         view.findViewById(R.id.textviewHelp).setOnClickListener(this);
         view.findViewById(R.id.textViewTnC).setOnClickListener(this);
-        view.findViewById(R.id.textviewAbout).setOnClickListener(this);
+        view.findViewById(R.id.textviewAbout).setOnClickListener(this);*/
         return view;
 
     }
@@ -193,7 +194,7 @@ public class Profile extends Fragment implements View.OnClickListener {
             case R.id.rippleReview:
                 break;
             case R.id.rippleSetting:
-            case R.id.linearLayoutSetting:
+           /* case R.id.linearLayoutSetting:
                 startActivity(new Intent(context, SettingActivity.class));
                 break;
             case R.id.textViewLogout:
@@ -217,7 +218,7 @@ public class Profile extends Fragment implements View.OnClickListener {
                 break;
             case R.id.textviewAbout:
                 openOtherActivity("About");
-                break;
+                break;*/
         }
     }
 

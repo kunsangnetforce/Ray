@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+    <android.support.v7.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        card_view:cardElevation="2dp"
+        card_view:cardCornerRadius="5dp">
+
+    <LinearLayout
+     android:orientation="horizontal"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:padding="5dp"
+     android:weightSum="100"
+
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/relative_message"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="15"
+        >
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_red_message"
+            android:layout_centerHorizontal="true"
+            />
+
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image1"
+            android:layout_centerHorizontal="true"
+            >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="2 days ago"
+            android:textSize="12dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorPrimary"
+
+            />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_toRightOf="@+id/relative_message"
+        android:layout_width="0dp"
+        android:layout_weight="80"
+        android:layout_height="match_parent"
+        android:text="Joy you newest memeber Joy you newest memeber Joy you  "
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        android:layout_marginTop="10dp"
+        />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            >
+
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_dots_vertical_black"
+                android:layout_alignParentTop="true"
+                />
+
+
+        </RelativeLayout>
+
+</LinearLayout>
+</android.support.v7.widget.CardView>
+    </LinearLayout>
