@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/unread_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/ic_unread_message"
                 android:layout_marginLeft="10dp"
                 />
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:textColor="@color/colorPrimary"
-
+                 android:layout_centerVertical="true"
                 android:text="@string/no_message"
                 android:layout_toRightOf="@+id/unread_message"
                 android:textSize="12sp" />

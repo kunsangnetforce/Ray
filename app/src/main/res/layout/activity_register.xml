@@ -58,9 +58,9 @@
         >
         <ImageView
             android:id="@+id/email_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_email"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_message_black"
             android:layout_marginTop="20dp"
             />
         <android.support.design.widget.TextInputLayout
@@ -88,9 +88,9 @@
         >
         <ImageView
             android:id="@+id/mobile_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_password"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_mobile_black"
             android:layout_marginTop="20dp"
             />
         <android.support.design.widget.TextInputLayout
@@ -120,9 +120,9 @@
         >
         <ImageView
             android:id="@+id/password_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_password"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_password_black"
             android:layout_marginTop="20dp"
             />
         <android.support.design.widget.TextInputLayout
@@ -152,9 +152,9 @@
         >
         <ImageView
             android:id="@+id/confirm_password_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_password"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_password_black"
             android:layout_marginTop="20dp"
             />
         <android.support.design.widget.TextInputLayout

@@ -9,14 +9,15 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
         android:gravity="center">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:padding="16dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+
             android:src="@drawable/ic_red_message" />
 
 
@@ -27,6 +28,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:text="Demo test"
+            android:textColor="@color/black"
             android:textSize="14sp" />
 
     </LinearLayout>

@@ -50,9 +50,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 showMessage("yet to implement");
             }
         });
-        if (position % 3 == 1) {
-            ((HomeHolder) holder).imageView.setImageResource(R.drawable.product);
-        }
+
 
     }
 

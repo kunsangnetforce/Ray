@@ -92,7 +92,7 @@ public class Profile extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.imageViewGoogle).setOnClickListener(this);
         view.findViewById(R.id.imageViewSMS).setOnClickListener(this);
         view.findViewById(R.id.imageViewEmail).setOnClickListener(this);
-        //view.findViewById(R.id.rippleSetting).setOnClickListener(this);
+        view.findViewById(R.id.rippleSetting).setOnClickListener(this);
        // view.findViewById(R.id.rippleReview).setOnClickListener(this);
        // view.findViewById(R.id.ripplePremium).setOnClickListener(this);
        // view.findViewById(R.id.linearLayoutPremium).setOnClickListener(this);
@@ -117,11 +117,11 @@ public class Profile extends Fragment implements View.OnClickListener {
                     .placeholder(R.drawable.pro_pic)
                     .error(R.drawable.pro_pic)
                     .into(imageViewDP);
-            Picasso.with(context)
+          /*  Picasso.with(context)
                     .load(imageURL)
                     .placeholder(R.drawable.pro_pic)
                     .error(R.drawable.pro_pic)
-                    .into(imageViewBG);
+                    .into(imageViewBG);*/
 
         }
     }
@@ -194,10 +194,10 @@ public class Profile extends Fragment implements View.OnClickListener {
             case R.id.rippleReview:
                 break;
             case R.id.rippleSetting:
-           /* case R.id.linearLayoutSetting:
+
                 startActivity(new Intent(context, SettingActivity.class));
                 break;
-            case R.id.textViewLogout:
+           /*  case R.id.textViewLogout:
                logout();
                 break;
             case R.id.textViewFollowFB:

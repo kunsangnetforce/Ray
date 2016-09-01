@@ -29,21 +29,23 @@ import com.nineoldandroids.animation.Animator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Splash extends AppCompatActivity {
+public class Splash extends AppCompatActivity
+{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         Window window = getWindow();
 
-// clear FLAG_TRANSLUCENT_STATUS flag:
+         // clear FLAG_TRANSLUCENT_STATUS flag:
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
-// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // only for gingerbread and newer versions
-            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.statusbar_splash));
+            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
         }
 
         setContentView(R.layout.activity_main);
@@ -69,7 +71,6 @@ public class Splash extends AppCompatActivity {
                         }
 
                     }
-
                     @Override
                     public void onAnimationCancel(Animator animation) {
 

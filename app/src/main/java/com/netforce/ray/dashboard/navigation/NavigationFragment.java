@@ -1,19 +1,11 @@
 package com.netforce.ray.dashboard.navigation;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,23 +13,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.netforce.ray.R;
+import com.netforce.ray.dashboard.category.Category;
+import com.netforce.ray.dashboard.navigation.Special.SpecialActivity;
 import com.netforce.ray.general.UserSessionManager;
 import com.netforce.ray.home.HomeFragment;
-import com.netforce.ray.special_categories.SpecialAndCategoryFragment;
+import com.netforce.ray.special_categories.SpecialAndCategory;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -73,7 +64,7 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
     private UserSessionManager userSessionManager;
 
     private HomeFragment homeFragment;
-    private SpecialAndCategoryFragment specialAndCategoryFragment;
+    private SpecialAndCategory specialAndCategoryFragment;
 
     public NavigationFragment() {
         // Required empty public constructor
@@ -81,7 +72,8 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_navigation, container, false);
         initView();
@@ -138,7 +130,7 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
 
         int drawableId[];
         drawableId = new int[]{
-              R.drawable.ic_home, R.drawable.ic_categories, R.drawable.icon_special, R.drawable.icon_sell, R.drawable.ic_invite_frnd, R.drawable.ic_help, R.drawable.ic_account, R.drawable.icon_setting
+              R.drawable.ic_home, R.drawable.categories_icon, R.drawable.icon_special, R.drawable.icon_sell, R.drawable.ic_invite_frnd, R.drawable.ic_help, R.drawable.ic_account, R.drawable.ic_setting
         };
 
 
@@ -234,24 +226,28 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
 
     @Override
     public void itemClicked(View view, int position) {
-        try {
-
+        try
+        {
 
             RecyclerAdapterDrawer.selected_item = position;
             adapter.notifyDataSetChanged();
             mDrawerLayout.closeDrawers();
-            switch (RecyclerAdapterDrawer.selected_item) {
+            switch (RecyclerAdapterDrawer.selected_item)
+            {
                 case 0:
-
-                    break;
-                case 1:
                     setupHomeFragment();
                     break;
+                case 1:
+                    Intent i = new Intent(getActivity(), Category.class);
+                    startActivity(i);
+                    break;
                 case 2:
-                    setupSpecial_Category(0);
+                    Intent i2 = new Intent(getActivity(), SpecialActivity.class);
+                    startActivity(i2);
+                   // setupSpecial_Category(0);
                     break;
                 case 3:
-                    setupSpecial_Category(1);
+                   // setupSpecial_Category(1);
                     break;
                 case 4:
                     break;
@@ -306,7 +302,7 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         replaceFragment(homeFragment, tagName);
     }
 
-    private void setupSpecial_Category(int type) {
+   /* private void setupSpecial_Category(int type) {
         String teams = context.getString(R.string.hot_in_your_area);
         ((AppCompatActivity) context).getSupportActionBar().setTitle(teams);
         specialAndCategoryFragment = new SpecialAndCategoryFragment();
@@ -315,6 +311,6 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         args.putInt("type", type);
         specialAndCategoryFragment.setArguments(args);
         replaceFragment(specialAndCategoryFragment, tagName);
-    }
+    }*/
 }
 

@@ -4,9 +4,11 @@ package com.netforce.ray.special_categories;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +23,10 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SpecialAndCategoryFragment extends Fragment
-
+public class SpecialAndCategory extends AppCompatActivity
 {
+
+
     ScrollView scrollView;
     int type = 0;
     Categories_Data searchdata;
@@ -33,41 +36,41 @@ public class SpecialAndCategoryFragment extends Fragment
     CategoriesSortAdapter sortAdapter;
     Button sort_button;
     ArrayList<Categories_Data> highestDatas = new ArrayList<Categories_Data>();
-
+    Toolbar toolbar;
     ArrayList<Categories_Data> highestDatas_sort = new ArrayList<Categories_Data>();
     TextView date_txt;
     Context context;
 
 
-    public SpecialAndCategoryFragment()
+    protected void onCreate(Bundle savedInstanceState)
     {
-        // Required empty public constructor
+
+       super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_special_and_category);
+        setupToolBar();
+        setupRecyclerView();
+        setupRecyclerView_sort();
+
+    }
+
+    private void setupToolBar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        String teams = "Filter";
+        getSupportActionBar().setTitle(teams);
+
     }
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    private void setupRecyclerView()
     {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_special_and_category, container, false);
-        Bundle bundle = getArguments();
-        type=bundle.getInt("type");
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
-        setupRecyclerView(view);
-        setupRecyclerView_sort(view);
-
-        return view;
-    }
-
-
-
-    private void setupRecyclerView(View v)
-    {
-        recyclerView = (RecyclerView) v.findViewById(R.id.recycler);
-
-        layoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new CategoriesAdapter(getActivity(), highestDatas);
+        adapter = new CategoriesAdapter(getApplicationContext(), highestDatas);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         setupFinsihedDatas();
@@ -76,13 +79,13 @@ public class SpecialAndCategoryFragment extends Fragment
 
     }
 
-    private void setupRecyclerView_sort(View v)
+    private void setupRecyclerView_sort()
     {
 
-        recyclerView_sort = (RecyclerView) v.findViewById(R.id.recycler_sortby);
-        layoutManager_sort = new GridLayoutManager(getActivity(), 2);
+        recyclerView_sort = (RecyclerView) findViewById(R.id.recycler_sortby);
+        layoutManager_sort = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView_sort.setLayoutManager(layoutManager_sort);
-        sortAdapter = new CategoriesSortAdapter(getActivity(), highestDatas_sort);
+        sortAdapter = new CategoriesSortAdapter(getApplicationContext(), highestDatas_sort);
         recyclerView_sort.setAdapter(sortAdapter);
         recyclerView_sort.setNestedScrollingEnabled(false);
         setupFinsihedDatas_sort();

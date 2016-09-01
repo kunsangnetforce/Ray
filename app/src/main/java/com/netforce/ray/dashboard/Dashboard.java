@@ -30,6 +30,7 @@ import com.netforce.ray.home.HomeFragment;
 import com.netforce.ray.login.LoginActivity;
 import com.netforce.ray.profile.UserProfile;
 import com.netforce.ray.search.SearchActivity;
+import com.netforce.ray.special_categories.SpecialAndCategory;
 
 public class Dashboard extends AppCompatActivity
 {
@@ -171,21 +172,34 @@ public class Dashboard extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.search:
+        switch (item.getItemId())
+        {
+
+
+
+          /*  case R.id.search:
                 startActivity(new Intent(this, SearchActivity.class));
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+                return true;*/
+
+            case R.id.filter:
+                startActivity(new Intent(this, SpecialAndCategory.class));
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 return true;
             case R.id.profile:
                 userSessionManager = new UserSessionManager(getApplicationContext());
-                if (userSessionManager.getToken().length() < 1) {
+                if (userSessionManager.getToken().length() < 1)
+                {
                     startActivity(new Intent(this, LoginActivity.class));
                     overridePendingTransition(R.anim.enter, R.anim.exit);
                     return true;
 
-                } else {
+                }
+                else
+                {
                     startActivity(new Intent(this, UserProfile.class));
                     overridePendingTransition(R.anim.enter, R.anim.exit);
                     return true;

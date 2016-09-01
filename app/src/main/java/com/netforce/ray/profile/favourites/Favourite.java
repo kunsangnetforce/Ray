@@ -42,7 +42,8 @@ public class Favourite extends Fragment {
         return view;
     }
 
-    private void setupRecyclerView(View view) {
+    private void setupRecyclerView(View view)
+    {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         setupData();
         adapter = new FavouriteAdapter(context, favouriteDatas);

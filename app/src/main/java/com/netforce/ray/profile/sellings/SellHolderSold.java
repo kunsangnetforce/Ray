@@ -24,11 +24,11 @@ public class SellHolderSold extends RecyclerView.ViewHolder {
     public SellHolderSold(View itemView) {
         super(itemView);
         //implementing onClickListener
-        textViewContent = (TextView) itemView.findViewById(R.id.textViewContent);
+        /*textViewContent = (TextView) itemView.findViewById(R.id.textViewContent);
         textViewDate = (TextView) itemView.findViewById(R.id.textViewDate);
         imageViewProduct = (ImageView) itemView.findViewById(R.id.imageView);
         imageViewProfile = (CircleImageView) itemView.findViewById(R.id.profile_image);
-        materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
+        materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);*/
         view = itemView;
     }
 }

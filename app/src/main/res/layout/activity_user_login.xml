@@ -44,9 +44,9 @@
         >
         <ImageView
             android:id="@+id/email_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_email48"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_message_black"
             android:layout_marginTop="20dp"
             />
         <android.support.design.widget.TextInputLayout
@@ -58,6 +58,7 @@
             >
 
             <EditText
+                android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
@@ -77,9 +78,9 @@
         >
         <ImageView
             android:id="@+id/password_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_password"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_password_black"
             android:layout_marginTop="20dp"
             />
         <android.support.design.widget.TextInputLayout
@@ -92,6 +93,7 @@
             >
 
             <EditText
+                android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
@@ -150,8 +152,7 @@
             <TextView
                 android:id="@+id/account_txt"
                 android:layout_height="wrap_content"
-                style="@android:style/Widget.Button"
-                android:background="@color/white"
+
                 android:layout_marginRight="5sp"
                 android:text="you have no account"
                 android:layout_marginTop="10dp"
@@ -163,8 +164,7 @@
             <TextView
                 android:id="@+id/buttonSignup"
                 android:layout_height="wrap_content"
-                style="@android:style/Widget.Button"
-                android:background="@color/white"
+
                 android:layout_marginRight="5sp"
                 android:text="sign up"
                 android:layout_marginTop="10dp"

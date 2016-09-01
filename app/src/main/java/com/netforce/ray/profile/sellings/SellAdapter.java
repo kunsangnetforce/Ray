@@ -34,32 +34,40 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (itemList.get(position).status.equalsIgnoreCase("sold")) {
+        /*if (itemList.get(position).status.equalsIgnoreCase("sold")) {
             return SOLD;
         } else {
             return AVAILABLE;
-        }
+        }*/
+        return position;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        if (viewType == AVAILABLE) {
+
+        View view = inflater.inflate(R.layout.row_new_sold, parent, false);
+        SellHolderSold viewHolder = new SellHolderSold(view);
+
+        return viewHolder;
+        /*if (viewType == AVAILABLE) {
             View view = inflater.inflate(R.layout.row_available, parent, false);
             SellHolderAvailable viewHolder = new SellHolderAvailable(view);
             return viewHolder;
         } else {
-            View view = inflater.inflate(R.layout.row_sold, parent, false);
+            View view = inflater.inflate(R.layout.row_new_sold, parent, false);
             SellHolderSold viewHolder = new SellHolderSold(view);
             return viewHolder;
         }
-
+*/
 
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        switch (holder.getItemViewType()) {
+      /*  switch (holder.getItemViewType())
+        {
             case AVAILABLE:
                 SellHolderAvailable sellHolderAvailable = (SellHolderAvailable) holder;
                 LinearLayoutManager layoutManager = new LinearLayoutManager(context);
@@ -71,7 +79,7 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 SellHolderSold sellHolderSold = (SellHolderSold) holder;
 
                 break;
-        }
+        }*/
     }
 
     private void showMessage(String s) {
@@ -82,7 +90,7 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemCount() {
         return itemList.size();
-//        return itemList.size();
+         //        return itemList.size();
     }
 
 

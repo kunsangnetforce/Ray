@@ -19,37 +19,53 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_height="200dp"
+
                     >
 
-                    <ImageView
-                        android:id="@+id/imageViewBG"
+                    
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/pro_pic" />
+                        android:layout_height="80dp"
+                        android:background="#F14C84"
+                        android:gravity="bottom"
+                        >
 
-                    <View
-                        android:id="@+id/view2"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:background="@drawable/gradientbg" />
+
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/linearlayout1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:layout_marginTop="48dp"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imageViewProfilePic"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
-                            android:src="@drawable/pro_pic" />
+                            android:src="@drawable/pro_pic"
+                            android:layout_centerHorizontal="true"
+                            />
+
+                            <ImageView
+                                android:id="@+id/rippleSetting"
+                                android:layout_width="40dp"
+                                android:layout_height="35dp"
+                                android:layout_alignParentRight="true"
+                               android:layout_alignParentBottom="true"
+                                android:src="@drawable/setting_icon"
+                               android:layout_marginRight="15dp"
+                                />
+
+                        </RelativeLayout>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -114,7 +130,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+               
                 android:weightSum="100"
                 android:orientation="horizontal"
                 android:padding="10dp"
@@ -133,9 +149,10 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:drawableLeft="@drawable/ic_home"
+                        android:drawableLeft="@drawable/premium_featureicon"
                         android:text="Premium Feature"
                         android:textAllCaps="false"
+                        android:textColor="#76082D"
 
                         />
 
@@ -162,11 +179,12 @@
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_home"
+                        android:drawableLeft="@drawable/yoir_reviews"
                         android:text="Your Reviews"
                         android:textAllCaps="false"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
+                        android:textColor="#76082D"
                         />
 
                     <TextView
@@ -230,7 +248,8 @@
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:background="@color/white"
                 >
 
@@ -290,6 +309,8 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:background="#F14C84"
+
+
                 >
 
                 <Button

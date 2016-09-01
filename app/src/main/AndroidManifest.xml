@@ -102,6 +102,13 @@
         <activity android:name=".login.Login" />
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".login.LoginSreen"></activity>
+
+        <activity android:name=".dashboard.category.Category"></activity>
+
+        <activity android:name=".special_categories.SpecialAndCategory"></activity>
+
+        <activity android:name=".dashboard.navigation.Special.SpecialActivity"></activity>
+
     </application>
 
 </manifest>

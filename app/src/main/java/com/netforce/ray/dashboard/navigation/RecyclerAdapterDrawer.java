@@ -21,7 +21,8 @@ import java.util.List;
 /**
  * Created by ashok on 3/11/15.
  */
-public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
 
     private static final int ALERT_DRAWER = 4;
     public static int selected_item = 0;
@@ -105,9 +106,6 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
         }
 
     }
-
-
-
 
     public interface clickListner {
         void itemClicked(View view, int position);
