@@ -213,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/facebook"
                     android:textAllCaps="false"
-                   android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="100dp"
                     android:layout_marginRight="100dp"
                     android:textColor="@color/white"
                     android:background="#3D349B"

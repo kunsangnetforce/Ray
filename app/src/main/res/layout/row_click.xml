@@ -8,8 +8,8 @@
     <ImageView
         android:background="@drawable/border"
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:padding="16dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+       android:scaleType="fitStart"
         android:src="@drawable/ic_camera" />
 </LinearLayout>

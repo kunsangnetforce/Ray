@@ -126,11 +126,11 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
     private List<RowDataDrawer> setDrawer()
     {
         List<RowDataDrawer> list = new ArrayList<>();
-        String title[] = {"HOME", "CATEGORY", "SPECIAL", "SELL", "INVITE FRIENDS", "HELP", "ACCOUNT", "SETTINGS"};
+        String title[] = {"HOME", "CATEGORY", "SPECIAL", "SELL","WANTED", "INVITE FRIENDS", "HELP", "ACCOUNT", "SETTINGS"};
 
         int drawableId[];
         drawableId = new int[]{
-              R.drawable.ic_home, R.drawable.categories_icon, R.drawable.icon_special, R.drawable.icon_sell, R.drawable.ic_invite_frnd, R.drawable.ic_help, R.drawable.ic_account, R.drawable.ic_setting
+              R.drawable.ic_home, R.drawable.categories_icon, R.drawable.icon_special, R.drawable.icon_sell, R.drawable.icon_sell, R.drawable.ic_invite_frnd, R.drawable.ic_help, R.drawable.ic_account, R.drawable.ic_setting
         };
 
 

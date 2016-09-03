@@ -35,13 +35,13 @@ import com.netforce.ray.special_categories.SpecialAndCategory;
 public class Dashboard extends AppCompatActivity
 {
 
-
     private Toolbar toolbar;
     private AccountHeader headerResult;
     private HomeFragment homeFragment;
     private Menu menu;
     private NavigationFragment drawer;
     private UserSessionManager userSessionManager;
+
 
 
 
@@ -58,7 +58,8 @@ public class Dashboard extends AppCompatActivity
 
     }
 
-    private void setupNavigationCustom() {
+    private void setupNavigationCustom()
+    {
         drawer = (NavigationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
         drawer.setup(R.id.fragment, (DrawerLayout) findViewById(R.id.drawer), toolbar);
     }
@@ -74,7 +75,7 @@ public class Dashboard extends AppCompatActivity
         PrimaryDrawerItem help = new PrimaryDrawerItem().withName(R.string.help).withIcon(R.drawable.ic_help);
 
 
-//create the drawer and remember the `Drawer` result object
+        //create the drawer and remember the `Drawer` result object
         final Drawer result = new DrawerBuilder()
                 .withActivity(this)
                 .withStickyFooter(R.layout.footer).withFooterClickable(true)
