@@ -36,7 +36,8 @@ import java.util.Locale;
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
     private static final int TAKE_PHOTO_CODE = 108;
     private static final String IMAGE_DIRECTORY_NAME = "ray";
     private static final int MEDIA_TYPE_IMAGE = 1;
@@ -57,19 +58,15 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         inflater = LayoutInflater.from(context);
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (position == 0) {
-            return CLICK;
-        } else {
-            return IMAGE;
-        }
-    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        if (viewType == IMAGE) {
+        View view = inflater.inflate(R.layout.row_image, parent, false);
+        SellHolderImage viewHolder = new SellHolderImage(view);
+        return viewHolder;
+
+      /*  if (viewType == IMAGE) {
             View view = inflater.inflate(R.layout.row_image, parent, false);
             SellHolderImage viewHolder = new SellHolderImage(view);
             return viewHolder;
@@ -78,14 +75,13 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             SellHolderClick viewHolder = new SellHolderClick(view);
             return viewHolder;
         }
-
-
+*/
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         switch (holder.getItemViewType()) {
-            case CLICK:
+            /*case CLICK:
                 SellHolderClick sellHolderClick = (SellHolderClick) holder;
                 sellHolderClick.imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -93,7 +89,7 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         showEditPicPopup();
                     }
                 });
-                break;
+                break;*/
             case IMAGE:
                 SellHolderImage sellHolderImage = (SellHolderImage) holder;
                 if (position < (itemList.size())) {

@@ -1,44 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="com.netforce.ray.sell.SellActivity">
+>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="wrap_content"
+        android:background="@color/gray_back"
+    >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:background="@drawable/gradient_mixed">
+                android:layout_height="wrap_content"
+                >
 
-                <ImageView
-                    android:id="@+id/imageViewDP"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/pro_pic" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradient_mixed" />
 
                 <android.support.design.widget.AppBarLayout
                     android:id="@+id/appbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent">
+                    android:background="@color/colorPrimary">
 
                     <FrameLayout
                         android:id="@+id/toolbar_container"
@@ -57,23 +47,71 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/appbar"
                     android:gravity="center"
-                    android:padding="10dp">
+                    android:orientation="vertical"
+                    android:background="@color/colorPrimary"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/pick_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/camera_choose"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/camera_icon"
+
+
+                            android:layout_marginRight="20dp"
+                            />
+
+                        <ImageView
+                            android:id="@+id/video_choose"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/video_camera"
+
+
+                            />
+
+
+
+                    </LinearLayout>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recycler"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/appbar">
+                        android:layout_height="70dp"
+                       android:layout_marginTop="5dp"
+                        >
 
 
                     </android.support.v7.widget.RecyclerView>
+
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="120dp"
+                        android:layout_height="80dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/motorcycle"
+                        />
+
+
                 </LinearLayout>
             </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+
+                >
 
                 <LinearLayout
                     android:padding="10dp"
@@ -81,17 +119,16 @@
                     android:layout_height="wrap_content"
                     >
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/what_selling"
                         android:textSize="20sp"
-
-                        materialdesign:met_hideUnderline="true"
-                        android:background="@drawable/border_white_bg"
+                        android:background="@drawable/editext_gradiant_back"
                         android:padding="10dp"
                         />
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:padding="10dp"
@@ -103,109 +140,141 @@
                     android:layout_height="wrap_content"
                     >
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top|left"
                         android:hint="@string/describe"
                         android:lines="5"
-                        materialdesign:met_hideUnderline="true"
                         android:background="@drawable/border_white_bg"
                         android:padding="10dp"
                         />
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:padding="10dp"
                     android:layout_marginTop="1dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     >
 
-                    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                        android:id="@+id/category"
+                    <Button
+                        android:id="@+id/sortbutton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
-                        android:background="@drawable/border_white_bg"
-                        android:padding="10dp"
+
+                        android:background="@drawable/editext_gradiant_back"
+                        android:text="Choose Category"
+                        android:textAllCaps="false"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="3dp"
+                        android:padding="8dp"
+                        android:drawableRight="@drawable/ic_drop_down"
                         />
+
+
+
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:padding="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="bottom"
 
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                        android:id="@+id/currency"
+                    <Button
+                        android:id="@+id/inr_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
                         android:layout_weight="40"
-                        android:background="@drawable/border_white_bg"
-                        android:padding="10dp"
+                        android:background="@drawable/editext_gradiant_back"
+                        android:text="INR"
+                        android:textAllCaps="false"
+                        android:layout_marginLeft="5dp"
+
+
+                        android:drawableRight="@drawable/ic_drop_down"
                         />
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <EditText
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:layout_marginLeft="10dp"
                         android:layout_weight="60"
                         android:gravity="left"
                         android:hint="Price"
                         android:inputType="numberDecimal"
-                        android:background="@drawable/border_white_bg"
-                        android:padding="10dp"
+                        android:background="@drawable/editext_gradiant_back"
+                        android:padding="12dp"
                         />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:weightSum="100">
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_gravity="center_horizontal"
+                    >
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="30">
-
-                        <com.gc.materialdesign.views.Switch
-                            android:id="@+id/switchShare"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/colorPrimary"
-                            materialdesign:check="true" />
-                    </LinearLayout>
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="70"
-                        android:text="Share it on facebook"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Share on"
+                        android:textStyle="bold"
+
                         android:textColor="@color/colorSecondaryText"
                         android:textSize="18sp" />
+
                 </LinearLayout>
 
-                <com.gc.materialdesign.views.ButtonRectangle
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="facebook"
+                        android:background="#3D349B"
+                        android:textColor="@color/white"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:textAllCaps="false"
+                        android:layout_marginLeft="90dp"
+                        android:layout_marginRight="90dp"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        />
+
+
+                </RelativeLayout>
+
+                <Button
                     android:id="@+id/buttonSell"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sell_it"
+                    android:background="#F14C20"
+                    android:padding="20dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
                     >
-                </com.gc.materialdesign.views.ButtonRectangle>
+                </Button>
+
             </LinearLayout>
 
-        </LinearLayout>
 
+</LinearLayout>
     </ScrollView>
+
 </LinearLayout>
