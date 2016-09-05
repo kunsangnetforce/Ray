@@ -1,7 +1,9 @@
 package com.netforce.ray.sell;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,8 +25,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialcamera.MaterialCamera;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.CallbackManager;
@@ -44,6 +49,7 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,7 +58,8 @@ import java.util.Locale;
 public class SellActivity extends AppCompatActivity implements View.OnClickListener
 {
 
-    private static final int REQUEST_TAKE_GALLERY_VIDEO =0 ;
+
+    private static final int REQUEST_TAKE_GALLERY_VIDEO = 0;
     private RecyclerView recyclerView;
     private SellAdapter adapter;
     private LinearLayoutManager layoutManager;
@@ -61,16 +68,25 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     private static final String IMAGE_DIRECTORY_NAME = "ray";
     private static final int MEDIA_TYPE_IMAGE = 1;
     private static final int PICK_IMAGE = 109;
+    private static final int PICK_VIDEO = 110;
     protected static ArrayList<SellData> sellDatas = new ArrayList<>();
     private Toolbar toolbar;
     private MaterialBetterSpinner category;
     private MaterialBetterSpinner currency;
     private ShareDialog shareDialog;
     private CallbackManager callbackManager;
-    Button sort_button,anr_button;
-    private MaterialDialog dialog;
-    ImageView camera_click,video_click;
+    Button sort_button;
+    RelativeLayout anr_button;
+    private MaterialDialog dialog,video_dailog;
+    ImageView camera_click, video_click;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private final static int CAMERA_RQ = 6969;
+    private final static int PERMISSION_RQ = 84;
 
+    ImageView video_image;
 
 
     @Override
@@ -85,18 +101,23 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.buttonSell).setOnClickListener(this);
 
-        sort_button = (Button)  findViewById(R.id.sortbutton);
+        sort_button = (Button) findViewById(R.id.sortbutton);
 
-        anr_button = (Button)  findViewById(R.id.inr_button);
+        anr_button = (RelativeLayout) findViewById(R.id.inr_button);
         anr_button.setOnClickListener(this);
 
-        camera_click= (ImageView) findViewById(R.id.camera_choose);
+        camera_click = (ImageView) findViewById(R.id.camera_choose);
         camera_click.setOnClickListener(this);
 
         video_click = (ImageView) findViewById(R.id.video_choose);
         video_click.setOnClickListener(this);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // Request permission to save videos in external storage
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_RQ);
+        }
 
-        DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder (context, sort_button);
+
+        DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, sort_button);
 
 
         droppyBuilder.addMenuItem(new DroppyMenuItem("Fashion and Accessories"));
@@ -114,13 +135,9 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         }*/
 
 
-
-
-        droppyBuilder.setOnClick(new DroppyClickCallbackInterface()
-        {
+        droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
             @Override
-            public void call(View v, int id)
-            {
+            public void call(View v, int id) {
                 Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
             }
         });
@@ -136,15 +153,21 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
                 FacebookCallback<Sharer.Result>() {
                     @Override
-                    public void onSuccess(Sharer.Result result) {}
+                    public void onSuccess(Sharer.Result result) {
+                    }
 
                     @Override
-                    public void onCancel() {}
+                    public void onCancel() {
+                    }
 
                     @Override
-                    public void onError(FacebookException error) {}
+                    public void onError(FacebookException error) {
+                    }
                 });
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+      //  client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     private void setupToolBar(String s) {
@@ -163,10 +186,8 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -177,8 +198,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupRecyclerView()
-    {
+    private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         setupData();
         adapter = new SellAdapter(context, sellDatas);
@@ -189,15 +209,18 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void setupData()
-    {
+    private void setupData() {
         sellDatas.add(new SellData("path"));
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+
+
+        switch (requestCode)
+        {
             case TAKE_PHOTO_CODE:
                 if (resultCode == RESULT_OK) {
                     Log.i("result picture", "clicked");
@@ -210,7 +233,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
                     sellDatas.add(new SellData(finalFile.getAbsolutePath()));
                     Log.i("result filepath1", finalFile.getAbsolutePath());
-                   // imageViewDP.setImageURI(Uri.parse(finalFile.getAbsolutePath()));
+                    // imageViewDP.setImageURI(Uri.parse(finalFile.getAbsolutePath()));
                     adapter.notifyDataSetChanged();
                 }
                 break;
@@ -228,13 +251,78 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                     cursor.close();
                     sellDatas.add(new SellData(filePath));
                     Log.i("result filepath1", filePath);
-                  //  imageViewDP.setImageURI(Uri.parse(filePath));
+                    //  imageViewDP.setImageURI(Uri.parse(filePath));
                     adapter.notifyDataSetChanged();
                 }
+
+                break;
+            case PICK_VIDEO:
+                if (resultCode == RESULT_OK)
+                {
+                    if (requestCode == REQUEST_TAKE_GALLERY_VIDEO)
+                    {
+                        Uri selectedImageUri = data.getData();
+                        // OI FILE Manager
+                       String    filemanagerstring = selectedImageUri.getPath();
+
+                        // MEDIA GALLERY
+                        String selectedImagePath = getPath(selectedImageUri);
+
+
+                    }
+                }
+                break;
+            case CAMERA_RQ:
+
+                    if (resultCode == RESULT_OK) {
+                        final File file = new File(data.getData().getPath());
+                        Toast.makeText(this, String.format("Saved to: %s, size: %s",
+                                file.getAbsolutePath(), fileSize(file)), Toast.LENGTH_LONG).show();
+                    } else if (data != null) {
+                        Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
+                        if (e != null) {
+                            e.printStackTrace();
+                            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                break;
+
+
+
+
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
+    private String readableFileSize(long size) {
+        if (size <= 0) return size + " B";
+        final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
+        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.##").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+    }
+
+    private String fileSize(File file) {
+        return readableFileSize(file.length());
+    }
+    public String getPath(Uri uri)
+    {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if (cursor != null)
+        {
+            // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
+            // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        }
+        else
+            return null;
+    }
+
 
     private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException {
         BitmapFactory.Options o = new BitmapFactory.Options();
@@ -317,26 +405,23 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         return mediaFile;
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage)
-    {
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
 
-    public String getRealPathFromURI(Uri uri)
-    {
+    public String getRealPathFromURI(Uri uri) {
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
         cursor.moveToFirst();
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
 
-    private void setupDropDown()
-    {
+    private void setupDropDown() {
 
-       DroppyMenuPopup.Builder droppyBuilder2 = new DroppyMenuPopup.Builder(context, anr_button);
+        DroppyMenuPopup.Builder droppyBuilder2 = new DroppyMenuPopup.Builder(context, anr_button);
 
         droppyBuilder2.addMenuItem(new DroppyMenuItem("EUR"));
         droppyBuilder2.addMenuItem(new DroppyMenuItem("USD"));
@@ -347,11 +432,9 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         droppyBuilder2.addMenuItem(new DroppyMenuItem("INR"));
 
 
-        droppyBuilder2.setOnClick(new DroppyClickCallbackInterface()
-        {
+        droppyBuilder2.setOnClick(new DroppyClickCallbackInterface() {
             @Override
-            public void call(View v, int id)
-            {
+            public void call(View v, int id) {
                 Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
             }
         });
@@ -390,17 +473,14 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         sellDatas.clear();
         super.onDestroy();
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
 
             case R.id.buttonSell:
                 showMessage("Clicked");
@@ -409,20 +489,88 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.camera_choose:
 
                 showEditPicPopup();
-            break;
+                break;
 
             case R.id.video_choose:
 
-                Intent intent = new Intent();
-                intent.setType("video/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"Select Video"),REQUEST_TAKE_GALLERY_VIDEO);
+
+
+                showEditVideoPopup();
+
+
                 break;
         }
     }
 
-    private void showEditPicPopup()
-    {
+
+    private  void showEditVideoPopup(){
+
+        boolean wrapInScrollView = true;
+        video_dailog = new MaterialDialog.Builder(context)
+                .title(R.string.editpic)
+                .customView(R.layout.videopic_layout, wrapInScrollView)
+                .negativeText(R.string.cancel)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        video_dailog.dismiss();
+                    }
+                })
+                .show();
+        video_dailog.findViewById(R.id.linearLayoutGalary).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent intent = new Intent();
+                intent.setType("video*//*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Video"), REQUEST_TAKE_GALLERY_VIDEO);
+
+                video_dailog.dismiss();
+            }
+        });
+        video_dailog.findViewById(R.id.linearLayoutPicture).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+                File saveDir = null;
+
+                if (ContextCompat.checkSelfPermission(SellActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    // Only use external storage directory if permission is granted, otherwise cache directory is used by default
+                    saveDir = new File(Environment.getExternalStorageDirectory(), "MaterialCamera");
+                    saveDir.mkdirs();
+                }
+
+                MaterialCamera materialCamera = new MaterialCamera(SellActivity.this)
+                        .saveDir(saveDir)
+                        .showPortraitWarning(true)
+                        .allowRetry(false)
+                        .autoSubmit(true)
+                        .defaultToFrontFacing(true);
+
+                materialCamera
+                        .countdownMinutes(0.5f)
+                        .countdownImmediately(true)
+                        .start(CAMERA_RQ);
+
+                materialCamera.saveDir(saveDir);
+                //takePictureIntent();
+                video_dailog.dismiss();
+
+
+
+
+            }
+        });
+
+
+
+    }
+
+
+    private void showEditPicPopup() {
         boolean wrapInScrollView = true;
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.editpic)
@@ -468,15 +616,12 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         ((AppCompatActivity) context).startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);
     }
 
-    private void showMessage(String clicked)
-    {
+    private void showMessage(String clicked) {
         Toast.makeText(SellActivity.this, clicked, Toast.LENGTH_SHORT).show();
     }
 
-    private void shareContent()
-    {
-        if (ShareDialog.canShow(ShareLinkContent.class))
-        {
+    private void shareContent() {
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentTitle("Hello Facebook")
                     .setContentDescription("The 'Hello Facebook' sample  showcases simple Facebook integration")
@@ -489,4 +634,44 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+
+   /* @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Sell Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.netforce.ray.sell/http/host/path")
+        );
+       // AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Sell Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.netforce.ray.sell/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }*/
 }

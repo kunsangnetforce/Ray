@@ -75,8 +75,11 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             SellHolderClick viewHolder = new SellHolderClick(view);
             return viewHolder;
         }
-*/
+      */
     }
+
+
+
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {

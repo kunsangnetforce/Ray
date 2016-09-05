@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.netforce.ray.R;
 import com.netforce.ray.dashboard.category.Category;
 import com.netforce.ray.dashboard.navigation.Special.SpecialActivity;
+import com.netforce.ray.dashboard.navigation.wanted.WantedActivity;
 import com.netforce.ray.general.UserSessionManager;
 import com.netforce.ray.home.HomeFragment;
 import com.netforce.ray.special_categories.SpecialAndCategory;
@@ -250,6 +251,8 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
                    // setupSpecial_Category(1);
                     break;
                 case 4:
+                    Intent i3 = new Intent(getActivity(), WantedActivity.class);
+                    startActivity(i3);
                     break;
                 case 5:
                     break;

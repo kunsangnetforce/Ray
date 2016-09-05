@@ -30,6 +30,7 @@
     <string name="log_out">Log out</string>
     <string name="smsinvite">Visit seek and sell. www.seeksell.com</string>
     <string name="editpic">Change profile picture</string>
+    <style name="videopic">Change video picture </style>
     <string name="cancel">Cancel</string>
     <string name="editemail">Change Email</string>
     <string name="ok">OK</string>

@@ -101,13 +101,16 @@
 
         <activity android:name=".login.Login" />
         <activity android:name=".login.RegisterActivity" />
-        <activity android:name=".login.LoginSreen"></activity>
+        <activity android:name=".login.LoginSreen" />
+        <activity android:name=".dashboard.category.Category" />
+        <activity android:name=".special_categories.SpecialAndCategory" />
 
-        <activity android:name=".dashboard.category.Category"></activity>
-
-        <activity android:name=".special_categories.SpecialAndCategory"></activity>
-
-        <activity android:name=".dashboard.navigation.Special.SpecialActivity"></activity>
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity2"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
 
     </application>
 

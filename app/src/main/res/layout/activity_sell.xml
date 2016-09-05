@@ -94,6 +94,7 @@
                     </android.support.v7.widget.RecyclerView>
 
                     <ImageView
+                        android:id="@+id/videoImage"
                         android:layout_marginTop="5dp"
                         android:layout_width="120dp"
                         android:layout_height="80dp"
@@ -164,7 +165,6 @@
                         android:id="@+id/sortbutton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:background="@drawable/editext_gradiant_back"
                         android:text="Choose Category"
                         android:textAllCaps="false"
@@ -180,26 +180,43 @@
 
 
                 <LinearLayout
-                    android:padding="10dp"
+                    android:id="@+id/layout1"
+                    android:layout_margin="10dp"
                     android:layout_width="match_parent"
+                    android:layout_below="@+id/choosecategory"
                     android:layout_height="wrap_content"
-
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <Button
+                    <RelativeLayout
                         android:id="@+id/inr_button"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="40"
                         android:background="@drawable/editext_gradiant_back"
-                        android:text="INR"
-                        android:textAllCaps="false"
-                        android:layout_marginLeft="5dp"
+                       android:layout_marginLeft="5dp"
+
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="INR"
+                            android:padding="10dp"
+                            android:layout_alignParentLeft="true"
+                            />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/ic_drop_down"
+                            android:layout_centerVertical="true"
+                            />
 
 
-                        android:drawableRight="@drawable/ic_drop_down"
-                        />
+                    </RelativeLayout>
+
 
                     <EditText
                         android:layout_width="0dp"
@@ -210,8 +227,11 @@
                         android:hint="Price"
                         android:inputType="numberDecimal"
                         android:background="@drawable/editext_gradiant_back"
-                        android:padding="12dp"
+                        android:padding="10dp"
+                        android:layout_marginLeft="1dp"
                         />
+
+
                 </LinearLayout>
 
                 <LinearLayout
