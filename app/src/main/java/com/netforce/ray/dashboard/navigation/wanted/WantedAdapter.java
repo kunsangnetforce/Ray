@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.netforce.ray.home.HomeFragment;
+import com.netforce.ray.dashboard.navigation.wanted.publishitems_fragment.WantedPublishFragment;
 
 /**
  * Created by John on 9/3/2016.
@@ -27,8 +27,8 @@ public class WantedAdapter extends FragmentStatePagerAdapter
         {
 
             case 0:
-                HomeFragment special = new HomeFragment();
-                return special;
+                WantedPublishFragment wanted = new WantedPublishFragment();
+                return wanted;
             case 1:
                 PublishFragment publish = new PublishFragment();
                 return publish;

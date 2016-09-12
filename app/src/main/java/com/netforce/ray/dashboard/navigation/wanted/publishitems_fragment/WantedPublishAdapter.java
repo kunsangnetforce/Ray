@@ -1,5 +1,4 @@
-package com.netforce.ray.home;
-
+package com.netforce.ray.dashboard.navigation.wanted.publishitems_fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,26 +9,26 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforce.ray.R;
+import com.netforce.ray.dashboard.category.electronics.ElectronicsData;
+import com.netforce.ray.dashboard.category.electronics.ElectronicsHolder;
+import com.netforce.ray.home.ProductDetailsActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Gowtham Chandrasekar on 31-07-2015.
+ * Created by John on 9/7/2016.
  */
-
-
-public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class WantedPublishAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<HomeData> itemList;
+    private List<WantedPublishData> itemList;
     private Context context;
-
-    public HomeAdapter(Context context, List<HomeData> itemList)
-    {
+    PublishHolder viewHolder;
+    public WantedPublishAdapter(Context context, List<WantedPublishData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -39,16 +38,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
 
-        View view = inflater.inflate(R.layout.row_home, parent, false);
-        HomeHolder viewHolder = new HomeHolder(view);
+        View view = inflater.inflate(R.layout.row_wanted, parent, false);
+        viewHolder = new PublishHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
-        HomeHolder homeHolder = (HomeHolder) holder;
-        homeHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener()
+
+        viewHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
@@ -57,7 +56,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 context.startActivity(i);
             }
         });
-
 
 
     }

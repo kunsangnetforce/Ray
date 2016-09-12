@@ -350,7 +350,7 @@
                         android:id="@+id/nearest2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="nearest"
+                        android:text="hours"
                         android:layout_weight="20"
                         android:layout_gravity="center_vertical"
                         android:textSize="14dp"
@@ -380,7 +380,7 @@
                         android:textSize="14dp"
                         android:layout_alignParentRight="true"
 
-                        android:text="Everywhere" />
+                        android:text="forever" />
 
                 </LinearLayout>
 

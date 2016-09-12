@@ -28,6 +28,7 @@ import com.netforce.ray.dashboard.navigation.Special.SpecialActivity;
 import com.netforce.ray.dashboard.navigation.wanted.WantedActivity;
 import com.netforce.ray.general.UserSessionManager;
 import com.netforce.ray.home.HomeFragment;
+import com.netforce.ray.sell.SellActivity;
 import com.netforce.ray.special_categories.SpecialAndCategory;
 import com.squareup.picasso.Picasso;
 
@@ -249,6 +250,10 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
                     break;
                 case 3:
                    // setupSpecial_Category(1);
+                    Intent sell = new Intent(getActivity(), SellActivity.class);
+                    startActivity(sell);
+
+
                     break;
                 case 4:
                     Intent i3 = new Intent(getActivity(), WantedActivity.class);

@@ -7,6 +7,25 @@
     android:orientation="vertical"
 >
 
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <FrameLayout
+            android:id="@+id/toolbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/app_bar_transparent" />
+        </FrameLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,28 +43,12 @@
                 >
 
 
-                <android.support.design.widget.AppBarLayout
-                    android:id="@+id/appbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary">
 
-                    <FrameLayout
-                        android:id="@+id/toolbar_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <include
-                            android:id="@+id/toolbar"
-                            layout="@layout/app_bar_transparent" />
-                    </FrameLayout>
-
-                </android.support.design.widget.AppBarLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/appbar"
+
                     android:gravity="center"
                     android:orientation="vertical"
                     android:background="@color/colorPrimary"
@@ -75,11 +78,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:src="@drawable/video_camera"
-
-
                             />
-
-
 
                     </LinearLayout>
 
@@ -93,15 +92,30 @@
 
                     </android.support.v7.widget.RecyclerView>
 
-                    <ImageView
+                    <RelativeLayout
+                        android:layout_width="120dp"
+                        android:layout_height="80dp">
+
+
+                        <ImageView
                         android:id="@+id/videoImage"
                         android:layout_marginTop="5dp"
                         android:layout_width="120dp"
                         android:layout_height="80dp"
                         android:layout_marginBottom="5dp"
                         android:src="@drawable/motorcycle"
+                        android:scaleType="fitXY"
                         />
 
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/ic_video_play"
+                            />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
             </RelativeLayout>
@@ -111,7 +125,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-
                 >
 
                 <LinearLayout
@@ -136,7 +149,6 @@
                     android:layout_marginTop="1dp"
                     android:layout_marginLeft="1dp"
                     android:layout_marginRight="1dp"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
@@ -283,7 +295,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sell_it"
-                    android:background="#F14C20"
+                    android:background="#F12484"
                     android:padding="20dp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

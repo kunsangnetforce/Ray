@@ -1,14 +1,13 @@
-package com.netforce.ray.home;
-
+package com.netforce.ray.dashboard.category.electronics;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,11 @@ import android.widget.ScrollView;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.netforce.ray.R;
+import com.netforce.ray.home.HomeAdapter;
+import com.netforce.ray.home.HomeData;
 import com.netforce.ray.search.SearchActivity;
 import com.netforce.ray.sell.SellActivity;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
-import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.util.ArrayList;
 
@@ -28,25 +28,22 @@ import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 import it.carlom.stikkyheader.core.animator.AnimatorBuilder;
 import it.carlom.stikkyheader.core.animator.HeaderStikkyAnimator;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HomeFragment extends Fragment implements View.OnClickListener {
+
+public class ElectronicsFragment extends Fragment implements View.OnClickListener {
 
     Context context;
     private RecyclerView recyclerView;
-    private HomeAdapter adapter;
-    private ArrayList<HomeData> homeDatas = new ArrayList<>();
-    private StaggeredGridLayoutManager layoutManager;
-    private SwipyRefreshLayout mSwipyRefreshLayout;
+    ElectronicsAdapter adapter;
+    ArrayList<ElectronicsData> electronicsDatas = new ArrayList<>();
+    StaggeredGridLayoutManager layoutManager;
+    SwipyRefreshLayout mSwipyRefreshLayout;
     FloatingActionButton floatingActionButtonSell;
-    ScrollView scrollview;
+
     StikkyHeaderBuilder stikkyHeader;
     RelativeLayout relativlayoutSearch;
 
 
-
-    public HomeFragment() {
+    public ElectronicsFragment() {
         // Required empty public constructor
     }
 
@@ -55,7 +52,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_electronics, container, false);
         context = getActivity();
         setupRecyclerView(view);
 
@@ -66,27 +63,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void setupRecyclerView(View view) {
 
-        scrollview= (ScrollView) view.findViewById(R.id.scrollView);
 
         relativlayoutSearch = (RelativeLayout)view.findViewById(R.id.relativeLayoutSearch);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
         floatingActionButtonSell.setOnClickListener(this);
-        adapter = new HomeAdapter(context, homeDatas);
+        adapter = new ElectronicsAdapter(context, electronicsDatas);
         setupData();
 
         relativlayoutSearch.setOnClickListener(this);
 
-      /*  mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
-
-        mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                refreshItem();
-            }
-        });
-     */
 
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -109,24 +96,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void setupData() {
         try {
-            homeDatas.clear();
+            electronicsDatas.clear();
         } catch (Exception ex) {
 
         }
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
+        electronicsDatas.add(new ElectronicsData("imageurl", "title", "price"));
 
 
     }
@@ -152,22 +139,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private class ParallaxStikkyAnimator extends HeaderStikkyAnimator {
-        @Override
-        public AnimatorBuilder getAnimatorBuilder() {
-            View mHeader_image = getHeader().findViewById(R.id.relativeLayout);
-            return AnimatorBuilder.create().applyVerticalParallax(mHeader_image);
-        }
-    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-        stikkyHeader = StikkyHeaderBuilder.stickTo(scrollview);
-        stikkyHeader.setHeader(R.id.header, (ViewGroup) getView())
-                .minHeightHeaderDim(R.dimen.min_height_header)
-                .animator(new ParallaxStikkyAnimator())
-                .build();
-    }
 }
+

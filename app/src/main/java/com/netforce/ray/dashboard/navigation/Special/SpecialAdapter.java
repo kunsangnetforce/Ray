@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.netforce.ray.R;
+import com.netforce.ray.dashboard.category.electronics.ElectronicsFragment;
 import com.netforce.ray.dashboard.category.speciallist.SpecialFragment;
 import com.netforce.ray.home.HomeFragment;
 import com.netforce.ray.profile.favourites.Favourite;
@@ -32,25 +33,25 @@ public class SpecialAdapter extends FragmentStatePagerAdapter
         switch (position)
         {
             case 0:
-                HomeFragment special = new HomeFragment();
+                ElectronicsFragment special = new ElectronicsFragment();
                 return special;
             case 1:
-                HomeFragment sellings = new HomeFragment();
+                ElectronicsFragment sellings = new ElectronicsFragment();
                 return sellings;
             case 2:
-                HomeFragment favourite = new HomeFragment();
+                ElectronicsFragment favourite = new ElectronicsFragment();
                 return favourite;
             case 3:
-                HomeFragment profile = new HomeFragment();
+                ElectronicsFragment profile = new ElectronicsFragment();
                 return profile;
             case 4:
-                HomeFragment favourite2 = new HomeFragment();
+                ElectronicsFragment favourite2 = new ElectronicsFragment();
                 return favourite2;
             case 5:
-                HomeFragment favourite3 = new HomeFragment();
+                ElectronicsFragment favourite3 = new ElectronicsFragment();
                 return favourite3;
             case 6:
-                HomeFragment favourite4 = new HomeFragment();
+                ElectronicsFragment favourite4 = new ElectronicsFragment();
                 return favourite4;
 
 

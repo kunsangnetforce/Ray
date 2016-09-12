@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.netforce.ray.dashboard.category.electronics.ElectronicsFragment;
 import com.netforce.ray.dashboard.category.speciallist.SpecialFragment;
 import com.netforce.ray.profile.favourites.Favourite;
 import com.netforce.ray.profile.news.News;
@@ -33,28 +34,28 @@ public class CategoriesAdapter extends FragmentStatePagerAdapter
                 SpecialFragment special = new SpecialFragment();
                 return special;
             case 1:
-                Sellings sellings = new Sellings();
+                ElectronicsFragment sellings = new ElectronicsFragment();
                 return sellings;
             case 2:
-                Favourite favourite = new Favourite();
+                ElectronicsFragment favourite = new ElectronicsFragment();
                 return favourite;
             case 3:
-                Profile profile = new Profile();
+                ElectronicsFragment profile = new ElectronicsFragment();
                 return profile;
             case 4:
-                Favourite favourite2 = new Favourite();
+                ElectronicsFragment favourite2 = new ElectronicsFragment();
                 return favourite2;
             case 5:
-                Favourite favourite3 = new Favourite();
+                ElectronicsFragment favourite3 = new ElectronicsFragment();
                 return favourite3;
             case 6:
-                Favourite favourite4 = new Favourite();
+                ElectronicsFragment favourite4 = new ElectronicsFragment();
                 return favourite4;
             case 7:
-                Favourite favourite5 = new Favourite();
+                ElectronicsFragment favourite5 = new ElectronicsFragment();
                 return favourite5;
             case 8:
-                Favourite favourite6 = new Favourite();
+                ElectronicsFragment favourite6 = new ElectronicsFragment();
                 return favourite6;
 
             default:
