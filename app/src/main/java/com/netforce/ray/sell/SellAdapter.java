@@ -108,6 +108,7 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private void showMessage(String s) {
+
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 

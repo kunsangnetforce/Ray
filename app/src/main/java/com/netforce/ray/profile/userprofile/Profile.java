@@ -304,9 +304,11 @@ public class Profile extends Fragment implements View.OnClickListener {
         startActivityForResult(shareIntent, 0);
     }
 
-    private void whatsappAppInvite() {
+    private void whatsappAppInvite()
+    {
         PackageManager pm = context.getPackageManager();
-        try {
+        try
+        {
 
             Intent waIntent = new Intent(Intent.ACTION_SEND);
             waIntent.setType("text/plain");

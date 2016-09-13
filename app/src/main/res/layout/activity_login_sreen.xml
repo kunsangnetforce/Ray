@@ -14,7 +14,6 @@
         android:layout_weight="75"
         android:background="@drawable/login_screen"
         >
-
     </LinearLayout>
 
     <LinearLayout
@@ -26,13 +25,12 @@
         android:background="@color/white"
         >
 
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:weightSum="100"
                 android:orientation="horizontal"
-
+                android:layout_weight="12.5"
                 >
 
                 <Button
@@ -63,13 +61,13 @@
                     android:textAllCaps="false"
                     />
 
-
         </LinearLayout>
 
         <Button
             android:id="@+id/facebook_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="12.5"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="12dp"
             android:padding="10dp"

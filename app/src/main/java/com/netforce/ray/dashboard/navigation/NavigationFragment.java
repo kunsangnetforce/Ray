@@ -82,7 +82,8 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         return view;
     }
 
-    private void initView() {
+    private void initView()
+    {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         footer = (TextView) view.findViewById(R.id.textviewFooter);
         list = setDrawer();

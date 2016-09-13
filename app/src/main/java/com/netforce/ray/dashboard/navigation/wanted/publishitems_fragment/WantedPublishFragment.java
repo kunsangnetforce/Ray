@@ -10,6 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.github.clans.fab.FloatingActionButton;
 import com.netforce.ray.R;
@@ -30,12 +31,11 @@ public class WantedPublishFragment extends Fragment  implements View.OnClickList
         StaggeredGridLayoutManager layoutManager;
         SwipyRefreshLayout mSwipyRefreshLayout;
         FloatingActionButton floatingActionButtonSell;
+        LinearLayout linearLayoutSearch;
 
 
-        RelativeLayout relativlayoutSearch;
-
-
-          public WantedPublishFragment() {
+       public WantedPublishFragment()
+          {
         // Required empty public constructor
         }
 
@@ -53,19 +53,19 @@ public class WantedPublishFragment extends Fragment  implements View.OnClickList
         return view;
         }
 
-        private void setupRecyclerView(View view) {
+        private void setupRecyclerView(View view)
+        {
 
 
-        relativlayoutSearch = (RelativeLayout)view.findViewById(R.id.relativeLayoutSearch);
+            linearLayoutSearch = (LinearLayout)view.findViewById(R.id.linearlayoutemail);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
-        floatingActionButtonSell.setOnClickListener(this);
-        adapter = new WantedPublishAdapter(context, publishDatas);
-        setupData();
+            recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+            floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
+            floatingActionButtonSell.setOnClickListener(this);
+            adapter = new WantedPublishAdapter(context, publishDatas);
+            setupData();
 
-        relativlayoutSearch.setOnClickListener(this);
-
+            linearLayoutSearch.setOnClickListener(this);
 
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);

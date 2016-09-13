@@ -17,43 +17,52 @@
                 android:orientation="vertical"
                 >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:background="@color/gray_back"
-                    android:gravity="center"
-                    android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:id="@+id/relativeLayoutSearch"
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardElevation="4dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_margin="10dp"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/linearlayoutemail"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:background="@drawable/border_white_bg"
-                        android:elevation="8dp"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="100"
+                        android:padding="3dp"
+                        >
 
-                        <ImageView
-                            android:id="@+id/text"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="16dp"
-                            android:src="@drawable/ic_search" />
+                            android:layout_margin="10dp"
+                            android:layout_weight="15"
+                            android:gravity="center">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_search" />
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/email"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="16dp"
-                            android:layout_toRightOf="@+id/text"
-                            android:text="@string/search"
-                            android:textColor="@color/colorPrimaryText" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
+                            android:layout_weight="85"
+                            android:background="@android:color/transparent"
+                            android:hint="Search a item.."
+                            android:inputType="textEmailAddress"
+                            android:textColor="@color/black"
+                           ></EditText>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
 
                 <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
                     android:id="@+id/swipyrefreshlayout"
@@ -66,16 +75,12 @@
                     android:id="@+id/recycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
                     >
 
                 </android.support.v7.widget.RecyclerView>
 
 
-
                 </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
-
-
 
             </LinearLayout>
 
@@ -91,5 +96,9 @@
         fab:fab_colorNormal="@color/colorPrimary"
         fab:fab_colorPressed="@color/colorPrimaryDark"
         fab:fab_colorRipple="@color/grey" />
+
+
+
+
 </FrameLayout>
 

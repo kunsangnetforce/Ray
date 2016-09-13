@@ -32,9 +32,10 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/colorPrimary"
                 android:text="3 items"
+                android:textStyle="bold"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/unread_message"
-                android:textSize="12sp" />
+                />
 
 
         </RelativeLayout>

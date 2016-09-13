@@ -60,7 +60,7 @@ public class UserProfile extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        String teams = "My Shpock";
+        String teams = "My Seek & Sell";
         getSupportActionBar().setTitle(teams);
 
     }

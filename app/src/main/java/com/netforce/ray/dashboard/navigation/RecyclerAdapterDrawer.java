@@ -38,8 +38,9 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
         inflater = LayoutInflater.from(context);
         this.data = data;
         this.context = context;
-
     }
+
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

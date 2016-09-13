@@ -11,6 +11,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -40,10 +41,11 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
     FloatingActionButton floatingActionButtonSell;
 
     StikkyHeaderBuilder stikkyHeader;
-    RelativeLayout relativlayoutSearch;
+    LinearLayout linearLayoutSearch;
 
 
-    public ElectronicsFragment() {
+    public ElectronicsFragment()
+    {
         // Required empty public constructor
     }
 
@@ -64,7 +66,7 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
     private void setupRecyclerView(View view) {
 
 
-        relativlayoutSearch = (RelativeLayout)view.findViewById(R.id.relativeLayoutSearch);
+        linearLayoutSearch = (LinearLayout)view.findViewById(R.id.linearlayoutemail);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
@@ -72,7 +74,7 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
         adapter = new ElectronicsAdapter(context, electronicsDatas);
         setupData();
 
-        relativlayoutSearch.setOnClickListener(this);
+        linearLayoutSearch.setOnClickListener(this);
 
 
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
