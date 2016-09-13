@@ -51,6 +51,26 @@ public class CategoriesSortAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         viewHolder.textViewTitle.setText(itemList.get(position).title);
 
+        viewHolder.categories_item.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view)
+            {
+                viewHolder.categories_item.setFocusableInTouchMode(false);
+                viewHolder.categories_item.setFocusable(false);
+            }
+        });
+
+        viewHolder.categories_layout.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+
+
+
+            }
+        });
+
     }
 
     private void showMessage(String s)

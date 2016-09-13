@@ -1,16 +1,21 @@
 package com.netforce.ray.sell;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,8 +27,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.afollestad.materialcamera.MaterialCamera;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.CallbackManager;
@@ -44,6 +51,7 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,8 +60,10 @@ import java.util.Locale;
 public class SellActivity extends AppCompatActivity implements View.OnClickListener
 {
 
-    private static final int REQUEST_TAKE_GALLERY_VIDEO =0 ;
+
+    private static final int REQUEST_TAKE_GALLERY_VIDEO = 111;
     private RecyclerView recyclerView;
+
     private SellAdapter adapter;
     private LinearLayoutManager layoutManager;
     private Context context;
@@ -61,17 +71,28 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     private static final String IMAGE_DIRECTORY_NAME = "ray";
     private static final int MEDIA_TYPE_IMAGE = 1;
     private static final int PICK_IMAGE = 109;
+    private static final int PICK_VIDEO = 110;
     protected static ArrayList<SellData> sellDatas = new ArrayList<>();
     private Toolbar toolbar;
     private MaterialBetterSpinner category;
     private MaterialBetterSpinner currency;
     private ShareDialog shareDialog;
     private CallbackManager callbackManager;
-    Button sort_button,anr_button;
-    private MaterialDialog dialog;
-    ImageView camera_click,video_click;
+    Button sort_button;
+    RelativeLayout anr_button;
+    private MaterialDialog dialog,video_dailog;
+    ImageView camera_click, video_click;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private final static int CAMERA_RQ = 6969;
+    private final static int PERMISSION_RQ = 84;
+    ImageView video_image;
+    private final static int SELECT_VIDEO_REQUEST=100;
+    public static final int CAMERA_PERMISSION_REQUEST_CODE = 3;
 
-
+    private int STORAGE_PERMISSION_CODE = 23;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -85,19 +106,22 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.buttonSell).setOnClickListener(this);
 
-        sort_button = (Button)  findViewById(R.id.sortbutton);
+        sort_button = (Button) findViewById(R.id.sortbutton);
 
-        anr_button = (Button)  findViewById(R.id.inr_button);
+        anr_button = (RelativeLayout) findViewById(R.id.inr_button);
         anr_button.setOnClickListener(this);
 
-        camera_click= (ImageView) findViewById(R.id.camera_choose);
+        camera_click = (ImageView) findViewById(R.id.camera_choose);
         camera_click.setOnClickListener(this);
 
         video_click = (ImageView) findViewById(R.id.video_choose);
         video_click.setOnClickListener(this);
 
-        DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder (context, sort_button);
+       // checkPermissionForCamera();
+       // getPermission();
 
+
+        DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, sort_button);
 
         droppyBuilder.addMenuItem(new DroppyMenuItem("Fashion and Accessories"));
         droppyBuilder.addMenuItem(new DroppyMenuItem("Home and Garden"));
@@ -114,13 +138,9 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         }*/
 
 
-
-
-        droppyBuilder.setOnClick(new DroppyClickCallbackInterface()
-        {
+        droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
             @Override
-            public void call(View v, int id)
-            {
+            public void call(View v, int id) {
                 Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
             }
         });
@@ -136,16 +156,32 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
                 FacebookCallback<Sharer.Result>() {
                     @Override
-                    public void onSuccess(Sharer.Result result) {}
+                    public void onSuccess(Sharer.Result result) {
+                    }
 
                     @Override
-                    public void onCancel() {}
+                    public void onCancel() {
+                    }
 
                     @Override
-                    public void onError(FacebookException error) {}
+                    public void onError(FacebookException error) {
+                    }
                 });
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+      //  client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
+    public boolean checkPermissionForCamera(){
+        int result = ContextCompat.checkSelfPermission(SellActivity.this, Manifest.permission.CAMERA);
+        if (result == PackageManager.PERMISSION_GRANTED){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     private void setupToolBar(String s) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -163,10 +199,8 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch (item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -177,9 +211,11 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupRecyclerView()
-    {
+    private void setupRecyclerView() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
+
+        video_image = (ImageView) findViewById(R.id.videoImage);
+
         setupData();
         adapter = new SellAdapter(context, sellDatas);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -189,15 +225,18 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void setupData()
-    {
+    private void setupData() {
         sellDatas.add(new SellData("path"));
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+
+
+        switch (requestCode)
+        {
             case TAKE_PHOTO_CODE:
                 if (resultCode == RESULT_OK) {
                     Log.i("result picture", "clicked");
@@ -210,7 +249,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
                     sellDatas.add(new SellData(finalFile.getAbsolutePath()));
                     Log.i("result filepath1", finalFile.getAbsolutePath());
-                   // imageViewDP.setImageURI(Uri.parse(finalFile.getAbsolutePath()));
+                    // imageViewDP.setImageURI(Uri.parse(finalFile.getAbsolutePath()));
                     adapter.notifyDataSetChanged();
                 }
                 break;
@@ -227,14 +266,104 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                     String filePath = cursor.getString(columnIndex);
                     cursor.close();
                     sellDatas.add(new SellData(filePath));
-                    Log.i("result filepath1", filePath);
-                  //  imageViewDP.setImageURI(Uri.parse(filePath));
+
+                    //  imageViewDP.setImageURI(Uri.parse(filePath));
                     adapter.notifyDataSetChanged();
                 }
+
+                break;
+
+            case CAMERA_RQ:
+                   System.out.println("Saved Video =================");
+
+                    if (resultCode == RESULT_OK)
+                    {
+                        final File file = new File(data.getData().getPath());
+
+                        Toast.makeText(this, String.format("Saved to: %s, size: %s", file.getAbsolutePath(), fileSize(file)), Toast.LENGTH_LONG).show();
+                        //Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                        Bitmap thumb = ThumbnailUtils.createVideoThumbnail(file.getAbsolutePath(), MediaStore.Video.Thumbnails.MINI_KIND);
+
+                        video_image.setImageBitmap(thumb);
+
+                    }
+                    else if (data != null)
+                    {
+                        Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
+                        if (e != null)
+                        {
+                            e.printStackTrace();
+                            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                break;
+
+            case SELECT_VIDEO_REQUEST:
+
+                if(requestCode == SELECT_VIDEO_REQUEST && resultCode == RESULT_OK)
+                {
+                    if(data.getData()!=null)
+                    {
+
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = { MediaStore.Video.Media.DATA };
+                        Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+
+                       int   columnindex = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+                        cursor.moveToFirst();
+                       String file_path = cursor.getString(columnindex);
+                        Log.d(getClass().getName(), "file_path"+file_path);
+                        Uri   fileUri = Uri.parse("file://" + file_path);
+
+                        Toast.makeText(getApplicationContext(), fileUri.toString() , Toast.LENGTH_LONG).show();
+
+                        cursor.close();
+
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "Failed to select video" , Toast.LENGTH_LONG).show();
+                    }
+                }
+                break;
+
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
+    private String readableFileSize(long size)
+    {
+        if (size <= 0) return size + " B";
+        final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
+        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.##").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+    }
+
+    private String fileSize(File file) {
+        return readableFileSize(file.length());
+    }
+
+
+
+    public String getPath(Uri uri)
+    {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        if (cursor != null)
+        {
+            // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
+            // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+
+        }
+        else
+            return null;
+    }
+
 
     private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException {
         BitmapFactory.Options o = new BitmapFactory.Options();
@@ -263,21 +392,29 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
     private void getPermission() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-            String[] permission = {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+          /*  String[] permission = {
                     "android.permission.CAMERA",
-                    "android.permission.WRITE_EXTERNAL_STORAGE"
+                    "android.permission.WRITE_EXTERNAL_STORAGE",
+                    "android.permission.READ_EXTERNAL_STORAGE"
             };
-
             ActivityCompat.requestPermissions(this,
-                    permission, 1);
+                    permission, 1);*/
 
+            if (!Settings.System.canWrite(this)) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE}, 2909);
+            }
+            else {
+                // continue with your code
+            }
 
         }
     }
 
     public Uri getOutputMediaFileUri(int type) {
+
         return Uri.fromFile(getOutputMediaFile(type));
     }
 
@@ -317,26 +454,23 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         return mediaFile;
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage)
-    {
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
 
-    public String getRealPathFromURI(Uri uri)
-    {
+    public String getRealPathFromURI(Uri uri) {
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
         cursor.moveToFirst();
         int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
         return cursor.getString(idx);
     }
 
-    private void setupDropDown()
-    {
+    private void setupDropDown() {
 
-       DroppyMenuPopup.Builder droppyBuilder2 = new DroppyMenuPopup.Builder(context, anr_button);
+        DroppyMenuPopup.Builder droppyBuilder2 = new DroppyMenuPopup.Builder(context, anr_button);
 
         droppyBuilder2.addMenuItem(new DroppyMenuItem("EUR"));
         droppyBuilder2.addMenuItem(new DroppyMenuItem("USD"));
@@ -347,11 +481,9 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         droppyBuilder2.addMenuItem(new DroppyMenuItem("INR"));
 
 
-        droppyBuilder2.setOnClick(new DroppyClickCallbackInterface()
-        {
+        droppyBuilder2.setOnClick(new DroppyClickCallbackInterface() {
             @Override
-            public void call(View v, int id)
-            {
+            public void call(View v, int id) {
                 Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
             }
         });
@@ -390,17 +522,14 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         sellDatas.clear();
         super.onDestroy();
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
 
             case R.id.buttonSell:
                 showMessage("Clicked");
@@ -408,21 +537,123 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.camera_choose:
 
-                showEditPicPopup();
-            break;
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    // Request permission to save videos in external storage
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_RQ);
+                }
+                else
+                {
+                    try
+                    {
+                        showEditPicPopup();
+                    }catch (Exception ex){
+                        showMessage("Grant permission first");
+                    }
+
+                }
+
+                break;
 
             case R.id.video_choose:
 
-                Intent intent = new Intent();
-                intent.setType("video/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"Select Video"),REQUEST_TAKE_GALLERY_VIDEO);
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    // Request permission to save videos in external storage
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_RQ);
+                }
+                else
+                {
+                    try
+                    {
+                        showEditVideoPopup();
+                    }catch (Exception ex){
+                        showMessage("Grant permission first");
+                    }
+
+                }
+
+               /* Intent video = new Intent(SellActivity.this,VideoActivity.class);
+                startActivity(video);*/
+
+
                 break;
         }
     }
 
-    private void showEditPicPopup()
-    {
+
+    private  void showEditVideoPopup(){
+
+        boolean wrapInScrollView = true;
+        video_dailog = new MaterialDialog.Builder(context)
+                .title(R.string.editpic)
+                .customView(R.layout.videopic_layout, wrapInScrollView)
+                .negativeText(R.string.cancel)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        video_dailog.dismiss();
+                    }
+                })
+                .show();
+        video_dailog.findViewById(R.id.linearLayoutGalary).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               /* Intent intent;
+                if(android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
+                {
+                    intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+                }
+                else
+                {
+                    intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI);
+                }
+                intent.setType("video*//*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.putExtra("return-data", true);
+                startActivityForResult(intent,SELECT_VIDEO_REQUEST);
+*/
+
+                video_dailog.dismiss();
+            }
+        });
+        video_dailog.findViewById(R.id.linearLayoutPicture).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    // code buggy code
+
+                    File saveDir = null;
+
+                    saveDir = new File(Environment.getExternalStorageDirectory(), "MaterialCamera");
+                    saveDir.mkdirs();
+
+
+                    MaterialCamera materialCamera = new MaterialCamera(SellActivity.this)
+                            .saveDir(saveDir)
+                            .showPortraitWarning(true)
+                            .allowRetry(true)
+                            .countdownMinutes(0.25f)
+                            .countdownImmediately(false)
+
+                            .defaultToFrontFacing(true);
+
+                    // .labelConfirm(R.string.mcam_use_video);
+
+                    materialCamera.start(CAMERA_RQ);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+                video_dailog.dismiss();
+
+
+            }
+        });
+
+    }
+    private void showEditPicPopup() {
         boolean wrapInScrollView = true;
         dialog = new MaterialDialog.Builder(context)
                 .title(R.string.editpic)
@@ -438,7 +669,19 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         dialog.findViewById(R.id.linearLayoutGalary).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 pickPictureIntent();
+             /*   if (isReadStorageAllowed()) {
+                    //If permission is already having then showing the toast
+                    Toast.makeText(SellActivity.this, "You already have the permission", Toast.LENGTH_LONG).show();
+                    pickPictureIntent();
+                    //Existing the method with return
+                    return;
+                }
+
+                //If the app has not the permission then asking for the permission
+                requestStoragePermission();
+*/
                 dialog.dismiss();
             }
         });
@@ -453,30 +696,37 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void pickPictureIntent() {
+    private void pickPictureIntent()
+    {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         ((AppCompatActivity) context).startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
     }
 
-    private void takePictureIntent() {
-        UserSessionManager userSessionManager = new UserSessionManager(context);
-        String name = userSessionManager.getName();
-        Intent cameraIntent = new Intent(
-                MediaStore.ACTION_IMAGE_CAPTURE);
-        ((AppCompatActivity) context).startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);
+    private void takePictureIntent()
+    {
+
+        try {
+            UserSessionManager userSessionManager = new UserSessionManager(context);
+            String name = userSessionManager.getName();
+            Intent cameraIntent = new Intent(
+                    MediaStore.ACTION_IMAGE_CAPTURE);
+            ((AppCompatActivity) context).startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
-    private void showMessage(String clicked)
-    {
+    private void showMessage(String clicked) {
         Toast.makeText(SellActivity.this, clicked, Toast.LENGTH_SHORT).show();
     }
 
-    private void shareContent()
-    {
-        if (ShareDialog.canShow(ShareLinkContent.class))
-        {
+    private void shareContent() {
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentTitle("Hello Facebook")
                     .setContentDescription("The 'Hello Facebook' sample  showcases simple Facebook integration")
@@ -489,4 +739,115 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+
+   /* @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Sell Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.netforce.ray.sell/http/host/path")
+        );
+       // AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Sell Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.netforce.ray.sell/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }*/
+
+   /* @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            // Sample was denied WRITE_EXTERNAL_STORAGE permission
+            Toast.makeText(this, "Videos will be saved in a cache directory instead of an external storage directory since permission was denied.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Log.e("Permission", "Denied");
+        }
+    }*/
+
+
+    /*public void requestPermissionForCamera(){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(SellActivity.this, Manifest.permission.CAMERA)){
+            Toast.makeText(SellActivity.this, "Camera permission needed. Please allow in App Settings for additional functionality.", Toast.LENGTH_LONG).show();
+        } else {
+            ActivityCompat.requestPermissions(SellActivity.this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE);
+        }
+    }
+*/
+
+    private boolean isReadStorageAllowed() {
+        //Getting the permission status
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        //If permission is granted returning true
+        if (result == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        //If permission is not granted returning false
+        return false;
+    }
+
+    //Requesting permission
+    private void requestStoragePermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)){
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
+        }
+
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+    }
+
+    //This method will be called when the user will tap on allow or deny
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+
+        //Checking the request code of our request
+        if(requestCode == STORAGE_PERMISSION_CODE){
+
+            //If permission is granted
+            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                //Displaying a toast
+                Toast.makeText(this,"Permission granted now you can read the storage",Toast.LENGTH_LONG).show();
+            }else{
+                //Displaying another toast if permission is not granted
+                Toast.makeText(this,"Oops you just denied the permission",Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
+
 }

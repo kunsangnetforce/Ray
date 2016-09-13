@@ -7,6 +7,25 @@
     android:orientation="vertical"
 >
 
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <FrameLayout
+            android:id="@+id/toolbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/app_bar_transparent" />
+        </FrameLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,28 +43,12 @@
                 >
 
 
-                <android.support.design.widget.AppBarLayout
-                    android:id="@+id/appbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary">
 
-                    <FrameLayout
-                        android:id="@+id/toolbar_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <include
-                            android:id="@+id/toolbar"
-                            layout="@layout/app_bar_transparent" />
-                    </FrameLayout>
-
-                </android.support.design.widget.AppBarLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/appbar"
+
                     android:gravity="center"
                     android:orientation="vertical"
                     android:background="@color/colorPrimary"
@@ -75,11 +78,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:src="@drawable/video_camera"
-
-
                             />
-
-
 
                     </LinearLayout>
 
@@ -93,14 +92,30 @@
 
                     </android.support.v7.widget.RecyclerView>
 
-                    <ImageView
+                    <RelativeLayout
+                        android:layout_width="120dp"
+                        android:layout_height="80dp">
+
+
+                        <ImageView
+                        android:id="@+id/videoImage"
                         android:layout_marginTop="5dp"
                         android:layout_width="120dp"
                         android:layout_height="80dp"
                         android:layout_marginBottom="5dp"
                         android:src="@drawable/motorcycle"
+                        android:scaleType="fitXY"
                         />
 
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/ic_video_play"
+                            />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
             </RelativeLayout>
@@ -110,62 +125,80 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-
                 >
 
-                <LinearLayout
-                    android:padding="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
 
+                    <android.support.v7.widget.CardView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        card_view:cardElevation="4dp"
+                        card_view:cardCornerRadius="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        >
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/what_selling"
                         android:textSize="20sp"
-                        android:background="@drawable/editext_gradiant_back"
+                        android:background="@drawable/background_transparent"
                         android:padding="10dp"
                         />
-                </LinearLayout>
+                    </android.support.v7.widget.CardView>
 
 
-                <LinearLayout
-                    android:padding="10dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="1dp"
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
 
+                    <android.support.v7.widget.CardView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        card_view:cardElevation="4dp"
+                        card_view:cardCornerRadius="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+
+                        >
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top|left"
                         android:hint="@string/describe"
                         android:lines="5"
-                        android:background="@drawable/border_white_bg"
+                        android:background="@drawable/background_transparent"
                         android:padding="10dp"
                         />
-                </LinearLayout>
+                    </android.support.v7.widget.CardView>
 
 
-                <LinearLayout
-                    android:padding="10dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
 
-                    >
+
+
+                    <android.support.v7.widget.CardView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        card_view:cardElevation="4dp"
+                        card_view:cardCornerRadius="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        >
 
                     <Button
                         android:id="@+id/sortbutton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:background="@drawable/editext_gradiant_back"
+                        android:background="@drawable/background_transparent"
                         android:text="Choose Category"
                         android:textAllCaps="false"
                         android:layout_marginLeft="5dp"
@@ -173,46 +206,96 @@
                         android:padding="8dp"
                         android:drawableRight="@drawable/ic_drop_down"
                         />
+                 </android.support.v7.widget.CardView>
 
 
-
-                </LinearLayout>
-
+                <android.support.v7.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    card_view:cardElevation="4dp"
+                    card_view:cardCornerRadius="2dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    >
 
                 <LinearLayout
-                    android:padding="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/layout1"
 
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/choosecategory"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="100">
 
-                    <Button
+
+                    <RelativeLayout
                         android:id="@+id/inr_button"
-                        android:layout_width="0dp"
+
                         android:layout_height="wrap_content"
                         android:layout_weight="40"
                         android:background="@drawable/editext_gradiant_back"
-                        android:text="INR"
-                        android:textAllCaps="false"
-                        android:layout_marginLeft="5dp"
-
-
-                        android:drawableRight="@drawable/ic_drop_down"
-                        />
-
-                    <EditText
+                       android:layout_marginLeft="5dp"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="INR"
+                            android:padding="10dp"
+                            android:layout_alignParentLeft="true"
+                            />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/ic_drop_down"
+                            android:layout_centerVertical="true"
+                            />
+
+
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_weight="60"
-                        android:gravity="left"
-                        android:hint="Price"
-                        android:inputType="numberDecimal"
-                        android:background="@drawable/editext_gradiant_back"
-                        android:padding="12dp"
-                        />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <View
+
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/gray_back"
+                            ></View>
+
+
+
+
+                        <EditText
+                            android:layout_height="match_parent"
+
+                            android:layout_width="match_parent"
+
+                            android:hint="Price"
+                            android:inputType="numberDecimal"
+                            android:background="@color/white"
+                            android:padding="10dp"
+                            android:layout_marginLeft="2dp"
+                            />
+
+
+                    </LinearLayout>
+
                 </LinearLayout>
+                </android.support.v7.widget.CardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -221,7 +304,6 @@
                     android:padding="10dp"
                     android:layout_gravity="center_horizontal"
                     >
-
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -263,7 +345,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sell_it"
-                    android:background="#F14C20"
+                    android:background="#F12484"
                     android:padding="20dp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

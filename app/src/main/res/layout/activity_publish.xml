@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_back"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_back"
+    android:orientation="vertical"
+    >
+
+
+
+    <LinearLayout
+        android:id="@+id/camera_linear"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="#999A9C"
+        android:gravity="center_horizontal"
+        >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/camera_icon"
+            android:layout_gravity="center_vertical"
+
+            />
+
+    </LinearLayout>
+
+
+
+         <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        card_view:cardElevation="4dp"
+        card_view:cardCornerRadius="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        >
+           <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="What are you looking for"
+            android:background="@color/white"
+            android:padding="10dp"
+
+
+
+            />
+           </android.support.v7.widget.CardView>
+
+
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        card_view:cardElevation="4dp"
+        card_view:cardCornerRadius="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Describe it"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:minLines="4"
+
+
+            />
+</android.support.v7.widget.CardView>
+
+
+
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        card_view:cardElevation="4dp"
+        card_view:cardCornerRadius="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+
+        >
+    <RelativeLayout
+        android:id="@+id/choosecategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Choose Category"
+            android:padding="10dp"
+            android:layout_alignParentLeft="true"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_drop_down"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            />
+
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        card_view:cardElevation="4dp"
+        card_view:cardCornerRadius="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+
+        >
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        >
+
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100"
+
+        >
+
+
+        <RelativeLayout
+            android:id="@+id/inr_button"
+            android:layout_weight="40"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="INR"
+                android:padding="10dp"
+                android:layout_alignParentLeft="true"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_drop_down"
+                android:layout_centerVertical="true"
+                />
+
+            </RelativeLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="60"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <View
+
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray_back"
+                ></View>
+
+
+
+
+            <EditText
+                android:layout_height="match_parent"
+
+                android:layout_width="match_parent"
+
+                android:hint="Price"
+                android:inputType="numberDecimal"
+                android:background="@color/white"
+                android:padding="10dp"
+                android:layout_marginLeft="2dp"
+                />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <Button
+        android:id="@+id/buttonSell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Publish It"
+        android:background="#F12484"
+        android:padding="20dp"
+        android:layout_below="@+id/layout1"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        >
+    </Button>
+
+</LinearLayout>
+</ScrollView>

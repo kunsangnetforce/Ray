@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ray</string>
+    <string name="app_name">Seek &amp; Sell</string>
     <string name="special">Special</string>
     <string name="category">Category</string>
     <string name="sell">Sell</string>
@@ -9,7 +9,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="search">Search</string>
+    <string name="search">Search a items...</string>
     <string name="profile">Profile</string>
     <string name="Label_Search">Search</string>
     <string name="title_activity_advance_search">Map</string>
@@ -30,6 +30,10 @@
     <string name="log_out">Log out</string>
     <string name="smsinvite">Visit seek and sell. www.seeksell.com</string>
     <string name="editpic">Change profile picture</string>
+    <string name="edit_video_title">Change Video Picture</string>
+
+    <style name="videopic">Change video picture</style>
+
     <string name="cancel">Cancel</string>
     <string name="editemail">Change Email</string>
     <string name="ok">OK</string>
@@ -66,7 +70,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-
+    <string name="mcam_use_video">USE VIDEO</string>
     <!-- <string name="name_hint">User Name</string>
     <string name="email_hint">Email</string>
     <string name="mobile_number_hint">Mobile Number</string>

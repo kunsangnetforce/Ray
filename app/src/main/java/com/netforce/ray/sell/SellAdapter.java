@@ -75,8 +75,11 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             SellHolderClick viewHolder = new SellHolderClick(view);
             return viewHolder;
         }
-*/
+      */
     }
+
+
+
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
@@ -94,7 +97,7 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 SellHolderImage sellHolderImage = (SellHolderImage) holder;
                 if (position < (itemList.size())) {
                     try {
-                        Log.i("result path", itemList.get(position).path);
+
                         sellHolderImage.imageView.setImageBitmap(decodeUri(Uri.fromFile(new File(itemList.get(position).path))));
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -105,6 +108,7 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private void showMessage(String s) {
+
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
@@ -159,7 +163,7 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     private static File getOutputMediaFile(int type) {
-        Log.i("result called1", "called");
+
         // External sdcard location
         File mediaStorageDir = new File(
                 Environment
@@ -170,17 +174,17 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         try {
             if (!mediaStorageDir.exists()) {
                 if (!mediaStorageDir.mkdirs()) {
-                    Log.i("result failed", "could not create path");
+
                     return null;
                 } else {
-                    Log.i("result pass", mediaStorageDir.getAbsolutePath());
+
                 }
 
             } else {
-                Log.i("result called3", mediaStorageDir.getAbsolutePath());
+
             }
         } catch (Exception ex) {
-            Log.i("result ex", ex.toString());
+
         }
         // Create a media file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
@@ -189,7 +193,7 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (type == MEDIA_TYPE_IMAGE) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
                     + "IMG_" + timeStamp + ".jpg");
-            Log.i("result imagepath", mediaFile.getAbsolutePath());
+
         } else {
         }
 

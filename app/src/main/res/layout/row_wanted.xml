@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.balysv.materialripple.MaterialRippleLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:id="@+id/ripple"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_layout"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/relativelayout1"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@drawable/motorcycle"
+            >
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="33dp"
+                android:text="New"
+                android:layout_alignParentBottom="true"
+                android:background="@color/red"
+                android:textColor="@color/white"
+                style="?android:attr/borderlessButtonStyle"
+                android:textAllCaps="false"
+                />
+
+        </RelativeLayout>
+
+
+         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            >
+
+            <TextView
+                android:id="@+id/mobile_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mobile"
+                android:gravity="center_horizontal"
+                />
+
+            <TextView
+                android:layout_below="@+id/mobile_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="$249.00"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:text="I have 5 years old bed in good conditions brownwooden color"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</com.balysv.materialripple.MaterialRippleLayout>
+
