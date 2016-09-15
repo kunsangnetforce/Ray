@@ -2,6 +2,8 @@ package com.netforce.ray.dashboard.navigation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,14 +34,24 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
     private clickListner click = null;
     private final int NORMAL_DRAWER = 2;
     private Intent intent;
+    int drawableId[];
+
 
     RecyclerAdapterDrawer(Context context, List<RowDataDrawer> data)
     {
         inflater = LayoutInflater.from(context);
         this.data = data;
         this.context = context;
-    }
 
+        drawableId = new int[]{
+                R.drawable.ic_home_red, R.drawable.categories_icon_red, R.drawable.icon_special_red, R.drawable.icon_sell_red, R.drawable.icon_sell_red, R.drawable.ic_invite_frnd_red, R.drawable.ic_help_red, R.drawable.ic_account_red, R.drawable.ic_setting_red
+        };
+
+
+
+
+
+    }
 
 
     @Override
@@ -51,25 +63,34 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
 
     }
 
-    @Override
-    public int getItemViewType(int position) {
 
-
-            return NORMAL_DRAWER;
-
-    }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        switch (holder.getItemViewType()) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position)
+    {
 
-            case NORMAL_DRAWER:
-                MyViewHolder myViewHolder = (MyViewHolder) holder;
-                myViewHolder.textView.setText(data.get(position).text);
-                myViewHolder.imageView.setImageResource(data.get(position).id);
-                break;
+        MyViewHolder myViewHolder = (MyViewHolder) holder;
+
+        if(position == selected_item)
+        {
+
+            myViewHolder.textView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+            myViewHolder.linearLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_menu_back));
+            int cImage = drawableId[position];
+            myViewHolder.imageView.setImageResource(cImage);
 
         }
+        else
+        {
+
+            myViewHolder.textView.setTextColor(ContextCompat.getColor(context, R.color.black));
+            myViewHolder.linearLayout.setBackgroundColor(ContextCompat.getColor(context,R.color.white));
+            myViewHolder.imageView.setImageResource(data.get(position).id);
+        }
+
+
+        myViewHolder.textView.setText(data.get(position).text);
+
     }
 
     private void showMessage(String s) {
@@ -86,12 +107,18 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
         this.click = click;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder
+    {
+
+
         TextView textView;
         ImageView imageView;
         LinearLayout linearLayout;
 
-        public MyViewHolder(final View itemView) {
+
+
+        public MyViewHolder(final View itemView)
+        {
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.textView1);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
@@ -105,6 +132,9 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
                 }
             });
         }
+
+
+
 
     }
 
