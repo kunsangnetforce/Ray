@@ -73,6 +73,7 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -135,6 +136,7 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         drawableId = new int[]{
               R.drawable.ic_home, R.drawable.categories_icon, R.drawable.icon_special, R.drawable.icon_sell, R.drawable.icon_sell, R.drawable.ic_invite_frnd, R.drawable.ic_help, R.drawable.ic_account, R.drawable.ic_setting
         };
+
 
 
 
@@ -253,8 +255,6 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
                    // setupSpecial_Category(1);
                     Intent sell = new Intent(getActivity(), SellActivity.class);
                     startActivity(sell);
-
-
                     break;
                 case 4:
                     Intent i3 = new Intent(getActivity(), WantedActivity.class);
@@ -274,15 +274,19 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
 
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
+    public static void hideSoftKeyboard(Activity activity)
+
+    {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
 
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
             case R.id.textviewFooter:
                 showMessage("Clicked");
                 break;

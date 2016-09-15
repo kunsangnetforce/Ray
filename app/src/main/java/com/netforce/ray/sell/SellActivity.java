@@ -141,7 +141,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
             @Override
             public void call(View v, int id) {
-                Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
             }
         });
         droppyBuilder.build();
@@ -211,11 +211,11 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupRecyclerView() {
+    private void setupRecyclerView()
+    {
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-
         video_image = (ImageView) findViewById(R.id.videoImage);
-
         setupData();
         adapter = new SellAdapter(context, sellDatas);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -225,7 +225,8 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void setupData() {
+    private void setupData()
+    {
         sellDatas.add(new SellData("path"));
 
     }
@@ -238,7 +239,8 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         switch (requestCode)
         {
             case TAKE_PHOTO_CODE:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK)
+                {
                     Log.i("result picture", "clicked");
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
                     // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
@@ -254,12 +256,14 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case PICK_IMAGE:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK)
+                {
                     Uri selectedImage = data.getData();
+
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                    Cursor cursor = getContentResolver().query(
-                            selectedImage, filePathColumn, null, null, null);
+                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+
                     cursor.moveToFirst();
 
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
@@ -365,7 +369,8 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException {
+    private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException
+    {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
         BitmapFactory.decodeStream(
@@ -484,7 +489,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         droppyBuilder2.setOnClick(new DroppyClickCallbackInterface() {
             @Override
             public void call(View v, int id) {
-                Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
             }
         });
         droppyBuilder2.build();
@@ -528,12 +533,13 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         switch (v.getId()) {
 
             case R.id.buttonSell:
-                showMessage("Clicked");
-                shareContent();
+               // showMessage("Clicked");
+               // shareContent();
                 break;
             case R.id.camera_choose:
 
@@ -564,7 +570,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     try
                     {
-                        showEditVideoPopup();
+                        //showEditVideoPopup();
                     }catch (Exception ex){
                         showMessage("Grant permission first");
                     }
@@ -580,7 +586,8 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private  void showEditVideoPopup(){
+    private  void showEditVideoPopup()
+    {
 
         boolean wrapInScrollView = true;
         video_dailog = new MaterialDialog.Builder(context)
@@ -670,7 +677,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
 
-                pickPictureIntent();
+                //pickPictureIntent();
              /*   if (isReadStorageAllowed()) {
                     //If permission is already having then showing the toast
                     Toast.makeText(SellActivity.this, "You already have the permission", Toast.LENGTH_LONG).show();

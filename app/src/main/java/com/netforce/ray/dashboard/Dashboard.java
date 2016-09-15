@@ -43,8 +43,6 @@ public class Dashboard extends AppCompatActivity
     private UserSessionManager userSessionManager;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -64,64 +62,6 @@ public class Dashboard extends AppCompatActivity
         drawer.setup(R.id.fragment, (DrawerLayout) findViewById(R.id.drawer), toolbar);
     }
 
-    private void setupNavigation()
-    {
-        setupHeader();
-        PrimaryDrawerItem home = new PrimaryDrawerItem().withName(R.string.home).withIcon(R.drawable.ic_home);
-        PrimaryDrawerItem special = new PrimaryDrawerItem().withName(R.string.special).withIcon(R.drawable.ic_star);
-        PrimaryDrawerItem category = new PrimaryDrawerItem().withName(R.string.category).withIcon(R.drawable.ic_tag);
-        PrimaryDrawerItem sell = new PrimaryDrawerItem().withName(R.string.sell).withIcon(R.drawable.ic_camera);
-        PrimaryDrawerItem invite = new PrimaryDrawerItem().withName(R.string.invite).withIcon(R.drawable.ic_invite);
-        PrimaryDrawerItem help = new PrimaryDrawerItem().withName(R.string.help).withIcon(R.drawable.ic_help);
-
-
-        //create the drawer and remember the `Drawer` result object
-        final Drawer result = new DrawerBuilder()
-                .withActivity(this)
-                .withStickyFooter(R.layout.footer).withFooterClickable(true)
-                .withAccountHeader(headerResult)
-                .withToolbar(toolbar)
-                .addDrawerItems(
-                        home, special, category, sell, invite, help
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        // do something with the clicked item :D
-
-                        return false;
-                    }
-                })
-
-                .build();
-        result.getStickyFooter().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMessage("clicked");
-                result.closeDrawer();
-            }
-        });
-
-    }
-
-    private void showMessage(String clicked) {
-        Toast.makeText(Dashboard.this, clicked, Toast.LENGTH_SHORT).show();
-    }
-
-    private void setupHeader() {
-        headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withSelectionListEnabledForSingleProfile(false)
-                .withHeaderBackground(R.drawable.header)
-                .addProfiles(
-                        new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_invite))).withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
-                .build();
-    }
 
     @Override
     protected void onResume() {
@@ -191,7 +131,7 @@ public class Dashboard extends AppCompatActivity
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 return true;
             case R.id.profile:
-                userSessionManager = new UserSessionManager(getApplicationContext());
+              /*  userSessionManager = new UserSessionManager(getApplicationContext());
                 if (userSessionManager.getToken().length() < 1)
                 {
                     startActivity(new Intent(this, LoginActivity.class));
@@ -205,7 +145,9 @@ public class Dashboard extends AppCompatActivity
                     overridePendingTransition(R.anim.enter, R.anim.exit);
                     return true;
                 }
+             */
 
+                startActivity(new Intent(this, UserProfile.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -21,6 +21,6 @@
     <color name="colorSecondaryText">#727272</color>
     <color name="colorText">#FFFFFF</color>
     <color name="textviewBackground1">#ef1940</color>
-
+    <color name="selected_menu_back">#e5e5e5</color>
 
 </resources>
