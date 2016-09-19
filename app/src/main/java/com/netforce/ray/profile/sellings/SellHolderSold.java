@@ -3,6 +3,7 @@ package com.netforce.ray.profile.sellings;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.balysv.materialripple.MaterialRippleLayout;
@@ -20,6 +21,7 @@ public class SellHolderSold extends RecyclerView.ViewHolder {
     CircleImageView imageViewProfile;
     View view;
     MaterialRippleLayout materialRippleLayout;
+    RelativeLayout relative_image;
 
     public SellHolderSold(View itemView) {
         super(itemView);
@@ -29,6 +31,9 @@ public class SellHolderSold extends RecyclerView.ViewHolder {
         imageViewProduct = (ImageView) itemView.findViewById(R.id.imageView);
         imageViewProfile = (CircleImageView) itemView.findViewById(R.id.profile_image);
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);*/
+
+        relative_image = (RelativeLayout) itemView.findViewById(R.id.relative_image);
+
         view = itemView;
     }
 }

@@ -71,6 +71,9 @@
         completions."
     </string>
     <string name="mcam_use_video">USE VIDEO</string>
+    <string name="edt">Edit</string>
+    <string name="dlt">Delete</string>
+    <string name="mark">Mark as sold everywhere</string>
     <!-- <string name="name_hint">User Name</string>
     <string name="email_hint">Email</string>
     <string name="mobile_number_hint">Mobile Number</string>
@@ -81,5 +84,14 @@
     <string name="sign_in_button"><u>Sign in</u></string>
 
 -->
+
+    <string name="title">Please select an action:</string>
+
+
+    <string-array name="items">
+        <item>@string/edt</item>
+        <item>@string/dlt</item>
+        <item>@string/mark</item>
+    </string-array>
 
 </resources>

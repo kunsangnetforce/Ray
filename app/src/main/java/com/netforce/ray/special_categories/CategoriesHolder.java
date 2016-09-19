@@ -12,7 +12,8 @@ import com.netforce.ray.R;
 /**
  * Created by John on 8/29/2016.
  */
-public class CategoriesHolder extends RecyclerView.ViewHolder {
+public class CategoriesHolder extends RecyclerView.ViewHolder
+{
 
 
     TextView textViewTitle, textViewCategory, textViewPros;

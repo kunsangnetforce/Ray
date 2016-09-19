@@ -9,25 +9,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.netforce.ray.R;
 
-public class ProductDetailsActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener
+public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener
 {
+
 
     Toolbar toolbar;
     protected View view;
-    MaterialDialog  dailog;
+    MaterialDialog dailog;
     private ViewPager intro_images;
     private LinearLayout pager_indicator;
     private int dotsCount;
     private ImageView[] dots;
     private ViewPagerAdapter mAdapter;
-    Button aks_button,private_button;
+
 
 
     private int[] mImageResources =
@@ -40,10 +40,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
             };
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_details);
+        setContentView(R.layout.activity_private_offer);
 
         setupToolBar();
 
@@ -56,44 +57,19 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
 
         intro_images = (ViewPager) findViewById(R.id.pager_introduction);
 
-        aks_button = (Button) findViewById(R.id.aks_button);
-
-        private_button = (Button) findViewById(R.id.privateofferButton);
 
         pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
 
-        mAdapter = new ViewPagerAdapter(ProductDetailsActivity.this, mImageResources);
+        mAdapter = new ViewPagerAdapter(PrivateOffer.this, mImageResources);
 
 
 
         intro_images.setAdapter(mAdapter);
         intro_images.setCurrentItem(0);
-        intro_images.setOnPageChangeListener(ProductDetailsActivity.this);
+        intro_images.setOnPageChangeListener(PrivateOffer.this);
         setUiPageViewController();
 
 
-
-        aks_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                showPopUp();
-            }
-        });
-
-
-        private_button.setOnClickListener(new View.OnClickListener()
-        {
-
-            @Override
-            public void onClick(View view) {
-
-                Intent i = new Intent(ProductDetailsActivity.this,PrivateOffer.class);
-                startActivity(i);
-            }
-
-
-        });
 
 
     }
@@ -134,21 +110,24 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
 
 
 
-    @Override
+
     public void onClick(View v) {
         switch (v.getId()) {
 
         }
     }
 
-    @Override
+
+
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
     }
 
-    @Override
-    public void onPageSelected(int position) {
-        for (int i = 0; i < dotsCount; i++) {
+
+    public void onPageSelected(int position)
+    {
+        for (int i = 0; i < dotsCount; i++)
+        {
             dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
         }
 
@@ -157,8 +136,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
 
     }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
+
+    public void onPageScrollStateChanged(int state)
+    {
 
     }
 
@@ -166,7 +146,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
     private void showPopUp()
     {
 
-        dailog = new MaterialDialog.Builder(ProductDetailsActivity.this)
+        dailog = new MaterialDialog.Builder(PrivateOffer.this)
                 .title("Kunsang Wangyal")
                 .customView(R.layout.custom_write_comment, true).build();
 
@@ -176,11 +156,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
         //   mExplosionField.explode(icon,null,0,5000);
         //addListener(dailog.findViewById(R.id.root));
 
-        b.setOnClickListener(new View.OnClickListener()
-        {
+        b.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
 
                 dailog.dismiss();
 
@@ -213,5 +191,4 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

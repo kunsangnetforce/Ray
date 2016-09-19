@@ -1,0 +1,17 @@
+package com.netforce.ray.sell.updatesellproduct;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import com.netforce.ray.R;
+
+public class UpdateSellActivity extends AppCompatActivity
+{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_update_sell);
+    }
+}

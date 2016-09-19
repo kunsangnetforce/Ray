@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/customdialog"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minWidth="300dp">
+
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please select as action"
+        android:layout_marginLeft="15dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp"
+        android:padding="10dp"
+        />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_back"
+        android:layout_below="@+id/text1"
+        ></View>
+
+    <ListView
+        android:layout_below="@+id/view1"
+        android:id="@+id/dialoglist"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_back"
+        android:layout_below="@+id/dialoglist"
+        ></View>
+
+    <Button
+        android:layout_below="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/colorPrimary"
+        style="?android:attr/borderlessButtonStyle"
+        />
+
+</RelativeLayout>

@@ -30,7 +30,7 @@
            <RelativeLayout
                android:layout_width="match_parent"
                android:layout_height="280dp"
-               android:background="@color/white"
+
                >
 
                 <android.support.v4.view.ViewPager
@@ -49,14 +49,15 @@
                    android:layout_height="55dp"
                    android:layout_alignParentBottom="true"
                    android:layout_marginTop="5dp"
-                   android:gravity="center">
+                  >
 
                    <LinearLayout
                        android:id="@+id/viewPagerCountDots"
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_centerVertical="true"
                        android:layout_centerHorizontal="true"
-                       android:gravity="center"
+                       android:layout_alignParentBottom="true"
                        android:orientation="horizontal" />
 
 
@@ -92,8 +93,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/white"
+            android:background="@color/gray_back"
             >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+
+                >
 
             <RelativeLayout
                 android:background="@color/white"
@@ -104,8 +113,8 @@
 
                 <ImageView
                     android:id="@+id/image1"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/ryan"
                     android:layout_margin="10dp"
                     />
@@ -116,8 +125,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:layout_toRightOf="@+id/image1"
+                    android:layout_centerVertical="true"
                     >
 
                     <TextView
@@ -128,6 +138,7 @@
                         android:layout_alignParentLeft="true"
                         android:textStyle="bold"
                         android:textSize="14sp"
+                        android:layout_centerVertical="true"
                         />
 
 
@@ -137,59 +148,24 @@
                         android:layout_alignParentRight="true"
 
                         >
-
-
-
-                        <ImageView
-
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/heart_icon"
-
-                            />
-
-
-                    </RelativeLayout>
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/relativelayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/white"
-                   android:layout_below="@+id/relativelayout1"
-                    android:layout_toRightOf="@+id/image1"
-                    >
-
-                    <TextView
-                        android:id="@+id/sellername2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="999828654"
-                        android:layout_alignParentLeft="true"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
-                        />
-
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-
-                        >
-
 
 
                         <TextView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:id="@+id/like_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="2"
-                            android:textColor="@color/colorPrimary"
+                            android:layout_centerVertical="true"
+                            />
+
+                        <ImageView
+                            android:id="@+id/like_image"
+                            android:layout_toRightOf="@+id/like_txt"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/heart_icon"
                             android:layout_marginLeft="5dp"
+                            android:layout_centerVertical="true"
                             />
 
 
@@ -197,6 +173,7 @@
 
 
                 </RelativeLayout>
+
 
 
 
@@ -256,13 +233,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-                    android:textSize="16dp"
                     android:text="Newly purchase and rarely used.... awesome conditions just like new one.."
                     />
 
 
             </RelativeLayout>
+
+                </LinearLayout>
 
 
             <ImageView
@@ -273,14 +250,12 @@
                 ></ImageView>
 
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
-
+                android:background="@color/gray_back"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
 
@@ -340,13 +315,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/gray_back"
                 >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:text="Shared With Your Friends"
                     android:layout_marginTop="15dp"
                     android:textStyle="bold"
@@ -360,15 +336,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-
+                android:background="@color/gray_back"
                 android:layout_margin="10dp"
                 >
 
 
                 <ImageView
                     android:id="@+id/offer_icon"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/ryan"
                     android:scaleType="fitXY"
                     android:layout_alignParentLeft="true"
@@ -379,7 +355,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2 offers"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:textStyle="bold"
                     android:layout_toRightOf="@+id/offer_icon"
                     android:layout_centerVertical="true"
@@ -396,14 +372,15 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_marginLeft="10dp"
+
             android:layout_marginRight="10dp"  >
 
 
             <ImageView
                 android:id="@+id/loginUser"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/david"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ryan"
                 android:layout_marginLeft="10dp"
                 android:layout_alignParentLeft="true"
                 />
@@ -415,7 +392,7 @@
                 android:text="You offered $49"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
-                android:textSize="14sp"
+
                 />
 
         </RelativeLayout>
@@ -444,9 +421,9 @@
 
                 <ImageView
                     android:id="@+id/loginUser2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/david"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ryan"
                     android:layout_marginLeft="10dp"
                     android:layout_alignParentLeft="true"
                     />
@@ -458,19 +435,11 @@
                     android:text="You offered $49"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
-                    android:textSize="14sp"
+
                     />
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimary"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="10dp"
-
-                ></View>
 
 
             <RelativeLayout
@@ -496,7 +465,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Questions"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:textStyle="bold"
                     android:layout_toRightOf="@+id/question_icon"
                     android:layout_centerVertical="true"
@@ -513,36 +482,77 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:paddingBottom="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"             >
+                android:layout_marginRight="10dp"
+
+                >
 
 
                 <ImageView
                     android:id="@+id/QuestionUser1"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/david"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ryan"
                     android:layout_marginLeft="10dp"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     />
 
                 <TextView
                     android:layout_toRightOf="@+id/QuestionUser1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="You offered $49"
+                    android:text="I can buy it $ 30 "
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="14sp"
+                    android:layout_marginLeft="10dp"
+
                     />
 
                 <ImageView
+                    android:id="@+id/dots_image"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_red_vertical_dot"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    />
+
+                <TextView
+                    android:id="@+id/time_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_dots_vertical_black"
+                    android:text="2:40 pm"
+                    android:textSize="10sp"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/black"
+                    android:layout_below="@+id/dots_image"
                     />
+
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:background="@color/gray_back"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="10dp"
+
+
+                    ></View>
 
 
             </RelativeLayout>
@@ -553,58 +563,80 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:paddingBottom="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"             >
+                android:layout_marginRight="10dp"
+
+                >
 
 
                 <ImageView
                     android:id="@+id/QuestionUser2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/david"
                     android:layout_marginLeft="10dp"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+
                     />
 
                 <TextView
                     android:layout_toRightOf="@+id/QuestionUser2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="You offered $49"
+                    android:text="Sure"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="14sp"
+                    android:layout_marginLeft="10dp"
                     />
 
 
-                <ImageView
 
+                <ImageView
+                    android:id="@+id/dots_image2"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_red_vertical_dot"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_dots_vertical_black"
+                    android:text="2:40 pm"
+                    android:textSize="10sp"
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="5dp"
+                    android:textColor="@color/black"
+                    android:layout_below="@+id/dots_image2"
                     />
 
             </RelativeLayout>
 
+
+
+
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_black_background"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"             >
-
+                android:background="@drawable/ask_question_layout"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                >
 
                 <ImageView
                     android:id="@+id/user_comment"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/david"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ryan"
+                    android:scaleType="fitXY"
                     android:layout_marginLeft="10dp"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     />
 
                 <EditText
@@ -614,11 +646,39 @@
                     android:hint="Your question"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
-                    android:textSize="14sp"
+
+
                     />
 
 
 
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                >
+
+
+                <ImageView
+                    android:id="@+id/send"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_send"
+                    android:layout_centerHorizontal="true"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Send"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/send"
+                    />
 
             </RelativeLayout>
 
@@ -640,7 +700,7 @@
                     android:text="This items was last updated on 07.05.2016"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="5dp"
-                    android:textSize="12sp"
+
                     />
 
 
@@ -651,7 +711,7 @@
                     android:text="Report this item"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="5dp"
-                    android:textSize="12sp"
+
                     android:layout_marginTop="10dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -683,27 +743,31 @@
         >
 
         <Button
+            android:id="@+id/aks_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="50"
-            android:text="Ask QUESTION"
+            android:text="Ask Question"
             android:layout_marginRight="1.5dp"
             android:background="#CC3266"
             android:textColor="@color/white"
             style="?android:attr/borderlessButtonStyle"
             android:textStyle="bold"
+            android:textAllCaps="false"
             />
 
         <Button
+            android:id="@+id/privateofferButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="50"
-            android:text="PRIVATE OFFER"
+            android:text="Private Offer"
             android:layout_marginLeft="1.5dp"
             android:background="#F14C84"
             android:textColor="@color/white"
             style="?android:attr/borderlessButtonStyle"
             android:textStyle="bold"
+            android:textAllCaps="false"
             />
 
 

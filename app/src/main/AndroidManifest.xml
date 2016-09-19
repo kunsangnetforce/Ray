@@ -120,6 +120,9 @@
         <activity android:name=".dashboard.navigation.Special.SpecialActivity" />
         <activity android:name=".dashboard.navigation.wanted.WantedActivity" />
         <activity android:name=".sell.VideoActivity" />
+        <activity android:name=".sell.sellproductdetail.Sell_ProductDeatailAcrtivity" />
+        <activity android:name=".home.PrivateOffer" />
+        <activity android:name=".sell.updatesellproduct.UpdateSellActivity"></activity>
     </application>
 
 </manifest>

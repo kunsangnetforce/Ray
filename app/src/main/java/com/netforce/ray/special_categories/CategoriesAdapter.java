@@ -1,6 +1,7 @@
 package com.netforce.ray.special_categories;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,11 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     {
 
         View view = inflater.inflate(R.layout.row_categories, parent, false);
+
+        for(int i=0;i<itemList.size();i++)
+        {
+            booleanGames.add(false);
+        }
          viewHolder = new CategoriesHolder(view);
 
         return viewHolder;
@@ -46,10 +52,40 @@ public class CategoriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
+    public void onBindViewHolder( RecyclerView.ViewHolder holder, final int position)
     {
 
-        viewHolder.textViewTitle.setText(itemList.get(position).title);
+        final CategoriesHolder categoriesHolder= (CategoriesHolder) holder;
+        categoriesHolder.textViewTitle.setText(itemList.get(position).title);
+
+
+        categoriesHolder.categories_item.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+
+               System.out.println("position=============" + position);
+
+                if (booleanGames.get(position))
+                {
+                    categoriesHolder.categories_item.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_circle_outline, 0, 0, 0);
+                    categoriesHolder.categories_item.setTextColor(ContextCompat.getColor(context, R.color.black));
+                    booleanGames.set(position, !booleanGames.get(position));
+
+                }
+                else
+                {
+                    categoriesHolder.categories_item.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_circle_filled, 0, 0, 0);
+                    categoriesHolder.categories_item.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                    booleanGames.set(position, !booleanGames.get(position));
+
+                }
+
+
+            }
+        });
+
 
     }
 
