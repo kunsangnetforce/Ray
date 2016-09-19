@@ -43,6 +43,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.netforce.ray.R;
 import com.netforce.ray.general.UserSessionManager;
+import com.netforce.ray.sell.sellproductdetail.Sell_ProductDeatailAcrtivity;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuItem;
 import com.shehabic.droppy.DroppyMenuPopup;
@@ -86,13 +87,18 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
+
+
     private final static int CAMERA_RQ = 6969;
     private final static int PERMISSION_RQ = 84;
     ImageView video_image;
     private final static int SELECT_VIDEO_REQUEST=100;
     public static final int CAMERA_PERMISSION_REQUEST_CODE = 3;
-
     private int STORAGE_PERMISSION_CODE = 23;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -138,9 +144,11 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         }*/
 
 
-        droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
+        droppyBuilder.setOnClick(new DroppyClickCallbackInterface()
+        {
             @Override
-            public void call(View v, int id) {
+            public void call(View v, int id)
+            {
                 //Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
             }
         });
@@ -173,7 +181,8 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
       //  client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public boolean checkPermissionForCamera(){
+    public boolean checkPermissionForCamera()
+    {
         int result = ContextCompat.checkSelfPermission(SellActivity.this, Manifest.permission.CAMERA);
         if (result == PackageManager.PERMISSION_GRANTED){
             return true;
@@ -183,7 +192,9 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    private void setupToolBar(String s) {
+    private void setupToolBar(String s)
+    {
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -373,8 +384,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(
-                getContentResolver().openInputStream(selectedImage), null, o);
+        BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImage), null, o);
 
         final int REQUIRED_SIZE = 100;
 
@@ -540,6 +550,10 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.buttonSell:
                // showMessage("Clicked");
                // shareContent();
+
+                Intent i = new Intent(SellActivity.this, Sell_ProductDeatailAcrtivity.class);
+                startActivity(i);
+
                 break;
             case R.id.camera_choose:
 
@@ -552,9 +566,12 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                     try
                     {
                         showEditPicPopup();
-                    }catch (Exception ex){
+                    }
+                    catch (Exception ex)
+                    {
                         showMessage("Grant permission first");
                     }
+
 
                 }
 

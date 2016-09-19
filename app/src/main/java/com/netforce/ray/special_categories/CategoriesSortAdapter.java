@@ -1,6 +1,7 @@
 package com.netforce.ray.special_categories;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,8 +18,7 @@ import java.util.List;
 public class CategoriesSortAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
-    private static final int SIMPLE_TYPE = 0;
-    private static final int IMAGE_TYPE = 1;
+
     private final LayoutInflater inflater;
     private List<Categories_Data> itemList;
     private Context context;
@@ -39,6 +39,10 @@ public class CategoriesSortAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     {
 
         View view = inflater.inflate(R.layout.row_categories, parent, false);
+        for(int i=0;i<itemList.size();i++)
+        {
+            booleanGames.add(false);
+        }
         viewHolder = new CategoriesHolder(view);
 
         return viewHolder;
@@ -49,23 +53,35 @@ public class CategoriesSortAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
     {
 
-        viewHolder.textViewTitle.setText(itemList.get(position).title);
+        final CategoriesHolder categoriesHolder= (CategoriesHolder) holder;
 
-        viewHolder.categories_item.setOnClickListener(new View.OnClickListener() {
+        categoriesHolder.textViewTitle.setText(itemList.get(position).title);
+
+        categoriesHolder.categories_item.setOnClickListener(new View.OnClickListener()
+        {
 
             @Override
             public void onClick(View view)
             {
-                viewHolder.categories_item.setFocusableInTouchMode(false);
-                viewHolder.categories_item.setFocusable(false);
-            }
-        });
 
-        viewHolder.categories_layout.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view) {
+                Toast.makeText(context,"Hi ",Toast.LENGTH_SHORT).show();
 
+                    if(booleanGames.get(position))
+                    {
+
+                        categoriesHolder.categories_item.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_circle_outline, 0, 0, 0);
+                        categoriesHolder.categories_item.setTextColor(ContextCompat.getColor(context, R.color.black));
+                        booleanGames.set(position,!booleanGames.get(position));
+
+                    }
+                    else
+                    {
+                        categoriesHolder.categories_item.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_circle_filled, 0, 0, 0);
+                        categoriesHolder.categories_item.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
+                        booleanGames.set(position, !booleanGames.get(position));
+
+                    }
+            notifyDataSetChanged();
 
 
             }

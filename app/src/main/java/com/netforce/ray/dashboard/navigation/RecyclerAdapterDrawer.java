@@ -47,10 +47,6 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
                 R.drawable.ic_home_red, R.drawable.categories_icon_red, R.drawable.icon_special_red, R.drawable.icon_sell_red, R.drawable.icon_sell_red, R.drawable.ic_invite_frnd_red, R.drawable.ic_help_red, R.drawable.ic_account_red, R.drawable.ic_setting_red
         };
 
-
-
-
-
     }
 
 
@@ -110,11 +106,9 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
     class MyViewHolder extends RecyclerView.ViewHolder
     {
 
-
         TextView textView;
         ImageView imageView;
         LinearLayout linearLayout;
-
 
 
         public MyViewHolder(final View itemView)
@@ -133,12 +127,10 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
             });
         }
 
-
-
-
     }
 
-    public interface clickListner {
+    public interface clickListner
+    {
         void itemClicked(View view, int position);
     }
 

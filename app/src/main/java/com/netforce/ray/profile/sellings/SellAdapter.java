@@ -2,6 +2,7 @@ package com.netforce.ray.profile.sellings;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforce.ray.R;
+import com.netforce.ray.home.ProductDetailsActivity;
 import com.netforce.ray.profile.sellings.offer_list.OfferAdapter;
+import com.netforce.ray.sell.sellproductdetail.Sell_ProductDeatailAcrtivity;
 
 import java.util.List;
 
@@ -65,7 +68,11 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
+    {
+
+        SellHolderSold viewHolder = (SellHolderSold) holder;;
+
       /*  switch (holder.getItemViewType())
         {
             case AVAILABLE:
@@ -80,6 +87,16 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 break;
         }*/
+
+        viewHolder.relative_image.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent i = new Intent(context,Sell_ProductDeatailAcrtivity.class);
+                context.startActivity(i);
+            }
+        });
     }
 
     private void showMessage(String s) {

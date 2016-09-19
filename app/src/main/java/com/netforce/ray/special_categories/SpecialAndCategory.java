@@ -4,6 +4,7 @@ package com.netforce.ray.special_categories;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,16 +43,17 @@ public class SpecialAndCategory extends AppCompatActivity
     ArrayList<Categories_Data> highestDatas_sort = new ArrayList<Categories_Data>();
     TextView date_txt;
     Context context;
+    Button all_button;
 
 
     protected void onCreate(Bundle savedInstanceState)
     {
 
-       super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_special_and_category);
         setupToolBar();
         setupRecyclerView();
-        setupRecyclerView_sort();
+       setupRecyclerView_sort();
 
     }
 
@@ -68,6 +70,8 @@ public class SpecialAndCategory extends AppCompatActivity
 
     private void setupRecyclerView()
     {
+        all_button = (Button) findViewById(R.id.allcategoryButton);
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
         layoutManager = new GridLayoutManager(getApplicationContext(), 2);
@@ -79,10 +83,28 @@ public class SpecialAndCategory extends AppCompatActivity
 
         adapter.notifyDataSetChanged();
 
+        all_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (view.isSelected()) {
+                    view.setSelected(false);
+                    all_button.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_outline, 0);
+                    all_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
+
+                } else {
+                    view.setSelected(true);
+                    all_button.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_filled, 0);
+
+                    all_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                }
+            }
+        });
+
     }
 
     private void setupRecyclerView_sort()
     {
+
 
         recyclerView_sort = (RecyclerView) findViewById(R.id.recycler_sortby);
         layoutManager_sort = new GridLayoutManager(getApplicationContext(), 2);
@@ -90,7 +112,7 @@ public class SpecialAndCategory extends AppCompatActivity
         sortAdapter = new CategoriesSortAdapter(getApplicationContext(), highestDatas_sort);
         recyclerView_sort.setAdapter(sortAdapter);
         recyclerView_sort.setNestedScrollingEnabled(false);
-        setupFinsihedDatas_sort();
+       setupFinsihedDatas_sort();
 
         sortAdapter.notifyDataSetChanged();
     }
@@ -112,6 +134,10 @@ public class SpecialAndCategory extends AppCompatActivity
 
 
     }
+
+
+
+
 
 
     private void setupFinsihedDatas()
