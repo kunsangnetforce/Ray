@@ -11,6 +11,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -43,6 +44,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.netforce.ray.R;
 import com.netforce.ray.general.UserSessionManager;
+import com.netforce.ray.home.PlayVideoActivity;
 import com.netforce.ray.sell.sellproductdetail.Sell_ProductDeatailAcrtivity;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuItem;
@@ -83,6 +85,8 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     RelativeLayout anr_button;
     private MaterialDialog dialog,video_dailog;
     ImageView camera_click, video_click;
+
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -96,9 +100,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     public static final int CAMERA_PERMISSION_REQUEST_CODE = 3;
     private int STORAGE_PERMISSION_CODE = 23;
 
-
-
-
+    public static  String selectedImagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -124,8 +126,8 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         video_click.setOnClickListener(this);
 
        // checkPermissionForCamera();
-       // getPermission();
 
+      //   getPermission();
 
         DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(context, sort_button);
 
@@ -210,8 +212,10 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -222,11 +226,15 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+
     private void setupRecyclerView()
     {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         video_image = (ImageView) findViewById(R.id.videoImage);
+
+        video_image.setOnClickListener(this);
+
         setupData();
         adapter = new SellAdapter(context, sellDatas);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -271,16 +279,53 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                 {
                     Uri selectedImage = data.getData();
 
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                    {
 
-                    Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                        String wholeID = DocumentsContract.getDocumentId(selectedImage);
 
-                    cursor.moveToFirst();
+                        // Split at colon, use second item in the array
+                        String id = wholeID.split(":")[1];
 
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String filePath = cursor.getString(columnIndex);
-                    cursor.close();
-                    sellDatas.add(new SellData(filePath));
+                        String[] column = {MediaStore.Images.Media.DATA};
+
+                        // where id is equal to
+                        String sel = MediaStore.Images.Media._ID + "=?";
+
+                        Cursor cursor = getContentResolver().
+                                query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                        column, sel, new String[]{id}, null);
+
+                        int columnIndex = cursor.getColumnIndex(column[0]);
+
+                        if (cursor.moveToFirst()) {
+                          String  filePath = cursor.getString(columnIndex);
+
+                            System.out.println("filepath============="+ filePath);
+
+                            sellDatas.add(new SellData(filePath));
+                        }
+                        cursor.close();
+
+                    }
+
+                    else
+                    {
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                        Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+
+                        cursor.moveToFirst();
+
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        String filePath = cursor.getString(columnIndex);
+
+                        System.out.println("imagepath============="+ filePath);
+
+                        cursor.close();
+                        sellDatas.add(new SellData(filePath));
+                    }
+
 
                     //  imageViewDP.setImageURI(Uri.parse(filePath));
                     adapter.notifyDataSetChanged();
@@ -324,9 +369,9 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                         String[] filePathColumn = { MediaStore.Video.Media.DATA };
                         Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 
-                       int   columnindex = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+                        int   columnindex = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
                         cursor.moveToFirst();
-                       String file_path = cursor.getString(columnindex);
+                        String file_path = cursor.getString(columnindex);
                         Log.d(getClass().getName(), "file_path"+file_path);
                         Uri   fileUri = Uri.parse("file://" + file_path);
 
@@ -341,6 +386,66 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
                 break;
+            case REQUEST_TAKE_GALLERY_VIDEO:
+
+                if (resultCode == RESULT_OK)
+                {
+                    if (requestCode == REQUEST_TAKE_GALLERY_VIDEO)
+                    {
+
+                        Uri selectedImage = data.getData();
+
+                       if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                        {
+
+                            String wholeID = DocumentsContract.getDocumentId(selectedImage);
+
+                            String id = wholeID.split(":")[1];
+
+                            String[] column = { MediaStore.Video.Media.DATA };
+                            String sel = MediaStore.Video.Media._ID + "=?";
+
+                            Cursor cursor = context.getContentResolver().
+                                    query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                                            column, sel, new String[]{ id }, null);
+
+                            int columnIndex = cursor.getColumnIndex(column[0]);
+
+                            if (cursor.moveToFirst())
+                            {
+                              String  filePath = cursor.getString(columnIndex);
+
+                                System.out.println("filePath==============="+ filePath);
+
+                                Bitmap thumb = ThumbnailUtils.createVideoThumbnail(filePath, MediaStore.Video.Thumbnails.MINI_KIND);
+
+                                video_image.setImageBitmap(thumb);
+                            }
+
+                            cursor.close();
+                        }
+                        else
+                       {
+
+                           System.out.println("selectedImage----------------" + selectedImage);
+
+                           String filemanagerstring = selectedImage.getPath();
+
+                           // MEDIA GALLERY
+                           selectedImagePath = getPath(selectedImage);
+
+                           System.out.println("selectedImagePath----------------" + selectedImagePath);
+
+                           Bitmap thumb = ThumbnailUtils.createVideoThumbnail(selectedImagePath, MediaStore.Video.Thumbnails.MINI_KIND);
+
+                           video_image.setImageBitmap(thumb);
+                       }
+
+
+                    }
+                }
+              break;
+
 
         }
 
@@ -364,13 +469,13 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
     public String getPath(Uri uri)
     {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        String[] projection = { MediaStore.Video.Media.DATA };
+        Cursor cursor =  getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null)
         {
             // HERE YOU WILL GET A NULLPOINTER IF CURSOR IS NULL
             // THIS CAN BE, IF YOU USED OI FILE MANAGER FOR PICKING THE MEDIA
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
             cursor.moveToFirst();
             return cursor.getString(column_index);
 
@@ -409,13 +514,13 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
-          /*  String[] permission = {
+            String[] permission = {
                     "android.permission.CAMERA",
                     "android.permission.WRITE_EXTERNAL_STORAGE",
                     "android.permission.READ_EXTERNAL_STORAGE"
             };
             ActivityCompat.requestPermissions(this,
-                    permission, 1);*/
+                    permission, 1);
 
             if (!Settings.System.canWrite(this)) {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -550,16 +655,14 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.buttonSell:
                // showMessage("Clicked");
                // shareContent();
-
                 Intent i = new Intent(SellActivity.this, Sell_ProductDeatailAcrtivity.class);
                 startActivity(i);
-
                 break;
             case R.id.camera_choose:
 
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     // Request permission to save videos in external storage
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_RQ);
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, PERMISSION_RQ);
                 }
                 else
                 {
@@ -571,33 +674,31 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                     {
                         showMessage("Grant permission first");
                     }
-
-
                 }
-
                 break;
 
             case R.id.video_choose:
 
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    // Request permission to save videos in external storage
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_RQ);
+                showEditVideoPopup();
+
+                break;
+            case  R.id.videoImage:
+                if(selectedImagePath!=null)
+                {
+                    File file = new File(selectedImagePath);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(file), "video/*");
+                    startActivity(intent);
+
+                  /*  Intent play = new Intent(SellActivity.this, PlayVideoActivity.class);
+                    play.putExtra("video_url", selectedImagePath);
+                    startActivity(play);*/
                 }
                 else
                 {
-                    try
-                    {
-                        //showEditVideoPopup();
-                    }catch (Exception ex){
-                        showMessage("Grant permission first");
-                    }
+                    showMessage("Please Select Video first");
 
                 }
-
-               /* Intent video = new Intent(SellActivity.this,VideoActivity.class);
-                startActivity(video);*/
-
-
                 break;
         }
     }
@@ -620,24 +721,28 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                 .show();
         video_dailog.findViewById(R.id.linearLayoutGalary).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
-               /* Intent intent;
-                if(android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
-                {
-                    intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+                if (ContextCompat.checkSelfPermission(SellActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    // Request permission to save videos in external storage
+                    ActivityCompat.requestPermissions(SellActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_RQ);
                 }
                 else
                 {
-                    intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.INTERNAL_CONTENT_URI);
+                    try
+                    {
+                        Intent intent = new Intent();
+                        intent.setType("video/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent,"Select Video"),REQUEST_TAKE_GALLERY_VIDEO);
+                    }catch (Exception ex){
+                        showMessage("Grant permission first");
+                    }
+                    video_dailog.dismiss();
                 }
-                intent.setType("video*//*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.putExtra("return-data", true);
-                startActivityForResult(intent,SELECT_VIDEO_REQUEST);
-*/
 
-                video_dailog.dismiss();
+
             }
         });
         video_dailog.findViewById(R.id.linearLayoutPicture).setOnClickListener(new View.OnClickListener() {
@@ -690,23 +795,28 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 })
                 .show();
-        dialog.findViewById(R.id.linearLayoutGalary).setOnClickListener(new View.OnClickListener() {
+        dialog.findViewById(R.id.linearLayoutGalary).setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-
-                //pickPictureIntent();
-             /*   if (isReadStorageAllowed()) {
-                    //If permission is already having then showing the toast
-                    Toast.makeText(SellActivity.this, "You already have the permission", Toast.LENGTH_LONG).show();
-                    pickPictureIntent();
-                    //Existing the method with return
-                    return;
+            public void onClick(View v)
+            {
+                if (ContextCompat.checkSelfPermission(SellActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    // Request permission to save videos in external storage
+                    ActivityCompat.requestPermissions(SellActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_RQ);
+                }
+                else
+                {
+                    try
+                    {
+                        pickPictureIntent();
+                    }catch (Exception ex){
+                        showMessage("Grant permission first");
+                    }
+                    dialog.dismiss();
                 }
 
-                //If the app has not the permission then asking for the permission
-                requestStoragePermission();
-*/
-                dialog.dismiss();
+
+
             }
         });
         dialog.findViewById(R.id.linearLayoutPicture).setOnClickListener(new View.OnClickListener() {
@@ -745,12 +855,17 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void showMessage(String clicked) {
+    private void showMessage(String clicked)
+    {
         Toast.makeText(SellActivity.this, clicked, Toast.LENGTH_SHORT).show();
     }
 
-    private void shareContent() {
-        if (ShareDialog.canShow(ShareLinkContent.class)) {
+
+
+    private void shareContent()
+    {
+        if (ShareDialog.canShow(ShareLinkContent.class))
+        {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentTitle("Hello Facebook")
                     .setContentDescription("The 'Hello Facebook' sample  showcases simple Facebook integration")

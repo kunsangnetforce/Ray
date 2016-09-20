@@ -74,19 +74,17 @@
                             android:id="@+id/editImage"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:background="@drawable/heart_icon"
+                            android:background="@drawable/ic_edit_small"
                             />
 
                             <ImageButton
                                 android:id="@+id/likeImage"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
                                 android:background="@drawable/heart_icon"
                                 android:layout_toRightOf="@+id/editImage"
                                 android:layout_marginLeft="5dp"
-
                                 />
-
 
                         </RelativeLayout>
 
@@ -453,8 +451,9 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/ic_send"
+                        android:src="@drawable/ic_edit_small"
                         android:layout_marginTop="10dp"
+
                         />
 
                     <TextView
