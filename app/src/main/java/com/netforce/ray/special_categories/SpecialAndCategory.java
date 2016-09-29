@@ -17,11 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.netforce.ray.R;
 
 import java.util.ArrayList;
+
+import app.minimize.com.seek_bar_compat.SeekBarCompat;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,20 +32,16 @@ import java.util.ArrayList;
 public class SpecialAndCategory extends AppCompatActivity
 {
 
-
-    ScrollView scrollView;
-    int type = 0;
-    Categories_Data searchdata;
     RecyclerView recyclerView,recyclerView_sort;
     GridLayoutManager layoutManager,layoutManager_sort;
     CategoriesAdapter adapter;
     CategoriesSortAdapter sortAdapter;
-    Button sort_button;
+
     ArrayList<Categories_Data> highestDatas = new ArrayList<Categories_Data>();
     Toolbar toolbar;
     ArrayList<Categories_Data> highestDatas_sort = new ArrayList<Categories_Data>();
-    TextView date_txt;
-    Context context;
+    TextView viewRangetxt,viewRangetxt2;
+
     Button all_button;
 
 
@@ -52,8 +51,78 @@ public class SpecialAndCategory extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_special_and_category);
         setupToolBar();
+        setupLayout();
         setupRecyclerView();
+
        setupRecyclerView_sort();
+
+    }
+
+    private void setupLayout() {
+
+        SeekBarCompat radiusSeekbar = (SeekBarCompat) findViewById(R.id.distanceSeekbar);
+
+        SeekBarCompat materialSeekBar2 = (SeekBarCompat) findViewById(R.id.materialSeekBar2);
+
+        viewRangetxt = (TextView) findViewById(R.id.textviewrange);
+
+        viewRangetxt2 = (TextView) findViewById(R.id.textviewrange2);
+
+        radiusSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b)
+            {
+
+                if(i == 100)
+                {
+
+                    viewRangetxt.setText("Everywhere");
+
+                }
+                else
+                {
+                    viewRangetxt.setText(String.valueOf(i));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+        materialSeekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+                if(i == 100)
+                {
+                    viewRangetxt2.setText("forever");
+
+                }
+                else
+                {
+                    viewRangetxt2.setText(String.valueOf(i));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
 
     }
 
@@ -86,12 +155,15 @@ public class SpecialAndCategory extends AppCompatActivity
         all_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view.isSelected()) {
+                if (view.isSelected())
+                {
                     view.setSelected(false);
                     all_button.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_outline, 0);
                     all_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
 
-                } else {
+                }
+                else
+                {
                     view.setSelected(true);
                     all_button.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_filled, 0);
 
@@ -112,7 +184,7 @@ public class SpecialAndCategory extends AppCompatActivity
         sortAdapter = new CategoriesSortAdapter(getApplicationContext(), highestDatas_sort);
         recyclerView_sort.setAdapter(sortAdapter);
         recyclerView_sort.setNestedScrollingEnabled(false);
-       setupFinsihedDatas_sort();
+         setupFinsihedDatas_sort();
 
         sortAdapter.notifyDataSetChanged();
     }
@@ -127,17 +199,14 @@ public class SpecialAndCategory extends AppCompatActivity
         {
 
         }
-        highestDatas_sort.add(new Categories_Data("Everything", "imageurl"));
-        highestDatas_sort.add(new Categories_Data("New in your area", "imageurl"));
-        highestDatas_sort.add(new Categories_Data("Electronics", "imageurl"));
+        highestDatas_sort.add(new Categories_Data("Distance", "imageurl"));
+        highestDatas_sort.add(new Categories_Data("Date", "imageurl"));
+        highestDatas_sort.add(new Categories_Data("Low to High Price", "imageurl"));
+        highestDatas_sort.add(new Categories_Data("High to Low Price", "imageurl"));
 
 
 
     }
-
-
-
-
 
 
     private void setupFinsihedDatas()
@@ -172,8 +241,10 @@ public class SpecialAndCategory extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case R.id.more:
                 return true;
             case android.R.id.home:

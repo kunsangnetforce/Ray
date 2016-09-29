@@ -64,14 +64,17 @@ public class Dashboard extends AppCompatActivity
 
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         hideKeyboard();
     }
 
-    private void hideKeyboard() {
+    private void hideKeyboard()
+    {
         View view = this.getCurrentFocus();
-        if (view != null) {
+        if (view != null)
+        {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
@@ -95,10 +98,12 @@ public class Dashboard extends AppCompatActivity
         transaction.commit();
     }
 
-    private void setupHomeFragment() {
+    private void setupHomeFragment()
+    {
         String teams = "Home";
         getSupportActionBar().setTitle(teams);
-        if (homeFragment == null) {
+        if (homeFragment == null)
+        {
             homeFragment = new HomeFragment();
         }
         String tagName = homeFragment.getClass().getName();
@@ -106,7 +111,8 @@ public class Dashboard extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.home, menu);
         this.menu = menu;
         return true;
@@ -118,8 +124,6 @@ public class Dashboard extends AppCompatActivity
         // Handle item selection
         switch (item.getItemId())
         {
-
-
 
           /*  case R.id.search:
                 startActivity(new Intent(this, SearchActivity.class));

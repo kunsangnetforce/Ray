@@ -238,7 +238,6 @@
                     android:layout_marginBottom="10dp"
                     android:weightSum="100"
                     android:orientation="horizontal"
-
                     >
 
                     <TextView
@@ -251,7 +250,7 @@
                         android:textSize="14dp"
                         />
                     <app.minimize.com.seek_bar_compat.SeekBarCompat
-                        android:id="@+id/materialSeekBar"
+                        android:id="@+id/distanceSeekbar"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

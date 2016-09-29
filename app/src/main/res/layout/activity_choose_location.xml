@@ -25,6 +25,8 @@
 
         </FrameLayout>
     </android.support.design.widget.AppBarLayout>
+
+
     <com.seatgeek.placesautocomplete.PlacesAutocompleteTextView
         android:id="@+id/places_autocomplete"
         android:layout_width="match_parent"

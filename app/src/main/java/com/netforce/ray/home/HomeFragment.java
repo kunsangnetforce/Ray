@@ -16,11 +16,17 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
 import com.netforce.ray.search.SearchActivity;
 import com.netforce.ray.sell.SellActivity;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -31,7 +37,8 @@ import it.carlom.stikkyheader.core.animator.HeaderStikkyAnimator;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener
+{
 
     Context context;
     private RecyclerView recyclerView;
@@ -43,8 +50,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ScrollView scrollview;
     StikkyHeaderBuilder stikkyHeader;
     RelativeLayout relativlayoutSearch;
-
-
 
 
     public HomeFragment() {
@@ -61,11 +66,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         setupRecyclerView(view);
 
 
-
         return view;
     }
 
-    private void setupRecyclerView(View view) {
+    private void setupRecyclerView(View view)
+    {
 
         scrollview= (ScrollView) view.findViewById(R.id.scrollView);
 
@@ -74,6 +79,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
         floatingActionButtonSell.setOnClickListener(this);
+
+        load();
+
         adapter = new HomeAdapter(context, homeDatas);
         setupData();
 
@@ -108,7 +116,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void setupData() {
+
+    void load(){
+
+        Ion.with(this)
+                .load("http://odishatv.in/otv-app/write/home.php?counter=10")
+
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result)
+                    {
+
+                        if (result != null)
+                        {
+                            System.out.println("resul =============" + result);
+
+                            for(int i=0; i<result.size(); i++)
+                            {
+
+                           
+                            }
+
+                        } else {
+                            Log.e("error", e.toString());
+                        }
+                    }
+                });
+    }
+    private void setupData()
+    {
+
         try {
             homeDatas.clear();
         } catch (Exception ex) {
@@ -153,7 +192,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private class ParallaxStikkyAnimator extends HeaderStikkyAnimator {
+     class ParallaxStikkyAnimator extends HeaderStikkyAnimator {
         @Override
         public AnimatorBuilder getAnimatorBuilder() {
             View mHeader_image = getHeader().findViewById(R.id.relativeLayout);

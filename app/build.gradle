@@ -73,4 +73,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.github.carlonzo.stikkyheader:core:0.0.3-SNAPSHOT'
     compile 'cn.lightsky.infiniteindicator:library:1.1.0'
+    compile 'com.koushikdutta.ion:ion:2.+'
 }
