@@ -27,6 +27,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -83,7 +84,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         load();
 
         adapter = new HomeAdapter(context, homeDatas);
-        setupData();
+
 
         relativlayoutSearch.setOnClickListener(this);
 
@@ -120,55 +121,43 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     void load(){
 
         Ion.with(this)
-                .load("http://odishatv.in/otv-app/write/home.php?counter=10")
+                .load("http://www.androidbegin.com/tutorial/jsonparsetutorial.txt")
 
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>()
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
                 {
                     @Override
-                    public void onCompleted(Exception e, JsonArray result)
+                    public void onCompleted(Exception e, JsonObject result)
                     {
 
-                        if (result != null)
-                        {
-                            System.out.println("resul =============" + result);
+                        JsonArray jsonArray = (JsonArray) result.get("worldpopulation");
 
-                            for(int i=0; i<result.size(); i++)
+                        System.out.println("json Array======="+ jsonArray.toString());
+
+                       if (result != null)
+                        {
+
+
+                            for(int i=0; i<jsonArray.size(); i++)
                             {
 
-                           
+
+                                JsonObject jsonObject = (JsonObject) jsonArray.get(i);
+                                String image_url = jsonObject.get("flag").toString();
+                                String name = jsonObject.get("population").toString();
+
+                                homeDatas.add(new HomeData(image_url, name, "price"));
+
+                                System.out.println("imageurl ======================"+ image_url+ name);
+
                             }
 
-                        } else {
+                        }
+                        else {
                             Log.e("error", e.toString());
                         }
                     }
                 });
-    }
-    private void setupData()
-    {
-
-        try {
-            homeDatas.clear();
-        } catch (Exception ex) {
-
-        }
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-
-
     }
 
     @Override
@@ -192,9 +181,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     }
 
 
-     class ParallaxStikkyAnimator extends HeaderStikkyAnimator {
+     class ParallaxStikkyAnimator extends HeaderStikkyAnimator
+     {
         @Override
-        public AnimatorBuilder getAnimatorBuilder() {
+        public AnimatorBuilder getAnimatorBuilder()
+        {
             View mHeader_image = getHeader().findViewById(R.id.relativeLayout);
             return AnimatorBuilder.create().applyVerticalParallax(mHeader_image);
         }

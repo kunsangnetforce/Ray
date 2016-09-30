@@ -38,9 +38,10 @@ dependencies {
     }
 
 
-    compile('com.github.florent37:androidparallax:1.0.1@aar') {
-        transitive = true
-    }
+    compile('com.github.florent37:androidparallax:1.0.1@aar')
+            {
+                transitive = true
+            }
 
 
     compile 'com.github.vajro:MaterialDesignLibrary:1.6'
@@ -52,7 +53,7 @@ dependencies {
     compile 'com.balysv:material-ripple:1.0.2'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
-    compile 'com.google.android.gms:play-services:9.4.0'
+    compile 'com.google.android.gms:play-services:9.6.0'
     compile 'io.nlopez.smartlocation:library:3.2.2'
     compile 'com.seatgeek:placesautocomplete:0.2-SNAPSHOT'
     compile 'de.hdodenhof:circleimageview:2.0.0'
@@ -67,7 +68,7 @@ dependencies {
     compile 'com.minimize.library:seekbar-compat:0.2.5'
     compile 'com.shehabic.droppy:Droppy:0.5.1@aar'
     compile 'com.afollestad:material-camera:0.3.2'
-    compile 'com.google.android.gms:play-services-ads:9.4.0'
+    compile 'com.google.android.gms:play-services-ads:9.6.0'
     compile 'com.google.android.gms:play-services-identity:9.4.0'
     compile 'com.google.android.gms:play-services-gcm:9.4.0'
     compile 'com.android.support:multidex:1.0.0'

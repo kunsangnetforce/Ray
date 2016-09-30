@@ -42,6 +42,9 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
 import com.netforce.ray.general.UserSessionManager;
 import com.netforce.ray.home.PlayVideoActivity;
@@ -54,11 +57,20 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 public class SellActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -655,8 +667,14 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.buttonSell:
                // showMessage("Clicked");
                // shareContent();
-                Intent i = new Intent(SellActivity.this, Sell_ProductDeatailAcrtivity.class);
-                startActivity(i);
+
+                Trust trust = new Trust();
+                trust.setupSelfSSLCert();
+
+
+                upload_image();
+               /* Intent i = new Intent(SellActivity.this, Sell_ProductDeatailAcrtivity.class);
+                startActivity(i);*/
                 break;
             case R.id.camera_choose:
 
@@ -703,6 +721,32 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void upload_image() {
+
+        Ion.with(getApplicationContext())
+                .load("https://netforcesales.com/ibet_admin/api/services.php?opt=update_profile&customer_id=137")
+                .setMultipartFile("Image", "image/*", new File("/storage/emulated/0/DCIM/Camera/IMG_20160911_133357464_HDR.jpg"))
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        String status = result.get("status").toString().substring(1,result.get("status").toString().length()-1);
+
+                        System.out.println("result============"+ result.toString()+ "image uploaded" + status.toString());
+                        if(status == "Success")
+                        {
+
+
+                            Toast.makeText(getApplicationContext(),status,Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+    }
+
 
     private  void showEditVideoPopup()
     {
@@ -747,7 +791,8 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         });
         video_dailog.findViewById(R.id.linearLayoutPicture).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
                 try {
                     // code buggy code
@@ -987,6 +1032,51 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public  class Trust implements X509TrustManager {
 
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkClientTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void checkServerTrusted(final X509Certificate[] chain, final String authType)
+                throws CertificateException {
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+
+
+        public void setupSelfSSLCert()
+        {
+            final Trust trust = new Trust();
+            final TrustManager[] trustmanagers = new TrustManager[]{trust};
+            SSLContext sslContext;
+            try {
+                sslContext = SSLContext.getInstance("TLS");
+                sslContext.init(null, trustmanagers, new SecureRandom());
+                Ion.getInstance(getApplicationContext(), "rest").getHttpClient().getSSLSocketMiddleware().setTrustManagers(trustmanagers);
+                Ion.getInstance(getApplicationContext(), "rest").getHttpClient().getSSLSocketMiddleware().setSSLContext(sslContext);
+            } catch (final NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (final KeyManagementException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

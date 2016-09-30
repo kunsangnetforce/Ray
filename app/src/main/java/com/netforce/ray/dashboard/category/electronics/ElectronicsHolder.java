@@ -14,19 +14,22 @@ import com.netforce.ray.R;
  */
 public class ElectronicsHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewTitle;
-        ImageView imageViewIcon;
-        RelativeLayout relativelayout1;
-        View view;
-        MaterialRippleLayout materialRippleLayout;
+    View view;
+    TextView product_name, product_price;
+    ImageView product_image;
+    MaterialRippleLayout materialRippleLayout;
 
-       public ElectronicsHolder(View itemView) {
+    public ElectronicsHolder(View itemView) {
         super(itemView);
-        //implementing onClickListener
-
-        relativelayout1 = (RelativeLayout) itemView.findViewById(R.id.relativelayout1);
 
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
+
+        product_name = (TextView) itemView.findViewById(R.id.product_name_txt);
+
+        product_price = (TextView) itemView.findViewById(R.id.product_price);
+
+        product_image = (ImageView) itemView.findViewById(R.id.product_image);
+
         view = itemView;
-        }
-        }
+    }
+}
