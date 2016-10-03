@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.netforce.ray.R;
 import com.netforce.ray.dashboard.Dashboard;
+import com.netforce.ray.home.home2.HeaderFragment;
 
 public class Login extends AppCompatActivity  implements View.OnClickListener {
 
@@ -47,7 +48,7 @@ public class Login extends AppCompatActivity  implements View.OnClickListener {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Login.this, Dashboard.class);
+                Intent i = new Intent(Login.this, HeaderFragment.class);
                 startActivity(i);
             }
         });

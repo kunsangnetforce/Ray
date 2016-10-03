@@ -129,6 +129,9 @@
         <activity android:name=".sell.updatesellproduct.UpdateSellActivity" />
         <activity android:name=".home.PlayVideoActivity" >
         </activity>
+
+        <activity android:name=".home.home2.HeaderFragment"></activity>
+
     </application>
 
 </manifest>

@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -36,7 +38,8 @@ import it.carlom.stikkyheader.core.animator.AnimatorBuilder;
 import it.carlom.stikkyheader.core.animator.HeaderStikkyAnimator;
 
 
-public class ElectronicsFragment extends Fragment implements View.OnClickListener {
+public class ElectronicsFragment extends Fragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener
+{
 
     Context context;
     private RecyclerView recyclerView;
@@ -45,7 +48,7 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
     StaggeredGridLayoutManager layoutManager;
     SwipyRefreshLayout mSwipyRefreshLayout;
     FloatingActionButton floatingActionButtonSell;
-    SwipyRefreshLayout swipyrefreshlayout;
+    SwipeRefreshLayout swiperefreshlayout;
     StikkyHeaderBuilder stikkyHeader;
     LinearLayout linearLayoutSearch;
 
@@ -61,13 +64,18 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
     {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_electronics, container, false);
+
         context = getActivity();
+        swiperefreshlayout = (SwipeRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+
 
         setupLayout(view);
+
         setupData();
 
-        System.out.println("This is call==========");
+        swiperefreshlayout.setRefreshing(true);
 
+        System.out.println("This is call==========");
 
 
         return view;
@@ -80,29 +88,20 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
 
-        swipyrefreshlayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
 
         floatingActionButtonSell.setOnClickListener(this);
 
         linearLayoutSearch.setOnClickListener(this);
 
-        swipyrefreshlayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener()
-        {
-            @Override
-            public void onRefresh(SwipyRefreshLayoutDirection direction) {
-
-                setupData();
-            }
-        });
-
+        swiperefreshlayout.setOnRefreshListener(this);
 
     }
 
     private void setupData()
     {
 
-        load();
 
+        load();
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -112,6 +111,7 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
         recyclerView.setAdapter(adapter);
 
         recyclerView.setNestedScrollingEnabled(false);
+
 
 
     }
@@ -142,7 +142,7 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
                 getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
 
-            case R.id.relativeLayoutSearch:
+            case R.id.linearLayoutSearch:
                 Intent search = new Intent(context, SearchActivity.class);
                 startActivity(search);
                 getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
@@ -152,53 +152,91 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
     }
 
 
-    void load(){
+    void load()
+    {
+
+        electronicsDatas.clear();
+        //swipyrefreshlayout.setRefreshing(true);
 
         Ion.with(this)
-                .load("http://www.androidbegin.com/tutorial/jsonparsetutorial.txt")
+                .load("http://odishatv.in/otv-app/write/nation.php?counter=10")
 
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
-
-                        JsonArray jsonArray = (JsonArray) result.get("worldpopulation");
-
-                        System.out.println("json Array======="+ jsonArray.toString());
+                    public void onCompleted(Exception e, JsonArray result) {
 
                         if (result != null)
                         {
 
-
-                            for(int i=0; i<jsonArray.size(); i++)
+                            for (int i = 0; i < result.size(); i++)
                             {
+                                JsonObject jsonObject = (JsonObject) result.get(i);
 
 
-                                JsonObject jsonObject = (JsonObject) jsonArray.get(i);
-                                String image_url = jsonObject.get("flag").toString();
-                                String name = jsonObject.get("population").toString();
+                                String name = jsonObject.get("post_title").toString();
 
-                                electronicsDatas.add(new ElectronicsData(image_url, name, "price"));
+                                electronicsDatas.add(new ElectronicsData("url", name, "price"));
 
-                                System.out.println("imageurl ======================"+ image_url+ name);
+                                System.out.println("imageurl ======================"  + name);
 
                             }
+                            adapter.notifyDataSetChanged();
+                            swiperefreshlayout.setRefreshing(false);
 
-                            swipyrefreshlayout.setRefreshing(false);
-
-
-                        }
-                        else {
+                        } else {
                             Log.e("error", e.toString());
                         }
                     }
                 });
+
+
+      /*  Ion.with(this)
+                .load("http://www.androidbegin.com/tutorial/jsonparsetutorial.txt")
+
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+
+                        JsonArray jsonArray = (JsonArray) result.get("worldpopulation");
+
+                        System.out.println("json Array=======" + jsonArray.toString());
+
+                        if (result != null)
+                        {
+
+                            for (int i = 0; i < jsonArray.size(); i++)
+                            {
+                                JsonObject jsonObject = (JsonObject) jsonArray.get(i);
+
+                                String image_url = jsonObject.get("flag").toString();
+
+                                String name = jsonObject.get("population").toString();
+
+                                electronicsDatas.add(new ElectronicsData(image_url, name, "price"));
+
+                                System.out.println("imageurl ======================" + image_url + name);
+
+                            }
+                            adapter.notifyDataSetChanged();
+                            swiperefreshlayout.setRefreshing(false);
+
+                        } else {
+                            Log.e("error", e.toString());
+                        }
+                    }
+                });*/
     }
 
 
+    public void onRefresh()
+    {
 
+        System.out.println("hdgadndjd==========dnb");
+        load();
+
+    }
 
 
 }

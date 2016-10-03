@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -25,9 +28,6 @@ import com.netforce.ray.search.SearchActivity;
 import com.netforce.ray.sell.SellActivity;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -46,14 +46,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     private HomeAdapter adapter;
     private ArrayList<HomeData> homeDatas = new ArrayList<>();
     private StaggeredGridLayoutManager layoutManager;
-    private SwipyRefreshLayout mSwipyRefreshLayout;
+    SwipyRefreshLayout mSwipyRefreshLayout;
     FloatingActionButton floatingActionButtonSell;
-    ScrollView scrollview;
+
     StikkyHeaderBuilder stikkyHeader;
     RelativeLayout relativlayoutSearch;
 
 
-    public HomeFragment() {
+    public HomeFragment()
+    {
         // Required empty public constructor
     }
 
@@ -73,13 +74,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     private void setupRecyclerView(View view)
     {
 
-        scrollview= (ScrollView) view.findViewById(R.id.scrollView);
 
         relativlayoutSearch = (RelativeLayout)view.findViewById(R.id.relativeLayoutSearch);
 
+
+        mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+
+        mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+
+                mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.TOP);
+
+            }
+        });
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
-        floatingActionButtonSell.setOnClickListener(this);
 
         load();
 
@@ -88,15 +98,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
         relativlayoutSearch.setOnClickListener(this);
 
-      /*  mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
 
-        mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                refreshItem();
-            }
-        });
-     */
 
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -152,6 +154,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
                             }
 
+
+                            adapter.notifyDataSetChanged();
                         }
                         else {
                             Log.e("error", e.toString());
@@ -165,11 +169,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     {
         switch (v.getId())
         {
-            case R.id.fabSell:
-                Intent intent = new Intent(context, SellActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
-                break;
 
             case R.id.relativeLayoutSearch:
                 Intent search = new Intent(context, SearchActivity.class);
@@ -195,10 +194,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        stikkyHeader = StikkyHeaderBuilder.stickTo(scrollview);
+        stikkyHeader = StikkyHeaderBuilder.stickTo(recyclerView);
         stikkyHeader.setHeader(R.id.header, (ViewGroup) getView())
                 .minHeightHeaderDim(R.dimen.min_height_header)
                 .animator(new ParallaxStikkyAnimator())
                 .build();
     }
+
+
+
+
 }
