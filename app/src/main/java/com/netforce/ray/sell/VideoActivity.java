@@ -2,6 +2,8 @@ package com.netforce.ray.sell;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -18,16 +20,20 @@ import android.widget.TextView;
 
 import com.netforce.ray.R;
 
-public class VideoActivity extends AppCompatActivity {
+public class VideoActivity extends AppCompatActivity
+{
 
-    private Cursor videoCursor;
-    private int videoColumnIndex;
+     Cursor videoCursor;
+    int videoColumnIndex;
     ListView videolist;
     int count;
     String thumbPath;
 
     String[] thumbColumns = { MediaStore.Video.Thumbnails.DATA,MediaStore.Video.Thumbnails.VIDEO_ID };
     /** Called when the activity is first created. */
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -43,7 +49,8 @@ public class VideoActivity extends AppCompatActivity {
         String[] videoProjection = { MediaStore.Video.Media._ID,MediaStore.Video.Media.DATA,
                 MediaStore.Video.Media.DISPLAY_NAME,MediaStore.Video.Media.SIZE };
 
-        videoCursor = managedQuery(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,videoProjection, null, null, null);
+        videoCursor =  getContentResolver().query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, videoProjection, null, null, null);
+
         count = videoCursor.getCount();
         videolist = (ListView) findViewById(R.id.PhoneVideoList);
 
@@ -81,6 +88,7 @@ public class VideoActivity extends AppCompatActivity {
 
         public Object getItem(int position)
         {
+
             return position;
         }
 
@@ -95,30 +103,36 @@ public class VideoActivity extends AppCompatActivity {
             listItemRow = LayoutInflater.from(vContext).inflate(R.layout.row_video_list, parent, false);
 
             TextView txtTitle = (TextView)listItemRow.findViewById(R.id.txtTitle);
+
             TextView txtSize = (TextView)listItemRow.findViewById(R.id.txtSize);
+
             ImageView thumbImage = (ImageView)listItemRow.findViewById(R.id.imgIcon);
 
             videoColumnIndex = videoCursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME);
+
             videoCursor.moveToPosition(position);
+
             txtTitle.setText(videoCursor.getString(videoColumnIndex));
 
             videoColumnIndex = videoCursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE);
+
             videoCursor.moveToPosition(position);
+
             txtSize.setText(" Size(KB):" + videoCursor.getString(videoColumnIndex));
 
-            int videoId = videoCursor.getInt(videoCursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID));
-            Cursor videoThumbnailCursor = managedQuery(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI,
-                    thumbColumns, MediaStore.Video.Thumbnails.VIDEO_ID+ "=" + videoId, null, null);
+            thumbPath = videoCursor.getString(videoCursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));
+            Log.i("ThumbPath: ",thumbPath);
 
-            if (videoThumbnailCursor.moveToFirst())
-            {
-                thumbPath = videoThumbnailCursor.getString(videoThumbnailCursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));
-                Log.i("ThumbPath: ",thumbPath);
+            Bitmap thumb = ThumbnailUtils.createVideoThumbnail(thumbPath, MediaStore.Video.Thumbnails.MINI_KIND);
+            System.out.println("ThumbPath----------------"+ thumbPath);
 
-            }
-            thumbImage.setImageURI(Uri.parse(thumbPath));
+            videoCursor.moveToPosition(position);
+
+            thumbImage.setImageBitmap(thumb);
 
             return listItemRow;
+
+
 
         }
 

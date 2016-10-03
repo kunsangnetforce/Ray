@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +21,8 @@ import java.util.List;
  */
 
 
-public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
 
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
@@ -48,13 +50,32 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
         HomeHolder homeHolder = (HomeHolder) holder;
+
+        //System.out.println("image===============" + itemList.get(position).image);
+
+        String n = itemList.get(position).image.toString().substring(1,itemList.get(position).image.toString().length()-1);
+
+        System.out.println("n============="+ n);
+
+        Ion.with(homeHolder.product_image)
+                .load(n);
+
+       ((HomeHolder) holder).product_name.setText(itemList.get(position).title);
+
+        homeHolder.product_price.setText(itemList.get(position).title);
+
+
+
         homeHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener()
         {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
                 Intent i = new Intent(context,ProductDetailsActivity.class);
                 context.startActivity(i);
+
+
             }
         });
 

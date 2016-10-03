@@ -6,16 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
 import com.netforce.ray.search.SearchActivity;
 import com.netforce.ray.sell.SellActivity;
@@ -31,23 +38,23 @@ import it.carlom.stikkyheader.core.animator.HeaderStikkyAnimator;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener
+{
 
     Context context;
     private RecyclerView recyclerView;
     private HomeAdapter adapter;
     private ArrayList<HomeData> homeDatas = new ArrayList<>();
     private StaggeredGridLayoutManager layoutManager;
-    private SwipyRefreshLayout mSwipyRefreshLayout;
+    SwipyRefreshLayout mSwipyRefreshLayout;
     FloatingActionButton floatingActionButtonSell;
-    ScrollView scrollview;
+
     StikkyHeaderBuilder stikkyHeader;
     RelativeLayout relativlayoutSearch;
 
 
-
-
-    public HomeFragment() {
+    public HomeFragment()
+    {
         // Required empty public constructor
     }
 
@@ -61,33 +68,37 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         setupRecyclerView(view);
 
 
-
         return view;
     }
 
-    private void setupRecyclerView(View view) {
+    private void setupRecyclerView(View view)
+    {
 
-        scrollview= (ScrollView) view.findViewById(R.id.scrollView);
 
         relativlayoutSearch = (RelativeLayout)view.findViewById(R.id.relativeLayoutSearch);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
-        floatingActionButtonSell.setOnClickListener(this);
-        adapter = new HomeAdapter(context, homeDatas);
-        setupData();
 
-        relativlayoutSearch.setOnClickListener(this);
-
-      /*  mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+        mSwipyRefreshLayout = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
 
         mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
-                refreshItem();
+
+                mSwipyRefreshLayout.setDirection(SwipyRefreshLayoutDirection.TOP);
+
             }
         });
-     */
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+
+        load();
+
+        adapter = new HomeAdapter(context, homeDatas);
+
+
+        relativlayoutSearch.setOnClickListener(this);
+
+
 
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -108,28 +119,49 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void setupData() {
-        try {
-            homeDatas.clear();
-        } catch (Exception ex) {
 
-        }
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
-        homeDatas.add(new HomeData("imageurl", "title", "price"));
+    void load(){
+
+        Ion.with(this)
+                .load("http://www.androidbegin.com/tutorial/jsonparsetutorial.txt")
+
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>()
+                {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
+
+                        JsonArray jsonArray = (JsonArray) result.get("worldpopulation");
+
+                        System.out.println("json Array======="+ jsonArray.toString());
+
+                       if (result != null)
+                        {
 
 
+                            for(int i=0; i<jsonArray.size(); i++)
+                            {
+
+
+                                JsonObject jsonObject = (JsonObject) jsonArray.get(i);
+                                String image_url = jsonObject.get("flag").toString();
+                                String name = jsonObject.get("population").toString();
+
+                                homeDatas.add(new HomeData(image_url, name, "price"));
+
+                                System.out.println("imageurl ======================"+ image_url+ name);
+
+                            }
+
+
+                            adapter.notifyDataSetChanged();
+                        }
+                        else {
+                            Log.e("error", e.toString());
+                        }
+                    }
+                });
     }
 
     @Override
@@ -137,11 +169,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     {
         switch (v.getId())
         {
-            case R.id.fabSell:
-                Intent intent = new Intent(context, SellActivity.class);
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
-                break;
 
             case R.id.relativeLayoutSearch:
                 Intent search = new Intent(context, SearchActivity.class);
@@ -153,9 +180,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    private class ParallaxStikkyAnimator extends HeaderStikkyAnimator {
+     class ParallaxStikkyAnimator extends HeaderStikkyAnimator
+     {
         @Override
-        public AnimatorBuilder getAnimatorBuilder() {
+        public AnimatorBuilder getAnimatorBuilder()
+        {
             View mHeader_image = getHeader().findViewById(R.id.relativeLayout);
             return AnimatorBuilder.create().applyVerticalParallax(mHeader_image);
         }
@@ -165,10 +194,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        stikkyHeader = StikkyHeaderBuilder.stickTo(scrollview);
+        stikkyHeader = StikkyHeaderBuilder.stickTo(recyclerView);
         stikkyHeader.setHeader(R.id.header, (ViewGroup) getView())
                 .minHeightHeaderDim(R.dimen.min_height_header)
                 .animator(new ParallaxStikkyAnimator())
                 .build();
     }
+
+
+
+
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
 import com.netforce.ray.home.HomeData;
 import com.netforce.ray.home.HomeHolder;
@@ -40,12 +41,33 @@ public class ElectronicsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         View view = inflater.inflate(R.layout.row_home, parent, false);
          viewHolder = new ElectronicsHolder(view);
+
+
+
+
+
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position)
     {
+
+        ElectronicsHolder homeHolder = (ElectronicsHolder) holder;
+
+        //System.out.println("image===============" + itemList.get(position).image);
+
+        String n = itemList.get(position).image.toString().substring(1,itemList.get(position).image.toString().length()-1);
+
+        System.out.println("n============="+ n);
+
+        Ion.with(homeHolder.product_image).load(n);
+
+        ((ElectronicsHolder) holder).product_name.setText(itemList.get(position).title);
+
+        homeHolder.product_price.setText(itemList.get(position).title);
+
+
 
         viewHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener()
         {

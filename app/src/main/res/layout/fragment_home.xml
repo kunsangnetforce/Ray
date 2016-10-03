@@ -1,3 +1,15 @@
+<com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipyrefreshlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:srl_direction="top"
+
+    >
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
@@ -5,44 +17,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_back"
+
     >
 
 
     <!-- TODO: Update blank fragment layout -->
 
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                >
+                android:layout_margin="10dp">
 
             </android.support.v7.widget.RecyclerView>
 
 
-        </LinearLayout>
 
-
-        </ScrollView>
+    </LinearLayout>
 
 
     <FrameLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="312dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -84,7 +90,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
-                   android:background="@color/red"
+                    android:background="@color/red"
                     android:text="New"
                     android:textColor="@color/colorText" />
             </RelativeLayout>
@@ -97,51 +103,50 @@
                 android:orientation="vertical">
 
 
-                <android.support.v7.widget.CardView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
+                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    card_view:cardElevation="4dp"
-                    card_view:cardCornerRadius="2dp"
                     android:layout_margin="10dp"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardElevation="4dp"
 
                     >
 
 
                     <RelativeLayout
-                    android:id="@+id/relativeLayoutSearch"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:orientation="horizontal"
+                        android:id="@+id/relativeLayoutSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:orientation="horizontal"
 
                         >
 
-                    <ImageView
-                        android:id="@+id/text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="16dp"
-                        android:src="@drawable/ic_search" />
+                        <ImageView
+                            android:id="@+id/text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/ic_search" />
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="16dp"
-                        android:layout_toRightOf="@+id/text"
-                        android:text="@string/search"
-                        android:textColor="@color/colorPrimaryText" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_toRightOf="@+id/text"
+                            android:text="@string/search"
+                            android:textColor="@color/colorPrimaryText" />
 
-                </RelativeLayout>
+                    </RelativeLayout>
                 </android.support.v7.widget.CardView>
 
             </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
 
+    </FrameLayout>
 
 
     <com.github.clans.fab.FloatingActionButton
@@ -157,6 +162,6 @@
         fab:fab_colorRipple="@color/grey" />
 
 
-
 </FrameLayout>
 
+</com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>

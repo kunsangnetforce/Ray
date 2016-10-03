@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,13 +36,14 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
     private Toolbar toolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_location);
         context = this;
+
         setupToolBar();
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
     }
@@ -108,6 +108,7 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
 
     }
 
+
     private void clearMarker() {
         try {
             mMap.clear();
@@ -140,8 +141,10 @@ public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallb
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case R.id.done:
                 AdvanceSearch.searchLatLng = currentLatLng;
                 finish();

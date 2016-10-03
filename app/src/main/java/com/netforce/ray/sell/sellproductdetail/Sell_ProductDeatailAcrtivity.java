@@ -109,12 +109,14 @@ public class Sell_ProductDeatailAcrtivity extends AppCompatActivity implements V
 
 
 
-    private void setUiPageViewController() {
+    private void setUiPageViewController()
+    {
 
         dotsCount = mAdapter.getCount();
         dots = new ImageView[dotsCount];
 
-        for (int i = 0; i < dotsCount; i++) {
+        for (int i = 0; i < dotsCount; i++)
+        {
             dots[i] = new ImageView(this);
             dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
 
@@ -237,6 +239,15 @@ public class Sell_ProductDeatailAcrtivity extends AppCompatActivity implements V
                 dialog.setCancelable(true);
                 dialog.setCanceledOnTouchOutside(true);
 
+                Button cancel = (Button) dialog.findViewById(R.id.cancelButton);
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dismissDialog(CUSTOM_DIALOG_ID);
+                    }
+                });
+
                 dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
                 {
 
@@ -250,6 +261,8 @@ public class Sell_ProductDeatailAcrtivity extends AppCompatActivity implements V
                                 Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }});
+
+
 
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener()
                 {

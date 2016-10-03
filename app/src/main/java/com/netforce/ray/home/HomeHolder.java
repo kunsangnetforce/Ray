@@ -13,21 +13,26 @@ import com.netforce.ray.R;
 /**
  * Created by Gowtham Chandrasekar on 31-07-2015.
  */
-public class HomeHolder extends RecyclerView.ViewHolder {
+public class HomeHolder extends RecyclerView.ViewHolder
+{
 
-    TextView textViewTitle;
-    ImageView  imageViewIcon;
-    RelativeLayout relativelayout1;
     View view;
+    TextView product_name,product_price;
+    ImageView product_image;
     MaterialRippleLayout materialRippleLayout;
 
-    public HomeHolder(View itemView) {
+    public HomeHolder(View itemView)
+    {
         super(itemView);
-        //implementing onClickListener
-
-        relativelayout1 = (RelativeLayout) itemView.findViewById(R.id.relativelayout1);
 
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);
+
+        product_name = (TextView) itemView.findViewById(R.id.product_name_txt);
+
+        product_price = (TextView) itemView.findViewById(R.id.product_price);
+
+        product_image = (ImageView) itemView.findViewById(R.id.product_image);
+
         view = itemView;
     }
 }

@@ -16,14 +16,16 @@ import android.widget.Toast;
 
 import com.netforce.ray.R;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener
+{
 
     private Toolbar toolbar;
     private ImageView close;
     private EditText editTextSearch;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         setupToolBar();
@@ -94,9 +96,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Toast.makeText(SearchActivity.this, s, Toast.LENGTH_SHORT).show();
     }
 
-    private void getPermission() {
+    private void getPermission()
+    {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
 
             String[] permission = {
                     "android.permission.ACCESS_FINE_LOCATION",

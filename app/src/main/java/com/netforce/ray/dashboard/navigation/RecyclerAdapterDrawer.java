@@ -51,7 +51,8 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
 
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    {
 
             View view = inflater.inflate(R.layout.row_navigation_drawer, parent, false);
             MyViewHolder viewHolder = new MyViewHolder(view);
@@ -118,12 +119,18 @@ public class RecyclerAdapterDrawer extends RecyclerView.Adapter<RecyclerView.Vie
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.header);
 
-            linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    click.itemClicked(itemView, getAdapterPosition());
+            linearLayout.setOnClickListener(new View.OnClickListener()
+            {
 
+
+                @Override
+                public void onClick(View v)
+                {
+                    click.itemClicked(itemView, getAdapterPosition());
                 }
+
+
+
             });
         }
 

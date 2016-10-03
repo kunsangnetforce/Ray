@@ -171,6 +171,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
                 .customView(R.layout.custom_write_comment, true).build();
 
         Button b = (Button) dailog.findViewById(R.id.submit);
+
+        Button cancel = (Button) dailog.findViewById(R.id.cancel);
         // TextView textView = (TextView) dailog.findViewById(R.id.textView1);
 
         //   mExplosionField.explode(icon,null,0,5000);
@@ -186,9 +188,18 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
 
             }
         });
+
+
+        cancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+                dailog.dismiss();
+            }
+        });
         dailog.show();
-
-
 
 
     }
