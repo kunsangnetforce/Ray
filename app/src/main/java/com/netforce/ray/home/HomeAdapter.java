@@ -16,10 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Gowtham Chandrasekar on 31-07-2015.
- */
-
 
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
@@ -57,14 +53,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         System.out.println("n============="+ n);
 
-        Ion.with(homeHolder.product_image)
-                .load(n);
+        Ion.with(homeHolder.product_image).load(n);
 
        ((HomeHolder) holder).product_name.setText(itemList.get(position).title);
 
         homeHolder.product_price.setText(itemList.get(position).title);
-
-
 
         homeHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener()
         {
@@ -74,11 +67,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                 Intent i = new Intent(context,ProductDetailsActivity.class);
                 context.startActivity(i);
-
-
             }
         });
-
 
 
     }

@@ -84,10 +84,12 @@ public class Dashboard extends AppCompatActivity
     {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+       /* getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String teams = "Home";
-        getSupportActionBar().setTitle(teams);
+        getSupportActionBar().setTitle(teams);*/
 
     }
 
@@ -100,8 +102,7 @@ public class Dashboard extends AppCompatActivity
 
     private void setupHomeFragment()
     {
-        String teams = "Home";
-        getSupportActionBar().setTitle(teams);
+
         if (homeFragment == null)
         {
             homeFragment = new HomeFragment();

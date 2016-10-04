@@ -2,6 +2,7 @@ package com.netforce.ray.special_categories;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +22,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.netforce.ray.R;
+import com.netforce.ray.search.SearchActivity;
+import com.netforce.ray.sell.SellActivity;
 
 import java.util.ArrayList;
 
@@ -29,7 +32,7 @@ import app.minimize.com.seek_bar_compat.SeekBarCompat;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SpecialAndCategory extends AppCompatActivity
+public class SpecialAndCategory extends AppCompatActivity implements View.OnClickListener
 {
 
     RecyclerView recyclerView,recyclerView_sort;
@@ -42,7 +45,7 @@ public class SpecialAndCategory extends AppCompatActivity
     ArrayList<Categories_Data> highestDatas_sort = new ArrayList<Categories_Data>();
     TextView viewRangetxt,viewRangetxt2;
 
-    Button all_button;
+    Button all_button,applyButton ,clearButton;
 
 
     protected void onCreate(Bundle savedInstanceState)
@@ -68,19 +71,23 @@ public class SpecialAndCategory extends AppCompatActivity
 
         viewRangetxt2 = (TextView) findViewById(R.id.textviewrange2);
 
+        applyButton = (Button) findViewById(R.id.applyButton);
+
+        clearButton = (Button) findViewById(R.id.clearButton);
+
+        applyButton.setOnClickListener(this);
+
+        clearButton.setOnClickListener(this);
+
         radiusSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b)
-            {
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
-                if(i == 100)
-                {
+                if (i == 100) {
 
                     viewRangetxt.setText("Everywhere");
 
-                }
-                else
-                {
+                } else {
                     viewRangetxt.setText(String.valueOf(i));
                 }
             }
@@ -101,13 +108,10 @@ public class SpecialAndCategory extends AppCompatActivity
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
-                if(i == 100)
-                {
+                if (i == 100) {
                     viewRangetxt2.setText("forever");
 
-                }
-                else
-                {
+                } else {
                     viewRangetxt2.setText(String.valueOf(i));
                 }
             }
@@ -155,15 +159,12 @@ public class SpecialAndCategory extends AppCompatActivity
         all_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (view.isSelected())
-                {
+                if (view.isSelected()) {
                     view.setSelected(false);
                     all_button.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_outline, 0);
                     all_button.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
 
-                }
-                else
-                {
+                } else {
                     view.setSelected(true);
                     all_button.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_circle_filled, 0);
 
@@ -257,5 +258,27 @@ public class SpecialAndCategory extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+    public  void onClick(View view)
+    {
+
+        switch (view.getId())
+        {
+            case R.id.applyButton:
+                Intent intent = new Intent(getApplicationContext(), SellActivity.class);
+                startActivity(intent);
+               overridePendingTransition(R.anim.enter, R.anim.exit);
+                break;
+
+            case R.id.clearButton:
+                Intent search = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(search);
+               overridePendingTransition(R.anim.enter, R.anim.exit);
+                break;
+
+        }
+
+
+    }
 
 }
