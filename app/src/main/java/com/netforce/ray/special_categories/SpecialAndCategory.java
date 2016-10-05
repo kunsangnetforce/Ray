@@ -22,6 +22,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.netforce.ray.R;
+import com.netforce.ray.dashboard.Dashboard;
 import com.netforce.ray.search.SearchActivity;
 import com.netforce.ray.sell.SellActivity;
 
@@ -39,13 +40,12 @@ public class SpecialAndCategory extends AppCompatActivity implements View.OnClic
     GridLayoutManager layoutManager,layoutManager_sort;
     CategoriesAdapter adapter;
     CategoriesSortAdapter sortAdapter;
-
     ArrayList<Categories_Data> highestDatas = new ArrayList<Categories_Data>();
     Toolbar toolbar;
     ArrayList<Categories_Data> highestDatas_sort = new ArrayList<Categories_Data>();
     TextView viewRangetxt,viewRangetxt2;
-
     Button all_button,applyButton ,clearButton;
+
 
 
     protected void onCreate(Bundle savedInstanceState)
@@ -83,11 +83,14 @@ public class SpecialAndCategory extends AppCompatActivity implements View.OnClic
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
-                if (i == 100) {
+                if (i == 100)
+                {
 
                     viewRangetxt.setText("Everywhere");
 
-                } else {
+                }
+                else
+                {
                     viewRangetxt.setText(String.valueOf(i));
                 }
             }
@@ -126,7 +129,6 @@ public class SpecialAndCategory extends AppCompatActivity implements View.OnClic
 
             }
         });
-
 
     }
 
@@ -177,8 +179,6 @@ public class SpecialAndCategory extends AppCompatActivity implements View.OnClic
 
     private void setupRecyclerView_sort()
     {
-
-
         recyclerView_sort = (RecyclerView) findViewById(R.id.recycler_sortby);
         layoutManager_sort = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView_sort.setLayoutManager(layoutManager_sort);
@@ -204,8 +204,6 @@ public class SpecialAndCategory extends AppCompatActivity implements View.OnClic
         highestDatas_sort.add(new Categories_Data("Date", "imageurl"));
         highestDatas_sort.add(new Categories_Data("Low to High Price", "imageurl"));
         highestDatas_sort.add(new Categories_Data("High to Low Price", "imageurl"));
-
-
 
     }
 
@@ -265,13 +263,16 @@ public class SpecialAndCategory extends AppCompatActivity implements View.OnClic
         switch (view.getId())
         {
             case R.id.applyButton:
-                Intent intent = new Intent(getApplicationContext(), SellActivity.class);
+                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
-               overridePendingTransition(R.anim.enter, R.anim.exit);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
+                finish();
                 break;
 
             case R.id.clearButton:
                 Intent search = new Intent(getApplicationContext(), SearchActivity.class);
+                search.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(search);
                overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;

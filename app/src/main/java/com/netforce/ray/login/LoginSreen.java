@@ -43,26 +43,22 @@ public class LoginSreen extends AppCompatActivity implements View.OnClickListene
         {
 
             case R.id.facebook_login:
-
                 intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
+                finish();
                 break;
-
             case R.id.signin_Button:
                 intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
-
-
+                finish();
                 break;
-
             case R.id.signup_Button:
                 intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
-
-
+                finish();
                 break;
 
         }

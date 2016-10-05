@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
                 filterData.clear();
             } catch (Exception ex) {
             }
-           filterData.add(new FilterData("Electronics"));
+        filterData.add(new FilterData("Electronics"));
         filterData.add(new FilterData("Home & Gorden"));
         filterData.add(new FilterData("Movie Books & Music"));
         filterData.add(new FilterData("Services"));
@@ -120,7 +120,9 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
 
     @Override
-    public void onRefresh() {
+    public void onRefresh()
+    {
+        recyclerView.setVisibility(View.GONE);
         Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -134,10 +136,16 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
     private void load_refresh(int n)
     {
+        recyclerView.setVisibility(View.GONE);
+
         homeDatas.clear();
 
         Ion.with(this)
                 .load("http://odishatv.in/otv-app/write/nation.php?counter="+n)
+
+
+
+
 
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
@@ -161,6 +169,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
                             }
                             mSwipyRefreshLayout.setRefreshing(false);
                             adapter.notifyDataSetChanged();
+                            recyclerView.setVisibility(View.VISIBLE);
 
 
                         } else {
@@ -186,7 +195,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
         floatingActionButtonSell.setOnClickListener(this);
 
 
-        load(0);
+        load_refresh(0);
 
         adapter = new HomeAdapter(context, homeDatas);
 
