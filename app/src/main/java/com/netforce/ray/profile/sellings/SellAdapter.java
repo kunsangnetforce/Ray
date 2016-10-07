@@ -3,7 +3,6 @@ package com.netforce.ray.profile.sellings;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforce.ray.R;
-import com.netforce.ray.home.ProductDetailsActivity;
 import com.netforce.ray.profile.sellings.offer_list.OfferAdapter;
 import com.netforce.ray.sell.sellproductdetail.Sell_ProductDeatailAcrtivity;
 

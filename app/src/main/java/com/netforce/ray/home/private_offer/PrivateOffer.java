@@ -1,19 +1,26 @@
-package com.netforce.ray.home;
+package com.netforce.ray.home.private_offer;
 
-import android.content.Intent;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.netforce.ray.R;
+import com.netforce.ray.home.ViewPagerAdapter;
+
+
+import java.util.ArrayList;
 
 public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageChangeListener, View.OnClickListener
 {
@@ -27,11 +34,14 @@ public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageC
     private int dotsCount;
     private ImageView[] dots;
     private ViewPagerAdapter mAdapter;
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    EditText offerEdittxt,private_offer_msg;
+    RecyclerView private_offer_list;
+    PrivateOfferAdapter privateofferadapter;
+    ArrayList<PrivateOfferData> privateOfferDatas = new ArrayList<>();
+    LinearLayoutManager linearLayoutManager;
 
-
-
-    private int[] mImageResources =
-            {
+    private int[] mImageResources = {
                     R.drawable.motorcycle,
                     R.drawable.motorcycle,
                     R.drawable.motorcycle,
@@ -42,18 +52,55 @@ public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageC
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_offer);
 
         setupToolBar();
 
         setupviewpager();
+        
+        setupoffer_adapter();
+    }
+
+    private void setupoffer_adapter()
+    {
+
+        setprivate_data();
+
+        private_offer_list = (RecyclerView) findViewById(R.id.private_offer_list);
+
+        privateofferadapter = new PrivateOfferAdapter(getApplicationContext(),privateOfferDatas);
+
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+
+        private_offer_list.setLayoutManager(linearLayoutManager);
+
+        private_offer_list.setAdapter(privateofferadapter);
+
+
+    }
+
+    private void setprivate_data() {
+
+        try{
+            privateOfferDatas.clear();
+
+        }
+        catch (Exception e){}
+
+        privateOfferDatas.add(new PrivateOfferData("HI"));
+        privateOfferDatas.add(new PrivateOfferData("HI"));
+        privateOfferDatas.add(new PrivateOfferData("HI"));
     }
 
     private void setupviewpager()
     {
 
+        offerEdittxt = (EditText) findViewById(R.id.offerEdittxt);
+
+        private_offer_msg = (EditText) findViewById(R.id.private_offer_msg);
 
         intro_images = (ViewPager) findViewById(R.id.pager_introduction);
 
@@ -69,6 +116,27 @@ public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageC
         intro_images.setOnPageChangeListener(PrivateOffer.this);
         setUiPageViewController();
 
+        offerEdittxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                offerEdittxt.setFocusableInTouchMode(true);
+                offerEdittxt.setFocusable(true);
+            }
+        });
+
+
+        private_offer_msg.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+                private_offer_msg.setFocusableInTouchMode(true);
+                private_offer_msg.setFocusable(true);
+            }
+        });
+
 
 
 
@@ -76,6 +144,11 @@ public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageC
 
     private void setupToolBar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -85,19 +158,18 @@ public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageC
     }
 
 
-    private void setUiPageViewController() {
+    private void setUiPageViewController()
+    {
 
         dotsCount = mAdapter.getCount();
         dots = new ImageView[dotsCount];
 
-        for (int i = 0; i < dotsCount; i++) {
+        for (int i = 0; i < dotsCount; i++)
+        {
             dots[i] = new ImageView(this);
             dots[i].setImageDrawable(getResources().getDrawable(R.drawable.nonselected_item));
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             params.setMargins(4, 0, 4, 0);
 
@@ -111,8 +183,10 @@ public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageC
 
 
 
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
 
         }
     }
@@ -156,12 +230,13 @@ public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageC
         //   mExplosionField.explode(icon,null,0,5000);
         //addListener(dailog.findViewById(R.id.root));
 
-        b.setOnClickListener(new View.OnClickListener() {
+        b.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
 
                 dailog.dismiss();
-
             }
         });
         dailog.show();
@@ -172,7 +247,8 @@ public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageC
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
     }

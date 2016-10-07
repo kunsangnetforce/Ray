@@ -1,4 +1,4 @@
-package com.netforce.ray.home;
+package com.netforce.ray.home.filter;
 
 /**
  * Created by John on 10/4/2016.

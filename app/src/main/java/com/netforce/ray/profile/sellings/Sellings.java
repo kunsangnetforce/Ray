@@ -18,8 +18,8 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Sellings extends Fragment {
-
+public class Sellings extends Fragment
+{
 
     private Context context;
     private RecyclerView recyclerView;
@@ -32,9 +32,10 @@ public class Sellings extends Fragment {
     }
 
 
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sellings, container, false);
         context = getActivity();
@@ -42,7 +43,8 @@ public class Sellings extends Fragment {
         return view;
     }
 
-    private void setupRecyclerView(View view) {
+    private void setupRecyclerView(View view)
+    {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         setupData();
         adapter = new SellAdapter(context, sellDatas);
@@ -52,10 +54,14 @@ public class Sellings extends Fragment {
 
     }
 
-    private void setupData() {
-        try {
+    private void setupData()
+    {
+        try
+        {
             sellDatas.clear();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
 
         }
         ArrayList<OfferData> offerDatas = new ArrayList<>();

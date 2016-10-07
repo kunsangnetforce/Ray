@@ -26,10 +26,11 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
+import com.netforce.ray.home.filter.FilterAdapter;
+import com.netforce.ray.home.filter.FilterData;
 import com.netforce.ray.search.SearchActivity;
 import com.netforce.ray.sell.SellActivity;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
@@ -68,6 +69,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
     {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         context = getActivity();
 
         mSwipyRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
@@ -75,18 +77,20 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
         mSwipyRefreshLayout.setRefreshing(true);
 
         mSwipyRefreshLayout.setOnRefreshListener(this);
+
         setupRecyclerView(view);
 
         setupFilterRecyclerView(view);
 
-
         return view;
     }
 
-    private void setupFilterRecyclerView(View v) {
+    private void setupFilterRecyclerView(View v)
+    {
 
 
         setFilterData();
+
         filterRecyclerView = (RecyclerView) v.findViewById(R.id.filterRecycler);
 
          filterlinearlayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -100,8 +104,8 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
     }
 
-    private void setFilterData() {
-
+    private void setFilterData()
+    {
 
             try {
                 filterData.clear();
@@ -114,7 +118,6 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
         filterData.add(new FilterData("Car & Motors"));
         filterData.add(new FilterData("Baby & Child"));
         filterData.add(new FilterData("Others"));
-
 
     }
 
@@ -183,25 +186,19 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
     private void setupRecyclerView(View view)
     {
 
-
         relativlayoutSearch = (RelativeLayout)view.findViewById(R.id.relativeLayoutSearch);
-
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
 
         floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
 
-
         floatingActionButtonSell.setOnClickListener(this);
-
 
         load_refresh(0);
 
         adapter = new HomeAdapter(context, homeDatas);
 
-
         relativlayoutSearch.setOnClickListener(this);
-
 
         layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);

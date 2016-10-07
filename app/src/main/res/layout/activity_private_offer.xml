@@ -1,9 +1,16 @@
-<LinearLayout
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipyrefreshlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
     android:weightSum="100">
@@ -12,7 +19,7 @@
         android:layout_weight="100"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_back"
+
         >
 
 
@@ -216,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:padding="10dp"
-                   >
+                    >
 
 
                     <TextView
@@ -238,69 +245,13 @@
                     >
 
 
-                    <ImageView
-                        android:id="@+id/offer_icon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ryan"
-                        android:scaleType="fitXY"
-                        android:layout_alignParentLeft="true"
-                        />
-
-                    <TextView
-                        android:id="@+id/offer_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="You Offered $ 15,000"
-
-                        android:textStyle="bold"
-                        android:layout_toRightOf="@+id/offer_icon"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dp"
-                        android:textColor="@color/colorPrimary"
-                        />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/private_offer_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
 
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"  >
-
-
-                    <RelativeLayout
-                        android:orientation="horizontal"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        >
-
-                        <TextView
-                            android:id="@+id/txtMsg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/chat_back"
-                            android:padding="10dp"
-                            android:textColor="#ff717171"
-                            android:text="my number is 8985434546"
-                            android:layout_below="@+id/textView27"
-                             android:textSize="12dp"
-                            android:textStyle="bold"
-                            />
-
-                        <ImageView
-                            android:id="@+id/textView27"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/ic_triangle"
-                            />
-
-                    </RelativeLayout>
-
+                    </android.support.v7.widget.RecyclerView>
 
 
                 </RelativeLayout>
@@ -311,10 +262,11 @@
 
 
 
+
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:paddingTop="10dp"
                     android:paddingBottom="5dp"
                     android:layout_marginLeft="10dp"
@@ -333,58 +285,38 @@
                         android:layout_centerVertical="true"
                         />
 
+
                     <EditText
                         android:id="@+id/offerEdittxt"
                         android:layout_toRightOf="@+id/user_comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Your question"
+                        android:hint="20000"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="5dp"
-                       android:textColorHint="@color/gray_back"
+                        android:textColorHint="@color/gray_back"
+                        android:focusable="false"
+                        android:inputType="number"
+                        android:maxLength="11"
                         />
 
 
 
                 </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/private_offer_msg"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Send Private Offers"
+                    android:hint="Send Private Offers"
                     android:layout_below="@+id/offerEdittxt"
                     android:layout_toRightOf="@+id/user_comment"
                     android:textColor="@color/gray_back"
                     android:layout_marginLeft="60dp"
-
+                    android:layout_marginRight="10dp"
+                    android:focusable="false"
+                    android:textColorHint="@color/gray_back"
                     />
-
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/colorPrimary"
-                    >
-
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Make Offer"
-                        android:background="@color/colorPrimary"
-                        android:textColor="@color/white"
-                        android:textAllCaps="false"
-                        style="?android:attr/borderlessButtonStyle"
-                        />
-
-
-
-                </RelativeLayout>
-
 
 
             </LinearLayout>
@@ -395,5 +327,40 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20"
+        android:weightSum="100"
+        android:orientation="horizontal"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:background="@color/colorPrimary"
+            >
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Make Offer"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                style="?android:attr/borderlessButtonStyle"
+                />
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
 
 </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>

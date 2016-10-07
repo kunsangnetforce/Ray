@@ -1,4 +1,4 @@
-package com.netforce.ray.home;
+package com.netforce.ray.home.filter;
 
 /**
  * Created by John on 10/4/2016.
@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.netforce.ray.R;
+import com.netforce.ray.home.HomeFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
