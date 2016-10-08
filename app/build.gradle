@@ -75,5 +75,6 @@ dependencies {
     compile 'com.github.carlonzo.stikkyheader:core:0.0.3-SNAPSHOT'
     compile 'cn.lightsky.infiniteindicator:library:1.1.0'
     compile 'com.koushikdutta.ion:ion:2.+'
+    compile 'se.emilsjolander:stickylistheaders:2.7.0'
 
 }

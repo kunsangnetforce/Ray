@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+
+
+        <ImageView
+            android:id="@+id/offer_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ryan"
+            android:scaleType="fitXY"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:id="@+id/offer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You Offered $ 15,000"
+
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/offer_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorPrimary"
+            />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"  >
+
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            >
+
+            <TextView
+                android:id="@+id/txtMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chat_back"
+                android:padding="10dp"
+                android:textColor="#ff717171"
+                android:text="my number is 8985434546"
+                android:layout_below="@+id/textView27"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                />
+
+            <ImageView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_triangle"
+                />
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

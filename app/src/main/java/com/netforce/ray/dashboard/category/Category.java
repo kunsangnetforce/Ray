@@ -67,7 +67,9 @@ public class Category extends AppCompatActivity {
         });
     }
 
-    private void setupToolBar() {
+    private void setupToolBar()
+    {
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);

@@ -41,6 +41,8 @@ import it.carlom.stikkyheader.core.animator.HeaderStikkyAnimator;
 public class ElectronicsFragment extends Fragment implements View.OnClickListener,SwipeRefreshLayout.OnRefreshListener
 {
 
+
+
     Context context;
     private RecyclerView recyclerView;
     ElectronicsAdapter adapter;
@@ -67,7 +69,6 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
 
         context = getActivity();
         swiperefreshlayout = (SwipeRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
-
 
         setupLayout(view);
 
@@ -100,7 +101,6 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
     private void setupData()
     {
 
-
         load();
         layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
@@ -111,8 +111,6 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
         recyclerView.setAdapter(adapter);
 
         recyclerView.setNestedScrollingEnabled(false);
-
-
 
     }
 
@@ -227,6 +225,11 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
                         }
                     }
                 });*/
+
+
+
+
+
     }
 
 

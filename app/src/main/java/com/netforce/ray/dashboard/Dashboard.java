@@ -12,7 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -41,6 +45,7 @@ public class Dashboard extends AppCompatActivity
     private Menu menu;
     private NavigationFragment drawer;
     private UserSessionManager userSessionManager;
+    ImageView imageview ;
 
 
     @Override
@@ -83,13 +88,41 @@ public class Dashboard extends AppCompatActivity
     private void setupToolBar()
     {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        imageview = (ImageView) findViewById(R.id.imageView1);
+
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+       /* getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String teams = "Home";
-        getSupportActionBar().setTitle(teams);
+        getSupportActionBar().setTitle(teams);*/
+
+        imageview.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+              rotate(180);
+
+            }
+        });
 
     }
+
+    private void rotate(float degree)
+    {
+        final RotateAnimation rotateAnim = new RotateAnimation(0.0f, degree,
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+
+        rotateAnim.setDuration(0);
+        rotateAnim.setFillAfter(true);
+        imageview.startAnimation(rotateAnim);
+    }
+
 
     private void replaceFragment(Fragment newFragment, String tag)
     {
@@ -100,8 +133,7 @@ public class Dashboard extends AppCompatActivity
 
     private void setupHomeFragment()
     {
-        String teams = "Home";
-        getSupportActionBar().setTitle(teams);
+
         if (homeFragment == null)
         {
             homeFragment = new HomeFragment();
@@ -131,10 +163,13 @@ public class Dashboard extends AppCompatActivity
                 return true;*/
 
             case R.id.filter:
+
                 startActivity(new Intent(this, SpecialAndCategory.class));
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 return true;
+
             case R.id.profile:
+
               /*  userSessionManager = new UserSessionManager(getApplicationContext());
                 if (userSessionManager.getToken().length() < 1)
                 {
@@ -157,5 +192,12 @@ public class Dashboard extends AppCompatActivity
         }
     }
 
+
+   @Override
+    public void onBackPressed()
+   {
+            super.onBackPressed();
+            Dashboard.this.finish();
+    }
 
 }

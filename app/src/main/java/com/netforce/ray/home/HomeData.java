@@ -16,4 +16,6 @@ public class HomeData {
         this.title = title;
         this.price = price;
     }
+
+
 }

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforce.ray.R;
-import com.netforce.ray.home.ProductDetailsActivity;
+import com.netforce.ray.home.product_detail.ProductDetailsActivity;
 import com.netforce.ray.profile.favourites.offer_list.OfferAdapter;
 
 import java.util.List;
@@ -29,7 +29,8 @@ public class FavouriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private Context context;
     private OfferAdapter adapter;
 
-    public FavouriteAdapter(Context context, List<FavouriteData> itemList) {
+    public FavouriteAdapter(Context context, List<FavouriteData> itemList)
+    {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);

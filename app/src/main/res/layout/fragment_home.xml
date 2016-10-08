@@ -1,13 +1,10 @@
-<com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipyrefreshlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:srl_direction="top"
-
     >
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,7 +14,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_back"
-
     >
 
 
@@ -27,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
 
 
             <android.support.v7.widget.RecyclerView
@@ -52,6 +49,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/filterRecycler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+
+
+            </android.support.v7.widget.RecyclerView>
 
             <RelativeLayout
                 android:id="@+id/relativeLayout"
@@ -163,5 +172,4 @@
 
 
 </FrameLayout>
-
-</com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
