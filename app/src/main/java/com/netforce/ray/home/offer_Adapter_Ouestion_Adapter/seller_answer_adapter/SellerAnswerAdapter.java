@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.netforce.ray.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,6 @@ public class SellerAnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<SellerAnswerData> itemList;
     private Context context;
 
-    
 
 
     public SellerAnswerAdapter(Context context, List<SellerAnswerData> itemList)
@@ -48,16 +48,7 @@ public class SellerAnswerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     {
         SellerAnswerHolder homeHolder = (SellerAnswerHolder) holder;
 
-        homeHolder.relativeQuestion.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
 
-
-
-            }
-        });
 
     }
 

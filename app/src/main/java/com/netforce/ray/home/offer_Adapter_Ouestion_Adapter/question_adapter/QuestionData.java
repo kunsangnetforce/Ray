@@ -6,7 +6,7 @@ package com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.question_adapter;
 public class QuestionData
 {
     public String image, title;
-    QuestionData(String title)
+    public QuestionData(String title)
     {
         this.title = title;
     }

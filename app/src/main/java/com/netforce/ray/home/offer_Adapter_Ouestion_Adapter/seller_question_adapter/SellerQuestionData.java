@@ -7,6 +7,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.netforce.ray.R;
+import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.seller_answer_adapter.SellerAnswerData;
+
+import java.util.ArrayList;
 
 /**
  * Created by John on 10/7/2016.
@@ -15,10 +18,12 @@ public class SellerQuestionData
 {
 
     String title;
+    ArrayList<SellerAnswerData>  sellerAnswerDatas;
 
-    public SellerQuestionData(String title)
+    public SellerQuestionData(ArrayList<SellerAnswerData> sellerAnswerData, String status)
     {
-        this.title = title;
+        this.sellerAnswerDatas = sellerAnswerData;
+        this.title=status;
     }
 }
 

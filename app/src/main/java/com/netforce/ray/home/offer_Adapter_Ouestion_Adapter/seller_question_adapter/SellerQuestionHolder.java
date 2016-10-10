@@ -18,10 +18,13 @@ public class SellerQuestionHolder extends RecyclerView.ViewHolder
     TextView message_txt;
     ImageView seller_image;
     RelativeLayout relativeQuestion;
+    RecyclerView seller_answer_recyclerview ;
 
     public SellerQuestionHolder(View itemView)
     {
         super(itemView);
+
+        seller_answer_recyclerview = (RecyclerView) itemView.findViewById(R.id.seller_answer_recyclerview);
 
         relativeQuestion = (RelativeLayout) itemView.findViewById(R.id.relativeLayoutQuestion);
 

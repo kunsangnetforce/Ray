@@ -6,7 +6,7 @@ package com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.offer_adapter;
 public  class OfferData
 {
     public String image, title;
-    OfferData(String title)
+    public OfferData(String title)
     {
         this.title = title;
     }

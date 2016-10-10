@@ -36,6 +36,9 @@ public class FavouriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         inflater = LayoutInflater.from(context);
     }
 
+
+
+
     @Override
     public int getItemViewType(int position) {
             return AVAILABLE;

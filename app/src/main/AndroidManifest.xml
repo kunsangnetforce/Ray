@@ -124,9 +124,10 @@
         <activity android:name=".sell.sellproductdetail.Sell_ProductDeatailAcrtivity" />
         <activity android:name=".home.private_offer.PrivateOffer" />
         <activity android:name=".sell.updatesellproduct.UpdateSellActivity" />
-        <activity android:name=".home.PlayVideoActivity"></activity>
+        <activity android:name=".home.PlayVideoActivity" />
         <activity android:name=".home.home2.HeaderFragment" />
-        <activity android:name=".home.offer_Adapter_Ouestion_Adapter.SellerProductActivity"></activity>
+        <activity android:name=".home.offer_Adapter_Ouestion_Adapter.SellerProductActivity" />
+        <activity android:name=".home.seller_shop.SellerShopActivity"></activity>
     </application>
 
 </manifest>

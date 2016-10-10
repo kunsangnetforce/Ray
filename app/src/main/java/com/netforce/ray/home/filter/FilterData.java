@@ -6,7 +6,7 @@ package com.netforce.ray.home.filter;
 public class FilterData {
     public String product_name;
 
-    FilterData( String product_name) {
+    public FilterData(String product_name) {
 
         this.product_name = product_name;
 

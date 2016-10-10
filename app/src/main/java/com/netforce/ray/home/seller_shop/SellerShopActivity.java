@@ -1,125 +1,68 @@
-package com.netforce.ray.home;
-
+package com.netforce.ray.home.seller_shop;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.github.clans.fab.FloatingActionButton;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
-import com.netforce.ray.home.filter.FilterAdapter;
-import com.netforce.ray.home.filter.FilterData;
+import com.netforce.ray.home.HomeAdapter;
+import com.netforce.ray.home.HomeData;
 import com.netforce.ray.search.SearchActivity;
 import com.netforce.ray.sell.SellActivity;
 
 import java.util.ArrayList;
 
-import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
-import it.carlom.stikkyheader.core.animator.AnimatorBuilder;
-import it.carlom.stikkyheader.core.animator.HeaderStikkyAnimator;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HomeFragment extends Fragment implements  View.OnClickListener,OnRefreshListener
+
+public class SellerShopActivity extends AppCompatActivity implements  View.OnClickListener,SwipeRefreshLayout.OnRefreshListener
 {
 
 
     Context context;
-    RecyclerView recyclerView,filterRecyclerView;
+    RecyclerView recyclerView;
     HomeAdapter adapter;
-    ArrayList<HomeData> homeDatas = new ArrayList<>();
-    public static  ArrayList<FilterData> filterData = new ArrayList<>();
+    ArrayList<SellerShopData> sellerShopDatas = new ArrayList<>();
+
     GridLayoutManager layoutManager;
     SwipeRefreshLayout mSwipyRefreshLayout;
-    FloatingActionButton floatingActionButtonSell;
-    StikkyHeaderBuilder stikkyHeader;
+
     RelativeLayout relativlayoutSearch;
-    LinearLayoutManager filterlinearlayoutManager;
-    public FilterAdapter filterAdapter;
 
 
 
-    public HomeFragment()
-    {
-        // Required empty public constructor
-    }
+
+
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    protected void onCreate(Bundle savedInstanceState)
     {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_seller_shop);
 
-        context = getActivity();
-
-        mSwipyRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
+        mSwipyRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipyrefreshlayout);
 
         mSwipyRefreshLayout.setRefreshing(true);
 
         mSwipyRefreshLayout.setOnRefreshListener(this);
 
-        setupRecyclerView(view);
-
-        setupFilterRecyclerView(view);
-
-        return view;
-    }
-
-    private void setupFilterRecyclerView(View v)
-    {
-
-
-        setFilterData();
-
-        filterRecyclerView = (RecyclerView) v.findViewById(R.id.filterRecycler);
-
-        filterlinearlayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-
-        filterRecyclerView.setLayoutManager(filterlinearlayoutManager);
-
-        filterAdapter = new FilterAdapter(context,filterData);
-
-        filterRecyclerView.setAdapter(filterAdapter);
+        setupRecyclerView();
 
     }
 
-    private void setFilterData()
-    {
 
-            try {
-                filterData.clear();
-            } catch (Exception ex) {
-            }
-        filterData.add(new FilterData("Electronics"));
-        filterData.add(new FilterData("Home & Gorden"));
-        filterData.add(new FilterData("Movie Books & Music"));
-        filterData.add(new FilterData("Services"));
-        filterData.add(new FilterData("Car & Motors"));
-        filterData.add(new FilterData("Baby & Child"));
-        filterData.add(new FilterData("Others"));
-
-    }
 
 
 
@@ -127,7 +70,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
     public void onRefresh()
     {
         recyclerView.setVisibility(View.GONE);
-        Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Refresh", Toast.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -142,7 +85,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
     {
         recyclerView.setVisibility(View.GONE);
 
-        homeDatas.clear();
+        sellerShopDatas.clear();
 
         Ion.with(this)
                 .load("http://odishatv.in/otv-app/write/nation.php?counter="+n)
@@ -152,19 +95,17 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
                     @Override
                     public void onCompleted(Exception e, JsonArray result) {
 
-                        if (result != null)
-                        {
+                        if (result != null) {
 
-                            for (int i = 0; i < result.size(); i++)
-                            {
+                            for (int i = 0; i < result.size(); i++) {
                                 JsonObject jsonObject = (JsonObject) result.get(i);
 
 
                                 String name = jsonObject.get("post_title").toString();
 
-                                homeDatas.add(new HomeData("url", name, "price"));
+                                sellerShopDatas.add(new HomeData("url", name, "price"));
 
-                                System.out.println("imageurl ======================"  + name);
+                                System.out.println("imageurl ======================" + name);
 
                             }
                             mSwipyRefreshLayout.setRefreshing(false);
@@ -180,24 +121,20 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
     }
 
-    private void setupRecyclerView(View view)
+    private void setupRecyclerView()
     {
 
-        relativlayoutSearch = (RelativeLayout)view.findViewById(R.id.relativeLayoutSearch);
+        relativlayoutSearch = (RelativeLayout)findViewById(R.id.relativeLayoutSearch);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-
-        floatingActionButtonSell = (FloatingActionButton) view.findViewById(R.id.fabSell);
-
-        floatingActionButtonSell.setOnClickListener(this);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
         load_refresh(0);
 
-        adapter = new HomeAdapter(context, homeDatas);
+        adapter = new HomeAdapter(context, sellerShopDatas);
 
         relativlayoutSearch.setOnClickListener(this);
 
-        layoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(adapter);
@@ -223,21 +160,21 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
                 int lastVisibleItemCount = layoutManager.findLastVisibleItemPosition();
 
-                    if (totalItemCount > 0)
+                if (totalItemCount > 0)
+                {
+                    if ((totalItemCount - 1) == lastVisibleItemCount)
                     {
-                        if ((totalItemCount - 1) == lastVisibleItemCount)
-                        {
-                            //loadMore();//your HTTP stuff goes in this method
-                            //loadingProgress.setVisibility(View.VISIBLE);
+                        //loadMore();//your HTTP stuff goes in this method
+                        //loadingProgress.setVisibility(View.VISIBLE);
 
-                            load(20);
-                        }
-                        else
-                        {
-                            //loadingProgress.setVisibility(View.GONE);
-                        }
-
+                        load(20);
                     }
+                    else
+                    {
+                        //loadingProgress.setVisibility(View.GONE);
+                    }
+
+                }
 
             }
 
@@ -270,8 +207,6 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
     void load(int b)
     {
 
-
-
         Ion.with(this)
                 .load("http://odishatv.in/otv-app/write/nation.php?counter="+b)
 
@@ -290,7 +225,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
                                 String name = jsonObject.get("post_title").toString();
 
-                                homeDatas.add(new HomeData("url", name, "price"));
+                                sellerShopDatas.add(new HomeData("url", name, "price"));
 
                                 System.out.println("imageurl ======================"  + name);
 
@@ -355,47 +290,22 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
         switch (v.getId())
         {
 
-
             case R.id.fabSell:
 
                 Intent intent = new Intent(context, SellActivity.class);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
 
             case R.id.relativeLayoutSearch:
                 Intent search = new Intent(context, SearchActivity.class);
                 startActivity(search);
-                getActivity().overridePendingTransition(R.anim.enter, R.anim.exit);
+                overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
 
 
         }
     }
-
-
-     class ParallaxStikkyAnimator extends HeaderStikkyAnimator
-     {
-        @Override
-        public AnimatorBuilder getAnimatorBuilder()
-        {
-            View mHeader_image = getHeader().findViewById(R.id.relativeLayout);
-            return AnimatorBuilder.create().applyVerticalParallax(mHeader_image);
-        }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-        stikkyHeader = StikkyHeaderBuilder.stickTo(recyclerView);
-        stikkyHeader.setHeader(R.id.header, (ViewGroup) getView())
-                .minHeightHeaderDim(R.dimen.min_height_header)
-                .animator(new ParallaxStikkyAnimator())
-                .build();
-    }
-
-
 
 
 }
