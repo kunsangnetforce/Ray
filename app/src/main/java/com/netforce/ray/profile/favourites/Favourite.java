@@ -18,8 +18,8 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Favourite extends Fragment {
-
+public class Favourite extends Fragment
+{
 
     private Context context;
     private RecyclerView recyclerView;
@@ -33,8 +33,8 @@ public class Favourite extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sellings, container, false);
         context = getActivity();

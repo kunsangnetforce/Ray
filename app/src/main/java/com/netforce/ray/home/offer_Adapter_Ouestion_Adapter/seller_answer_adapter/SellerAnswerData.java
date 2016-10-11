@@ -7,8 +7,8 @@ public class SellerAnswerData {
 
     String title;
 
-    SellerAnswerData(String title){
-        this.title = title;
+    public SellerAnswerData(){
+
 
     }
 }

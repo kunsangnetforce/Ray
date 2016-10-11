@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
 import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.SellerProductActivity;
+import com.netforce.ray.home.product_detail.ProductDetailsActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -76,11 +77,13 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         homeHolder.product_price.setText(itemList.get(position).title);
 
-        homeHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener() {
+        homeHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
-                Intent i = new Intent(context, SellerProductActivity.class);
+                Intent i = new Intent(context, ProductDetailsActivity.class);
                 context.startActivity(i);
             }
         });

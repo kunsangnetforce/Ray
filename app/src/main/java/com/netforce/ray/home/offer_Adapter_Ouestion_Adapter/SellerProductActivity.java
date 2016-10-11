@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.netforce.ray.R;
 import com.netforce.ray.home.ViewPagerAdapter;
 import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.offer_adapter.OfferAdapter;
 import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.offer_adapter.OfferData;
+import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.seller_answer_adapter.SellerAnswerData;
 import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.seller_question_adapter.SellerQuestionAdapter;
 import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.seller_question_adapter.SellerQuestionData;
 
@@ -85,15 +85,35 @@ public class SellerProductActivity extends AppCompatActivity implements ViewPage
     }
 
     private void setQuestionData() {
-        try{
+
+        try {
             sellerquestionDatas.clear();
+        } catch (Exception ex) {
 
         }
-        catch (Exception e){}
+        ArrayList<SellerAnswerData> selleranswerdatas = new ArrayList<SellerAnswerData>();
+        selleranswerdatas.add(new SellerAnswerData());
+        selleranswerdatas.add(new SellerAnswerData());
+        selleranswerdatas.add(new SellerAnswerData());
+        sellerquestionDatas.add(new SellerQuestionData(selleranswerdatas, ""));
+        sellerquestionDatas.add(new SellerQuestionData(selleranswerdatas, ""));
+        selleranswerdatas = new ArrayList<SellerAnswerData>();
+        selleranswerdatas.add(new SellerAnswerData());
+        selleranswerdatas.add(new SellerAnswerData());
+        sellerquestionDatas.add(new SellerQuestionData(selleranswerdatas, ""));
+        sellerquestionDatas.add(new SellerQuestionData(selleranswerdatas, "available"));
+        selleranswerdatas = new ArrayList<SellerAnswerData>();
+        sellerquestionDatas.add(new SellerQuestionData(selleranswerdatas, "sold"));
+        sellerquestionDatas.add(new SellerQuestionData(selleranswerdatas, "sold"));
+        selleranswerdatas = new ArrayList<SellerAnswerData>();
+        selleranswerdatas.add(new SellerAnswerData());
+        sellerquestionDatas.add(new SellerQuestionData(selleranswerdatas, "sold"));
+        selleranswerdatas = new ArrayList<SellerAnswerData>();
+        selleranswerdatas.add(new SellerAnswerData());
+        selleranswerdatas.add(new SellerAnswerData());
+        selleranswerdatas.add(new SellerAnswerData());
+        sellerquestionDatas.add(new SellerQuestionData(selleranswerdatas, "available"));
 
-        sellerquestionDatas.add(new SellerQuestionData("HI"));
-        sellerquestionDatas.add(new SellerQuestionData("HI"));
-        sellerquestionDatas.add(new SellerQuestionData("HI"));
     }
 
     private void setupoffer_list_layout()

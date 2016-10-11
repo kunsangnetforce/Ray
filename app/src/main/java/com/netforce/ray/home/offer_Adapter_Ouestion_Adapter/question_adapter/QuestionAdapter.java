@@ -21,6 +21,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private List<QuestionData> itemList;
     private Context context;
 
+
     public QuestionAdapter(Context context, List<QuestionData> itemList)
     {
         this.itemList = itemList;
@@ -31,7 +32,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view = inflater.inflate(R.layout.row_seller__product_question, parent, false);
+        View view = inflater.inflate(R.layout.row_product_details_question, parent, false);
         QuestionHolder viewHolder = new QuestionHolder(view);
         return viewHolder;
     }
@@ -43,7 +44,8 @@ public class QuestionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         homeHolder.relativeQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
 
             }
         });

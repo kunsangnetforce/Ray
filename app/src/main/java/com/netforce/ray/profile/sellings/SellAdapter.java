@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.netforce.ray.R;
+import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.SellerProductActivity;
 import com.netforce.ray.profile.sellings.offer_list.OfferAdapter;
 import com.netforce.ray.sell.sellproductdetail.Sell_ProductDeatailAcrtivity;
 
@@ -91,7 +92,7 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             @Override
             public void onClick(View view)
             {
-                Intent i = new Intent(context,Sell_ProductDeatailAcrtivity.class);
+                Intent i = new Intent(context,SellerProductActivity.class);
                 context.startActivity(i);
             }
         });

@@ -1,14 +1,17 @@
 package com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.seller_question_adapter;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.netforce.ray.R;
-
+import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.seller_answer_adapter.SellerAnswerAdapter;
+import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.seller_answer_adapter.SellerAnswerData;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +25,10 @@ public class SellerQuestionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
     private List<SellerQuestionData> itemList;
+    public ArrayList<SellerAnswerData> sellerAnswerList;
     private Context context;
+    SellerAnswerAdapter sellerAnswerAdapter;
+    public RecyclerView recyclerView;
 
     public SellerQuestionAdapter(Context context, List<SellerQuestionData> itemList)
     {
@@ -46,6 +52,12 @@ public class SellerQuestionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     {
         SellerQuestionHolder homeHolder = (SellerQuestionHolder) holder;
 
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        homeHolder.seller_answer_recyclerview.setLayoutManager(layoutManager);
+        sellerAnswerAdapter = new SellerAnswerAdapter(context, itemList.get(position).sellerAnswerDatas);
+        homeHolder.seller_answer_recyclerview.setAdapter(sellerAnswerAdapter);
+
+
         homeHolder.relativeQuestion.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -53,11 +65,12 @@ public class SellerQuestionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             {
 
 
-
             }
         });
 
     }
+
+
 
     private void showMessage(String s) {
 

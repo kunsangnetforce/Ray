@@ -12,7 +12,8 @@ public class FavouriteData {
     public String status;
     public ArrayList<OfferData> offerDatas;
 
-    FavouriteData(ArrayList<OfferData> offerDatas, String status) {
+    FavouriteData(ArrayList<OfferData> offerDatas, String status)
+    {
         this.offerDatas = offerDatas;
         this.status=status;
     }
