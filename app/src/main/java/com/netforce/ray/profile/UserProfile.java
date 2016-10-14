@@ -11,19 +11,25 @@ import android.view.MenuItem;
 import com.netforce.ray.R;
 import com.netforce.ray.profile.PagerAdapter;
 
-public class UserProfile extends AppCompatActivity {
+public class UserProfile extends AppCompatActivity
+{
 
     private Toolbar toolbar;
 
+
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         setupToolBar();
         setupTab();
     }
 
-    private void setupTab() {
+    private void setupTab()
+    {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("NEWS"));
         tabLayout.addTab(tabLayout.newTab().setText("SELLING"));

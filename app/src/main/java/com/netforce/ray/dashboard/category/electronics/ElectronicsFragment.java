@@ -31,6 +31,8 @@ import com.netforce.ray.sell.SellActivity;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
@@ -157,24 +159,25 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
         //swipyrefreshlayout.setRefreshing(true);
 
         Ion.with(this)
-                .load("http://odishatv.in/otv-app/write/nation.php?counter=10")
+                .load("http://netforce.biz/seeksell/?action=home&category=33&distance=1km&minprice=100&maxprice=10000&counter=10")
 
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonArray result) {
+                    public void onCompleted(Exception e, JsonObject result) {
 
                         if (result != null)
                         {
 
-                            for (int i = 0; i < result.size(); i++)
+                            JsonArray re = result.getAsJsonArray("data");
+                            for (int i = 0; i < re.size(); i++)
                             {
-                                JsonObject jsonObject = (JsonObject) result.get(i);
 
-
-                                String name = jsonObject.get("post_title").toString();
-
-                                electronicsDatas.add(new ElectronicsData("url", name, "price"));
+                                JsonObject jsonObject = (JsonObject) re.get(i);
+                                JsonObject vo = jsonObject.getAsJsonObject("Product");
+                                String name = vo.get("name").toString();
+                                String price = vo.get("price").toString();
+                                electronicsDatas.add(new ElectronicsData("url", name, price));
 
                                 System.out.println("imageurl ======================"  + name);
 
@@ -235,7 +238,7 @@ public class ElectronicsFragment extends Fragment implements View.OnClickListene
 
     public void onRefresh()
     {
-
+        electronicsDatas.clear();
         System.out.println("hdgadndjd==========dnb");
         load();
 

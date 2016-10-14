@@ -15,12 +15,16 @@ import com.netforce.ray.special_categories.*;
 /**
  * Created by John on 9/1/2016.
  */
-public class Category extends AppCompatActivity {
+public class Category extends AppCompatActivity
+{
 
     private Toolbar toolbar;
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         setupToolBar();
@@ -47,21 +51,26 @@ public class Category extends AppCompatActivity {
         final CategoriesAdapter  adapter= new CategoriesAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
 
 
+
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
+            public void onTabSelected(TabLayout.Tab tab)
+            {
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+            public void onTabUnselected(TabLayout.Tab tab)
+            {
 
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+            public void onTabReselected(TabLayout.Tab tab)
+            {
 
             }
         });

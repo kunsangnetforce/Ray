@@ -4,13 +4,11 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:weightSum="100">
+   >
 
     <android.support.design.widget.CoordinatorLayout
-        android:layout_weight="80"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         >
 
         <android.support.design.widget.AppBarLayout
@@ -30,7 +28,7 @@
                     android:id="@+id/linearlayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:layout_marginTop="60dp"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -110,50 +108,50 @@
 
                         <ImageView
                             android:id="@+id/imageViewFacebook"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="3dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="5dp"
                             android:scaleType="fitXY"
                             android:src="@drawable/facebook_icon" />
 
                         <ImageView
                             android:id="@+id/imageViewTwitter"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="3dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="5dp"
                             android:scaleType="fitXY"
                             android:src="@drawable/twittericon" />
 
                         <ImageView
                             android:id="@+id/imageViewWhatsup"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="3dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="5dp"
                             android:scaleType="fitXY"
                             android:src="@drawable/whatsapp_icon" />
 
                         <ImageView
                             android:id="@+id/imageViewGoogle"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="3dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="5dp"
                             android:padding="3dp"
                             android:scaleType="fitXY"
                             android:src="@drawable/google_plus_icon" />
 
                         <ImageView
                             android:id="@+id/imageViewSMS"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="3dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="5dp"
                             android:scaleType="fitXY"
                             android:src="@drawable/sms_icon" />
 
                         <ImageView
                             android:id="@+id/imageViewEmail"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="3dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="5dp"
                             android:scaleType="fitXY"
                             android:src="@drawable/email_icon" />
 
@@ -164,74 +162,78 @@
 
                 </LinearLayout>
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+                <include
+                    layout="@layout/custom_toolbar_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:theme="@style/AppTheme.AppBarOverlay"
-                    android:titleTextColor="@color/white"
-                    app:layout_collapseMode="pin" >
-
-                </android.support.v7.widget.Toolbar>
-
+                    android:layout_height="wrap_content" />
 
 
             </android.support.design.widget.CollapsingToolbarLayout>
             </android.support.design.widget.AppBarLayout>
 
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipyrefreshlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+
+
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gray_back"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+           >
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:background="@color/gray_back"
+                android:orientation="vertical"
                 >
 
 
-                <TextView
-                    android:id="@+id/textviewMessage"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_centerVertical="true"
-                    android:text="@string/no_message"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@+id/unread_message"
-                    android:textSize="12sp" />
+                    android:padding="15dp"
+                    android:background="@color/gray_back"
+                    >
 
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textviewMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_centerVertical="true"
+                        android:text="@string/no_message"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@+id/unread_message"
+                        />
 
 
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/seller_shop_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                >
+                </RelativeLayout>
 
 
-            </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/seller_shop_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    >
 
-        </LinearLayout>
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+
 
 </android.support.v4.widget.NestedScrollView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
         </android.support.design.widget.CoordinatorLayout>
     </LinearLayout>

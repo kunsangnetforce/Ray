@@ -1,65 +1,164 @@
 package com.netforce.ray.home.seller_shop;
-
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.animation.AlphaAnimation;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
-import com.netforce.ray.home.HomeAdapter;
-import com.netforce.ray.home.HomeData;
-import com.netforce.ray.search.SearchActivity;
 import com.netforce.ray.sell.SellActivity;
-
 import java.util.ArrayList;
 
 
 
-public class SellerShopActivity extends AppCompatActivity implements  View.OnClickListener,SwipeRefreshLayout.OnRefreshListener
+public class SellerShopActivity extends AppCompatActivity implements  View.OnClickListener,SwipeRefreshLayout.OnRefreshListener,AppBarLayout.OnOffsetChangedListener
 {
 
 
-    Context context;
     RecyclerView recyclerView;
-    HomeAdapter adapter;
+    SellerShopAdapter adapter;
     ArrayList<SellerShopData> sellerShopDatas = new ArrayList<>();
-
     GridLayoutManager layoutManager;
     SwipeRefreshLayout mSwipyRefreshLayout;
-
-    RelativeLayout relativlayoutSearch;
-
-
-
-
-
+    AppBarLayout appBarLayout;
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR  = 0.9f;
+    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS     = 0.3f;
+    private static final int ALPHA_ANIMATIONS_DURATION              = 200;
+    private boolean mIsTheTitleVisible          = false;
+    private boolean mIsTheTitleContainerVisible = true;
+   Toolbar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seller_shop);
+        setContentView(R.layout.activity_seller_shop2);
 
         mSwipyRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipyrefreshlayout);
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout)  findViewById(R.id.collapsing_toolbar);
+
+        appBarLayout  = (AppBarLayout) findViewById(R.id.app_bar_layout);
 
         mSwipyRefreshLayout.setRefreshing(true);
 
         mSwipyRefreshLayout.setOnRefreshListener(this);
 
+
+        collapsingToolbarLayout.setTitle("Kunsang W..");
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent)); // transperent color = #00000000
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
+
+        setupToolBar();
+
         setupRecyclerView();
 
+
+
+
+
+    }
+
+    private void setupToolBar()
+    {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+    }
+
+
+
+    /*private void handleToolbarTitleVisibility(float percentage)
+    {
+        if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR)
+        {
+
+            if(!mIsTheTitleVisible) {
+                startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+                mIsTheTitleVisible = true;
+            }
+
+        } else {
+
+            if (mIsTheTitleVisible) {
+                startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                mIsTheTitleVisible = false;
+            }
+        }
+    }
+
+    private void handleAlphaOnTitle(float percentage) {
+        if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
+            if(mIsTheTitleContainerVisible) {
+                startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
+                mIsTheTitleContainerVisible = false;
+            }
+
+        } else {
+
+            if (!mIsTheTitleContainerVisible) {
+                startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
+                mIsTheTitleContainerVisible = true;
+            }
+        }
+    }
+*/
+
+
+
+    public static void startAlphaAnimation (View v, long duration, int visibility) {
+        AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
+                ? new AlphaAnimation(0f, 1f)
+                : new AlphaAnimation(1f, 0f);
+
+        alphaAnimation.setDuration(duration);
+        alphaAnimation.setFillAfter(true);
+        v.startAnimation(alphaAnimation);
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int i)
+    {
+
+
+        int maxScroll = appBarLayout.getTotalScrollRange();
+        float percentage = (float) Math.abs(i) / (float) maxScroll;
+
+     /*   handleAlphaOnTitle(percentage);
+        handleToolbarTitleVisibility(percentage);
+*/
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        appBarLayout.addOnOffsetChangedListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        appBarLayout.removeOnOffsetChangedListener(this);
     }
 
 
@@ -95,15 +194,17 @@ public class SellerShopActivity extends AppCompatActivity implements  View.OnCli
                     @Override
                     public void onCompleted(Exception e, JsonArray result) {
 
-                        if (result != null) {
+                        if (result != null)
+                        {
 
-                            for (int i = 0; i < result.size(); i++) {
+                            for (int i = 0; i < result.size(); i++)
+                            {
                                 JsonObject jsonObject = (JsonObject) result.get(i);
 
 
                                 String name = jsonObject.get("post_title").toString();
 
-                                sellerShopDatas.add(new HomeData("url", name, "price"));
+                                sellerShopDatas.add(new SellerShopData("url", name, "price"));
 
                                 System.out.println("imageurl ======================" + name);
 
@@ -113,7 +214,8 @@ public class SellerShopActivity extends AppCompatActivity implements  View.OnCli
                             recyclerView.setVisibility(View.VISIBLE);
 
 
-                        } else {
+                        }
+                        else {
                             Log.e("error", e.toString());
                         }
                     }
@@ -124,71 +226,20 @@ public class SellerShopActivity extends AppCompatActivity implements  View.OnCli
     private void setupRecyclerView()
     {
 
-        relativlayoutSearch = (RelativeLayout)findViewById(R.id.relativeLayoutSearch);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView = (RecyclerView) findViewById(R.id.seller_shop_recyclerview);
 
         load_refresh(0);
 
-        adapter = new HomeAdapter(context, sellerShopDatas);
+        adapter = new SellerShopAdapter(getApplicationContext(), sellerShopDatas);
 
-        relativlayoutSearch.setOnClickListener(this);
 
         layoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(adapter);
 
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener()
-        {
-
-            public void onScrollStateChanged(RecyclerView view, int scrollState)
-            {
-
-                super.onScrollStateChanged(recyclerView, scrollState);
-
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                super.onScrolled(recyclerView, dx, dy);
-
-                int totalItemCount = layoutManager.getItemCount();
-
-                int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
-
-                int lastVisibleItemCount = layoutManager.findLastVisibleItemPosition();
-
-                if (totalItemCount > 0)
-                {
-                    if ((totalItemCount - 1) == lastVisibleItemCount)
-                    {
-                        //loadMore();//your HTTP stuff goes in this method
-                        //loadingProgress.setVisibility(View.VISIBLE);
-
-                        load(20);
-                    }
-                    else
-                    {
-                        //loadingProgress.setVisibility(View.GONE);
-                    }
-
-                }
-
-            }
-
-            /* public void onScrolled(RecyclerView view, int firstVisibleItem,
-                                 int visibleItemCount, int totalItemCount) {
-
-                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0) {
-                    if (flag_loading == false) {
-                        flag_loading = true;
-                        additems();
-                    }
-                }
-            }*/
-        });
 
 
 
@@ -225,7 +276,7 @@ public class SellerShopActivity extends AppCompatActivity implements  View.OnCli
 
                                 String name = jsonObject.get("post_title").toString();
 
-                                sellerShopDatas.add(new HomeData("url", name, "price"));
+                                sellerShopDatas.add(new SellerShopData("url", name, "price"));
 
                                 System.out.println("imageurl ======================"  + name);
 
@@ -292,17 +343,10 @@ public class SellerShopActivity extends AppCompatActivity implements  View.OnCli
 
             case R.id.fabSell:
 
-                Intent intent = new Intent(context, SellActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SellActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 break;
-
-            case R.id.relativeLayoutSearch:
-                Intent search = new Intent(context, SearchActivity.class);
-                startActivity(search);
-                overridePendingTransition(R.anim.enter, R.anim.exit);
-                break;
-
 
         }
     }

@@ -104,8 +104,16 @@ public class PrivateOffer extends AppCompatActivity implements ViewPager.OnPageC
 
         intro_images = (ViewPager) findViewById(R.id.pager_introduction);
 
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 
         pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
+
+
+        collapsingToolbarLayout.setTitle("Motorcycle");
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent)); // transperent color = #00000000
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
+
+
 
         mAdapter = new ViewPagerAdapter(PrivateOffer.this, mImageResources);
 

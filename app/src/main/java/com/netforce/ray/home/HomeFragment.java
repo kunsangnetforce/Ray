@@ -16,13 +16,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.github.clans.fab.FloatingActionButton;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
@@ -32,6 +30,8 @@ import com.netforce.ray.search.SearchActivity;
 import com.netforce.ray.sell.SellActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 import it.carlom.stikkyheader.core.animator.AnimatorBuilder;
@@ -43,7 +43,7 @@ import it.carlom.stikkyheader.core.animator.HeaderStikkyAnimator;
 public class HomeFragment extends Fragment implements  View.OnClickListener,OnRefreshListener
 {
 
-
+    List<Home> post   =new ArrayList<Home>();
     Context context;
     RecyclerView recyclerView,filterRecyclerView;
     HomeAdapter adapter;
@@ -83,8 +83,12 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
         setupFilterRecyclerView(view);
 
+
+
         return view;
     }
+
+
 
     private void setupFilterRecyclerView(View v)
     {
@@ -145,32 +149,44 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
         homeDatas.clear();
 
         Ion.with(this)
-                .load("http://odishatv.in/otv-app/write/nation.php?counter="+n)
+                .load("http://odishatv.in/otv-app/write/nation.php?counter=0")
 
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
+                .asString()
+                .setCallback(new FutureCallback<String>() {
                     @Override
-                    public void onCompleted(Exception e, JsonArray result) {
+                    public void onCompleted(Exception e, String result)
+                    {
 
                         if (result != null)
                         {
 
-                            for (int i = 0; i < result.size(); i++)
+
+                            System.out.println("imageurl ======================"  + result);
+
+                            GsonBuilder builder = new GsonBuilder();
+
+                            Gson gson = builder.create();
+
+                            post = Arrays.asList(gson.fromJson(result,Home[].class));
+
+
+                            adapter = new HomeAdapter(context, post);
+                            recyclerView.setAdapter(adapter);
+
+
+                            /*  for (int i = 0; i < result.size(); i++)
                             {
                                 JsonObject jsonObject = (JsonObject) result.get(i);
-
 
                                 String name = jsonObject.get("post_title").toString();
 
                                 homeDatas.add(new HomeData("url", name, "price"));
 
                                 System.out.println("imageurl ======================"  + name);
-
-                            }
+                            }*/
                             mSwipyRefreshLayout.setRefreshing(false);
                             adapter.notifyDataSetChanged();
                             recyclerView.setVisibility(View.VISIBLE);
-
 
                         } else {
                             Log.e("error", e.toString());
@@ -193,14 +209,16 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
         load_refresh(0);
 
-        adapter = new HomeAdapter(context, homeDatas);
 
         relativlayoutSearch.setOnClickListener(this);
 
         layoutManager = new GridLayoutManager(getActivity(), 2);
+
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.setAdapter(adapter);
+        System.out.println("post data ============" + post.toString());
+
+
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener()
         {
@@ -275,15 +293,26 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
         Ion.with(this)
                 .load("http://odishatv.in/otv-app/write/nation.php?counter="+b)
 
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
+                .asString()
+                .setCallback(new FutureCallback<String>() {
                     @Override
-                    public void onCompleted(Exception e, JsonArray result) {
+                    public void onCompleted(Exception e, String result) {
 
-                        if (result != null)
-                        {
+                        if (result != null) {
 
-                            for (int i = 0; i < result.size(); i++)
+                            System.out.println("imageurl ======================"  + result);
+
+
+                            GsonBuilder builder = new GsonBuilder();
+
+                            Gson gson = builder.create();
+
+                            post = Arrays.asList(gson.fromJson(result, Home[].class));
+
+
+                            //recyclerView.setAdapter(ada);
+
+                           /* for (int i = 0; i < result.size(); i++)
                             {
 
                                 JsonObject jsonObject = (JsonObject) result.get(i);
@@ -293,8 +322,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
                                 homeDatas.add(new HomeData("url", name, "price"));
 
                                 System.out.println("imageurl ======================"  + name);
-
-                            }
+                            }*/
                             mSwipyRefreshLayout.setRefreshing(false);
                             adapter.notifyDataSetChanged();
 
@@ -305,7 +333,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
                     }
                 });
 
-     /*   Ion.with(this)
+       /* Ion.with(this)
                 .load("http://www.androidbegin.com/tutorial/jsonparsetutorial.txt")
 
                 .asJsonObject()
@@ -344,8 +372,8 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
                             Log.e("error", e.toString());
                         }
                     }
-                });*/
-
+                });
+*/
 
     }
 
