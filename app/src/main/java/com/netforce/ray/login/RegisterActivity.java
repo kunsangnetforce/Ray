@@ -2,6 +2,7 @@ package com.netforce.ray.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -30,10 +31,14 @@ import java.util.Arrays;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
 
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
+    SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
     Button registerButton;
     EditText user_name,email,mobile_no,password,cpassword;
-    TextView sign_in;
-     ProgressDialog pd;
+     TextView sign_in;
+    ProgressDialog pd;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -82,9 +87,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                // check_validation();
 
-                Intent sign= new Intent(RegisterActivity.this,Dashboard.class);
-                startActivity(sign);
-
                 break;
             case R.id.buttonSignin:
                 Intent sign_in = new Intent(RegisterActivity.this,LoginActivity.class);
@@ -131,11 +133,41 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                 public void onCompleted(Exception e, JsonObject result)
                                                 {
 
-                                                    String status = result.get("status").toString();
-                                                    String message = result.get("message").toString();
-                                                    System.out.println("result ============" + message + status);
-                                                    pd.dismiss();
-                                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                                   try
+                                                   {
+
+                                                       String status = result.get("status").toString();
+                                                       String message = result.get("message").toString();
+                                                       String user_id = result.get("token").toString();
+                                                       System.out.println("result ============" + message + status);
+                                                       pd.dismiss();
+
+                                                       if(!status.toString().equals(""))
+                                                       {
+                                                           if (status.toString().equals("error"))
+                                                           {
+
+                                                               Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                                           }
+                                                           else
+                                                           {
+
+                                                               Toast.makeText(getApplicationContext(), message+ user_id, Toast.LENGTH_SHORT).show();
+                                                               editor.putString("",user_id);
+                                                               Intent sign= new Intent(RegisterActivity.this,Dashboard.class);
+                                                               startActivity(sign);
+
+                                                           }
+                                                       }
+                                                       else
+                                                       {
+
+
+
+                                                       }
+                                                   }
+                                                   catch (Exception e1){}
+
 
                                                 }
 

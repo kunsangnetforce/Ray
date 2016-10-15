@@ -24,10 +24,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int SIMPLE_TYPE = 0;
     private static final int IMAGE_TYPE = 1;
     private final LayoutInflater inflater;
-    private List<Home> itemList;
+    private List<HomeData> itemList;
     private Context context;
 
-    public HomeAdapter(Context context, List<Home> itemList) {
+    public HomeAdapter(Context context, List<HomeData> itemList) {
         this.itemList = itemList;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -54,7 +54,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (itemList.get(position).post_title.equals("100")) {
+        if (itemList.get(position).title.equals("100")) {
             return SIMPLE_TYPE;
         } else {
             return IMAGE_TYPE;
@@ -67,15 +67,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         //System.out.println("image===============" + itemList.get(position).image);
 
-        String n = itemList.get(position).meta_value.toString().substring(1, itemList.get(position).meta_value.toString().length() - 1);
+        String n = itemList.get(position).image.toString().substring(1, itemList.get(position).image.toString().length() - 1);
 
         System.out.println("n=============" + n);
 
         Ion.with(homeHolder.product_image).load(n);
 
-        ((HomeHolder) holder).product_name.setText(itemList.get(position).post_title);
+        ((HomeHolder) holder).product_name.setText(itemList.get(position).title);
 
-        homeHolder.product_price.setText(itemList.get(position).post_title);
+        homeHolder.product_price.setText(itemList.get(position).title);
 
         homeHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener()
         {

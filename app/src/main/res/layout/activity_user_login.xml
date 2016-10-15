@@ -15,7 +15,6 @@
         >
 
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +54,7 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:id="@+id/emailT"
             android:layout_toRightOf="@+id/email_image"
             android:layout_marginLeft="10dp"
             >
@@ -92,7 +91,6 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/password_image"
             android:layout_marginLeft="10dp"
-
             >
 
             <EditText
@@ -101,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Password"
                 android:textColor="@color/colorPrimary"
+                android:inputType="textPassword"
                 />
         </android.support.design.widget.TextInputLayout>
 

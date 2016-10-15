@@ -725,12 +725,19 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
         Ion.with(getApplicationContext())
                 .load("https://netforcesales.com/ibet_admin/api/services.php?opt=update_profile&customer_id=137")
+                .setMultipartParameter("user_id", "34")
+                .setMultipartParameter("product_name","Mobile")
+                .setMultipartParameter("description", "This is mobile")
+                .setMultipartParameter("category_id", "33")
+                .setMultipartParameter("price", "300")
                 .setMultipartFile("Image", "image/*", new File("/storage/emulated/0/DCIM/Camera/IMG_20160911_133357464_HDR.jpg"))
+                .setMultipartFile("video", "image/*", new File("/storage/emulated/0/DCIM/Camera/IMG_20160911_133357464_HDR.jpg"))
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result)
                     {
+
 
                         String status = result.get("status").toString().substring(1,result.get("status").toString().length()-1);
 
@@ -738,8 +745,9 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                         if(status == "Success")
                         {
 
-
                             Toast.makeText(getApplicationContext(),status,Toast.LENGTH_SHORT).show();
+
+
                         }
 
                     }

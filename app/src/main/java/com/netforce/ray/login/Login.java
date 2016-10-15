@@ -120,11 +120,40 @@ public class Login extends AppCompatActivity  implements View.OnClickListener
                                     @Override
                                     public void onCompleted(Exception e, JsonObject result) {
 
-                                        String status = result.get("status").toString();
-                                        String message = result.get("message").toString();
-                                        System.out.println("result ============" + message + status);
-                                        pd.dismiss();
-                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                        try {
+
+                                            String status = result.get("status").toString();
+                                            String message = result.get("message").toString();
+                                            System.out.println("result ============" + message + status);
+                                            pd.dismiss();
+
+
+                                            if(!status.toString().equals(""))
+                                            {
+                                                if(status.toString().equals("error"))
+                                                {
+                                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+
+                                                }
+                                                else{
+
+                                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                                    Intent login= new Intent(Login.this,Dashboard.class);
+                                                    startActivity(login);
+                                                }
+                                            }
+                                            else
+                                            {
+
+
+                                            }
+
+                                        }
+                                        catch (Exception c){
+
+
+                                        }
+
 
                                     }
 
