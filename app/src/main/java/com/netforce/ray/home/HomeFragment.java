@@ -16,22 +16,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.github.clans.fab.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
+import com.netforce.ray.dashboard.category.electronics.ElectronicsAdapter;
+import com.netforce.ray.dashboard.category.electronics.ElectronicsData;
 import com.netforce.ray.home.filter.FilterAdapter;
 import com.netforce.ray.home.filter.FilterData;
 import com.netforce.ray.search.SearchActivity;
 import com.netforce.ray.sell.SellActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import it.carlom.stikkyheader.core.StikkyHeaderBuilder;
 import it.carlom.stikkyheader.core.animator.AnimatorBuilder;
@@ -43,7 +47,7 @@ import it.carlom.stikkyheader.core.animator.HeaderStikkyAnimator;
 public class HomeFragment extends Fragment implements  View.OnClickListener,OnRefreshListener
 {
 
-
+   // List<Home> post   =new ArrayList<Home>();
     Context context;
     RecyclerView recyclerView,filterRecyclerView;
     HomeAdapter adapter;
@@ -56,7 +60,6 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
     RelativeLayout relativlayoutSearch;
     LinearLayoutManager filterlinearlayoutManager;
     public FilterAdapter filterAdapter;
-
 
 
     public HomeFragment()
@@ -83,8 +86,12 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
         setupFilterRecyclerView(view);
 
+
+
         return view;
     }
+
+
 
     private void setupFilterRecyclerView(View v)
     {
@@ -145,32 +152,36 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
         homeDatas.clear();
 
         Ion.with(this)
-                .load("http://odishatv.in/otv-app/write/nation.php?counter="+n)
+                .load("http://netforce.biz/seeksell/?action=home&category=33&distance=1km&minprice=100&maxprice=10000&counter=10")
 
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonArray result) {
+                    public void onCompleted(Exception e, JsonObject result)
+                    {
 
                         if (result != null)
                         {
 
-                            for (int i = 0; i < result.size(); i++)
+                            JsonArray re = result.getAsJsonArray("data");
+                            System.out.println("imageurl ======================" + result);
+
+                            for (int i = 0; i < re.size(); i++)
                             {
-                                JsonObject jsonObject = (JsonObject) result.get(i);
 
-
-                                String name = jsonObject.get("post_title").toString();
-
-                                homeDatas.add(new HomeData("url", name, "price"));
+                                JsonObject jsonObject = (JsonObject) re.get(i);
+                                JsonObject vo = jsonObject.getAsJsonObject("Product");
+                                String name = vo.get("name").toString();
+                                String price = vo.get("price").toString();
+                                homeDatas.add(new HomeData("url", name, price));
 
                                 System.out.println("imageurl ======================"  + name);
 
                             }
+
                             mSwipyRefreshLayout.setRefreshing(false);
                             adapter.notifyDataSetChanged();
                             recyclerView.setVisibility(View.VISIBLE);
-
 
                         } else {
                             Log.e("error", e.toString());
@@ -193,14 +204,17 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
         load_refresh(0);
 
-        adapter = new HomeAdapter(context, homeDatas);
 
         relativlayoutSearch.setOnClickListener(this);
 
         layoutManager = new GridLayoutManager(getActivity(), 2);
+
         recyclerView.setLayoutManager(layoutManager);
+        adapter = new HomeAdapter(context, homeDatas);
 
         recyclerView.setAdapter(adapter);
+
+
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener()
         {
@@ -270,31 +284,32 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
     void load(int b)
     {
 
-
-
         Ion.with(this)
-                .load("http://odishatv.in/otv-app/write/nation.php?counter="+b)
+                .load("http://netforce.biz/seeksell/?action=home&category=33&distance=1km&minprice=100&maxprice=10000&counter=10")
 
-                .asJsonArray()
-                .setCallback(new FutureCallback<JsonArray>() {
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonArray result) {
+                    public void onCompleted(Exception e, JsonObject result) {
 
-                        if (result != null)
-                        {
+                        if (result != null) {
 
-                            for (int i = 0; i < result.size(); i++)
-                            {
+                            System.out.println("imageurl ======================" + result);
 
-                                JsonObject jsonObject = (JsonObject) result.get(i);
+                            JsonArray re = result.getAsJsonArray("data");
+                            System.out.println("imageurl ======================" + result);
 
-                                String name = jsonObject.get("post_title").toString();
+                            for (int i = 0; i < re.size(); i++) {
 
-                                homeDatas.add(new HomeData("url", name, "price"));
+                                JsonObject jsonObject = (JsonObject) re.get(i);
+                                JsonObject vo = jsonObject.getAsJsonObject("Product");
+                                String name = vo.get("name").toString();
+                                String price = vo.get("price").toString();
+                                homeDatas.add(new HomeData("url", name, price));
 
-                                System.out.println("imageurl ======================"  + name);
-
+                                System.out.println("imageurl ======================" + name);
                             }
+
                             mSwipyRefreshLayout.setRefreshing(false);
                             adapter.notifyDataSetChanged();
 
@@ -305,7 +320,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
                     }
                 });
 
-     /*   Ion.with(this)
+       /* Ion.with(this)
                 .load("http://www.androidbegin.com/tutorial/jsonparsetutorial.txt")
 
                 .asJsonObject()
@@ -344,8 +359,8 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
                             Log.e("error", e.toString());
                         }
                     }
-                });*/
-
+                });
+*/
 
     }
 
@@ -354,7 +369,6 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
     {
         switch (v.getId())
         {
-
 
             case R.id.fabSell:
 

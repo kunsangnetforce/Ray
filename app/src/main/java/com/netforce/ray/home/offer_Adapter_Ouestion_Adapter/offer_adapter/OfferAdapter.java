@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.netforce.ray.R;
 import com.netforce.ray.home.private_offer.PrivateOffer;
+import com.netforce.ray.home.seller_shop.SellerShopActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,7 +56,7 @@ public class OfferAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             public void onClick(View view)
             {
 
-                Intent i  = new Intent(context, PrivateOffer.class);
+                Intent i  = new Intent(context, SellerShopActivity.class);
                  i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
 

@@ -76,5 +76,6 @@ dependencies {
     compile 'cn.lightsky.infiniteindicator:library:1.1.0'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
+    compile 'com.google.code.gson:gson:2.6.2'
 
 }

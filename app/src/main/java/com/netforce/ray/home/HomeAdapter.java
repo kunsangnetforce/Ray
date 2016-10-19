@@ -54,7 +54,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (itemList.get(position).price.equals("100")) {
+        if (itemList.get(position).title.equals("100")) {
             return SIMPLE_TYPE;
         } else {
             return IMAGE_TYPE;

@@ -1,5 +1,6 @@
 package com.netforce.ray.home.offer_Adapter_Ouestion_Adapter;
 
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.netforce.ray.R;
 import com.netforce.ray.home.ViewPagerAdapter;
@@ -40,7 +43,7 @@ public class SellerProductActivity extends AppCompatActivity implements ViewPage
     public ArrayList<OfferData> offerDatas = new ArrayList<>();
     public ArrayList<SellerQuestionData> sellerquestionDatas = new ArrayList<>();
     LinearLayoutManager layoutManager,questionlayoutManager;
-
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
     private int[] mImageResources = {
             R.drawable.motorcycle,
@@ -66,6 +69,10 @@ public class SellerProductActivity extends AppCompatActivity implements ViewPage
 
         setup_question_layout();
     }
+
+
+
+
 
     private void setup_question_layout()
     {
@@ -162,6 +169,14 @@ public class SellerProductActivity extends AppCompatActivity implements ViewPage
 
         pager_indicator = (LinearLayout) findViewById(R.id.viewPagerCountDots);
 
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+        collapsingToolbarLayout.setTitle("Motorcycle");
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent)); // transperent color = #00000000
+        collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
+
+
+
         mAdapter = new ViewPagerAdapter(SellerProductActivity.this, mImageResources);
 
 
@@ -213,6 +228,14 @@ public class SellerProductActivity extends AppCompatActivity implements ViewPage
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
+            case  R.id.seller_profile_image:
+
+                break;
+            case R.id.seller_name:
+                break;
+            case R.id.like_image:
+                break;
 
         }
     }
