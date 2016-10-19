@@ -724,14 +724,13 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     private void upload_image() {
 
         Ion.with(getApplicationContext())
-                .load("https://netforcesales.com/ibet_admin/api/services.php?opt=update_profile&customer_id=137")
+                .load("http://netforce.biz/seeksell/products/add_item")
                 .setMultipartParameter("user_id", "34")
                 .setMultipartParameter("product_name","Mobile")
                 .setMultipartParameter("description", "This is mobile")
                 .setMultipartParameter("category_id", "33")
                 .setMultipartParameter("price", "300")
-                .setMultipartFile("Image", "image/*", new File("/storage/emulated/0/DCIM/Camera/IMG_20160911_133357464_HDR.jpg"))
-                .setMultipartFile("video", "image/*", new File("/storage/emulated/0/DCIM/Camera/IMG_20160911_133357464_HDR.jpg"))
+
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -739,8 +738,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                     {
 
 
-                        String status = result.get("status").toString().substring(1,result.get("status").toString().length()-1);
-
+                        String status = result.get("status").toString();
                         System.out.println("result============"+ result.toString()+ "image uploaded" + status.toString());
                         if(status == "Success")
                         {
