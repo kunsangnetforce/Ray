@@ -71,7 +71,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
 
         setupviewpager();
 
-
         setuplayout();
 
         setupoffer_list_layout();
@@ -359,5 +358,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }
