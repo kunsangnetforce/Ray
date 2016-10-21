@@ -1,6 +1,8 @@
 package com.netforce.ray.sell;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,8 +11,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -27,6 +31,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -44,7 +49,13 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.async.http.body.FilePart;
+
+import com.koushikdutta.async.http.body.Part;
 import com.koushikdutta.ion.Ion;
+import com.netcompss.ffmpeg4android.GeneralUtils;
+import com.netcompss.ffmpeg4android.Prefs;
+import com.netcompss.loader.LoadJNI;
 import com.netforce.ray.R;
 import com.netforce.ray.general.UserSessionManager;
 import com.netforce.ray.home.PlayVideoActivity;
@@ -56,7 +67,12 @@ import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -66,6 +82,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.net.ssl.SSLContext;
@@ -88,13 +105,20 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     private static final int PICK_IMAGE = 109;
     private static final int PICK_VIDEO = 110;
     protected static ArrayList<SellData> sellDatas = new ArrayList<>();
+    List<Part> files = new ArrayList();
     private Toolbar toolbar;
+    String videopath;
     private MaterialBetterSpinner category;
     private MaterialBetterSpinner currency;
     private ShareDialog shareDialog;
     private CallbackManager callbackManager;
     Button sort_button;
+    String source_video_folder = null;
+    String workFolder = null;
+    String vkLogPath = null;
+    String video_conversion_command;
     RelativeLayout anr_button;
+    File videofile;
     private MaterialDialog dialog,video_dailog;
     ImageView camera_click, video_click;
 
@@ -120,9 +144,12 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         context = this;
         FacebookSdk.sdkInitialize(context);
+
+        //demoVideoPath = demoVideoFolder + "in.mp4";
         AppEventsLogger.activateApp(((AppCompatActivity) context).getApplication());
 
         setContentView(R.layout.activity_sell);
+        source_video_folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/seek&sell/";
 
         findViewById(R.id.buttonSell).setOnClickListener(this);
 
@@ -247,7 +274,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
         video_image.setOnClickListener(this);
 
-        setupData();
+        //setupData();
         adapter = new SellAdapter(context, sellDatas);
         layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         layoutManager.setReverseLayout(true); // THIS ALSO SETS setStackFromBottom to true
@@ -258,7 +285,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setupData()
     {
-        sellDatas.add(new SellData("path"));
+        //sellDatas.add(new SellData("path"));
 
     }
 
@@ -382,9 +409,22 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                         Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
 
                         int   columnindex = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+
                         cursor.moveToFirst();
                         String file_path = cursor.getString(columnindex);
-                        Log.d(getClass().getName(), "file_path"+file_path);
+
+                        videopath= cursor.getString(columnindex);
+                        File oldfile=new File(videopath);
+
+
+                        File newFile=new File(source_video_folder);
+                        try {
+                            copyFile(oldfile,newFile);
+                        } catch (IOException e) {
+                            Log.e("IOException",e.toString());
+                        }
+                        videofile=savevideo(videopath);
+                        Log.e(getClass().getName(), "file_path"+file_path);
                         Uri   fileUri = Uri.parse("file://" + file_path);
 
                         Toast.makeText(getApplicationContext(), fileUri.toString() , Toast.LENGTH_LONG).show();
@@ -426,8 +466,10 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                             if (cursor.moveToFirst())
                             {
                               String  filePath = cursor.getString(columnIndex);
+                                videopath= cursor.getString(columnIndex);
 
-                                System.out.println("filePath==============="+ filePath);
+                                videofile=savevideo(videopath);
+                                Log.e("filePath", filePath);
 
                                 Bitmap thumb = ThumbnailUtils.createVideoThumbnail(filePath, MediaStore.Video.Thumbnails.MINI_KIND);
 
@@ -722,30 +764,37 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void upload_image() {
+        for (int i = 0; i <sellDatas.size(); i++) {
+            files.add(new FilePart("image[]", savebitmap(sellDatas.get(i).path)));
+            Log.e("sellDatas",files.toArray().toString());
+        }
+
+        Log.e("sellDatas", files.toString());
 
         Ion.with(getApplicationContext())
                 .load("http://netforce.biz/seeksell/products/add_item")
+                //.setHeader("ENCTYPE", "multipart/form-data")
+              .addMultipartParts(files)
+                .setMultipartParameter("action", "add_item")
+
+                //.setMultipartFile("image", "image/*", new File(sellDatas.get(0).path))
                 .setMultipartParameter("user_id", "34")
-                .setMultipartParameter("product_name","Mobile")
+                .setMultipartParameter("product_name", "Mobile")
                 .setMultipartParameter("description", "This is mobile")
                 .setMultipartParameter("category_id", "33")
                 .setMultipartParameter("price", "300")
-
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .setMultipartParameter("video", "300")
+                .setMultipartFile("image", "video/*", new File(sellDatas.get(0).path))
+                .asString()
+                .setCallback(new FutureCallback<String>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
-
-
-                        String status = result.get("status").toString();
-                        System.out.println("result============"+ result.toString()+ "image uploaded" + status.toString());
-                        if(status == "Success")
-                        {
-
-                            Toast.makeText(getApplicationContext(),status,Toast.LENGTH_SHORT).show();
-
-
+                    public void onCompleted(Exception e, String result) {
+                        if (result == null) {
+                            Toast.makeText(SellActivity.this, "error called", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        } else {
+                            Toast.makeText(SellActivity.this, "success called", Toast.LENGTH_SHORT).show();
+                            Log.e("result", result.toString());
                         }
 
                     }
@@ -815,6 +864,11 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                             .allowRetry(true)
                             .countdownMinutes(0.25f)
                             .countdownImmediately(false)
+                            .videoFrameRate(24)                                // Sets a custom frame rate (FPS) for video recording.
+                            .qualityProfile(MaterialCamera.QUALITY_LOW)       // Sets a quality profile, manually setting bit rates or frame rates with other settings will overwrite individual quality profile settings
+                            .videoPreferredHeight(240)                         // Sets a preferred height for the recorded video output.
+                            .videoPreferredAspect(4f / 3f)                     // Sets a preferred aspect ratio for the recorded video output.
+                            .maxAllowedFileSize(1024 * 1024 * 2)
 
                             .defaultToFrontFacing(true);
 
@@ -1084,5 +1138,258 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+    private File savebitmap(String filePath) {
+        File file = new File(filePath);
+        String extension = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath, bmOptions);
+        OutputStream outStream = null;
+        try {
+            // make a new bitmap from your file
+            outStream = new FileOutputStream(file);
+            if (extension.equalsIgnoreCase("png")) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 20, outStream);
+            } else if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg")) {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 20, outStream);
+            } else {
+                return null;
+            }
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return file;
+
+
+    }
+
+
+
+    private File savevideo(String filePath) {
+        String converted_file=null;
+
+        workFolder = getApplicationContext().getFilesDir().getAbsolutePath() + "/";
+        Log.e(Prefs.TAG, "workFolder (license and logs location) path: " + workFolder);
+        vkLogPath = workFolder + "vk.log";
+        Log.i(Prefs.TAG, "vk log (native log) path: " + vkLogPath);
+
+        GeneralUtils.copyLicenseFromAssetsToSDIfNeeded(this, workFolder);
+        GeneralUtils.copyDemoVideoFromAssetsToSDIfNeeded(this, source_video_folder);
+
+        if (GeneralUtils.checkIfFileExistAndNotEmpty(filePath)) {
+            new TranscdingBackground(this).execute();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), filePath + " not found", Toast.LENGTH_LONG).show();
+        }
+
+
+
+
+       // Button invoke =  (Button)findViewById(R.id.invokeButton);
+//        if (GeneralUtils.checkIfFileExistAndNotEmpty(filePath)) {
+//            String timestamp= String.valueOf(System.currentTimeMillis());
+//
+//
+//            converted_file=source_video_folder+"/sdcard/seek&sell/"+timestamp+"seek&sell.mp4";
+//
+//
+//             video_conversion_command = "ffmpeg -y -i " + filePath + " -strict experimental " +
+//                    "-vf transpose=1 -s 160x120 -r 30 -aspect 4:3 -ab 48000 -ac 2 -ar " +
+//                    "22050 -b 2097k "+"/sdcard/seek&sell/"+timestamp+"seek&sell.mp4";
+//
+//            Log.e("video_con",video_conversion_command);
+//            new TranscdingBackground(this).execute();
+//        }
+//        else {
+//            Toast.makeText(getApplicationContext(), filePath + " not found", Toast.LENGTH_LONG).show();
+//        }
+
+        int rc = GeneralUtils.isLicenseValid(getApplicationContext(), workFolder);
+        Log.i(Prefs.TAG, "License check RC: " + rc);
+
+
+        File file = new File(converted_file);
+
+        return file;
+
+
+    }
+
+
+
+    public class TranscdingBackground extends AsyncTask<String, Integer, Integer>
+    {
+
+        ProgressDialog progressDialog;
+        Activity _act;
+
+        public TranscdingBackground (Activity act) {
+            _act = act;
+        }
+
+
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(_act);
+            progressDialog.setMessage("FFmpeg4Android Transcoding in progress...");
+            progressDialog.show();
+
+        }
+
+        protected Integer doInBackground(String... paths) {
+
+
+
+
+
+
+
+            Log.i(Prefs.TAG, "doInBackground started...");
+
+            // delete previous log
+            GeneralUtils.deleteFileUtil(workFolder + "/vk.log");
+
+            PowerManager powerManager = (PowerManager)_act.getSystemService(Activity.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "VK_LOCK");
+            Log.d(Prefs.TAG, "Acquire wake lock");
+            wakeLock.acquire();
+
+
+            String[] complexCommand = {"ffmpeg", "-y" ,"-i", source_video_folder,"-strict",
+                    "experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k",
+                    "-ab","48000", "-ac", "2", "-ar", "22050", String.valueOf(paths)};
+
+
+//            EditText commandText = (EditText)findViewById(R.id.CommandText);
+//            String commandStr = commandText.getText().toString();
+
+            ///////////// Set Command using code (overriding the UI EditText) /////
+            //String commandStr = "ffmpeg -y -i /sdcard/videokit/in.mp4 -strict experimental -s 320x240 -r 30 -aspect 3:4 -ab 48000 -ac 2 -ar 22050 -vcodec mpeg4 -b 2097152 /sdcard/videokit/out.mp4";
+            //String[] complexCommand = {"ffmpeg", "-y" ,"-i", "/sdcard/videokit/in.mp4","-strict","experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k", "-ab","48000", "-ac", "2", "-ar", "22050", "/sdcard/videokit/out.mp4"};
+            ///////////////////////////////////////////////////////////////////////
+
+
+            LoadJNI vk = new LoadJNI();
+            try {
+
+                vk.run(complexCommand, workFolder, getApplicationContext());
+               // vk.run(GeneralUtils.utilConvertToComplex(complexCommand), workFolder, getApplicationContext());
+
+                // copying vk.log (internal native log) to the videokit folder
+                GeneralUtils.copyFileToFolder(vkLogPath, source_video_folder);
+
+            } catch (Throwable e) {
+                Log.e(Prefs.TAG, "vk run exeption.", e);
+            }
+            finally {
+                if (wakeLock.isHeld())
+                    wakeLock.release();
+                else{
+                    Log.i(Prefs.TAG, "Wake lock is already released, doing nothing");
+                }
+            }
+            Log.i(Prefs.TAG, "doInBackground finished");
+            return Integer.valueOf(0);
+//            Log.i(Prefs.TAG, "doInBackground started...");
+//
+//            // delete previous log
+//            GeneralUtils.deleteFileUtil(workFolder + "/vk.log");
+//
+//            PowerManager powerManager = (PowerManager)_act.getSystemService(Activity.POWER_SERVICE);
+//            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "VK_LOCK");
+//            Log.d(Prefs.TAG, "Acquire wake lock");
+//            wakeLock.acquire();
+//
+//           // EditText commandText = (EditText)findViewById(R.id.CommandText);
+//          //  String commandStr = commandText.getText().toString();
+//
+//            ///////////// Set Command using code (overriding the UI EditText) /////
+//            //String commandStr = "ffmpeg -y -i /sdcard/videokit/in.mp4 -strict experimental -s 320x240 -r 30 -aspect 3:4 -ab 48000 -ac 2 -ar 22050 -vcodec mpeg4 -b 2097152 /sdcard/videokit/out.mp4";
+//            String[] complexCommand = {"ffmpeg", "-y" ,"-i", "/sdcard/videokit/in.mp4","-strict","experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k", "-ab","48000", "-ac", "2", "-ar", "22050", "/sdcard/videokit/out.mp4"};
+//            ///////////////////////////////////////////////////////////////////////
+//
+//
+//            LoadJNI vk = new LoadJNI();
+//            try {
+//
+//                //vk.run(complexCommand, workFolder, getApplicationContext());
+//                vk.run(GeneralUtils.utilConvertToComplex(video_conversion_command), workFolder, getApplicationContext());
+//
+//                // copying vk.log (internal native log) to the videokit folder
+//                GeneralUtils.copyFileToFolder(vkLogPath,source_video_folder );
+//
+//            } catch (Throwable e) {
+//                Log.e(Prefs.TAG, "vk run exeption.", e);
+//            }
+//            finally {
+//                if (wakeLock.isHeld())
+//                    wakeLock.release();
+//                else{
+//                    Log.i(Prefs.TAG, "Wake lock is already released, doing nothing");
+//                }
+//            }
+//            Log.i(Prefs.TAG, "doInBackground finished");
+            //return Integer.valueOf(0);
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+        }
+
+        @Override
+        protected void onCancelled() {
+            Log.i(Prefs.TAG, "onCancelled");
+            //progressDialog.dismiss();
+            super.onCancelled();
+        }
+
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            Log.i(Prefs.TAG, "onPostExecute");
+            progressDialog.dismiss();
+            super.onPostExecute(result);
+            final String status = GeneralUtils.getReturnCodeFromLog(workFolder + "/vk.log");
+
+           runOnUiThread(new Runnable() {
+               public void run() {
+                   Toast.makeText(SellActivity.this, status, Toast.LENGTH_LONG).show();
+                   if (status.equals("Transcoding Status: Failed")) {
+                       Toast.makeText(SellActivity.this, "Check: " + workFolder + "/vk.log" + " for more information.", Toast.LENGTH_LONG).show();
+                   }
+
+                   // copying vk.log (internal native log) to the sdcard folder
+                   GeneralUtils.copyFileToFolder(vkLogPath, source_video_folder);
+               }
+           });
+
+        }
+
+    }
+
+    public static String copyFile(File src, File dst) throws IOException {
+        FileInputStream var2 = new FileInputStream(src);
+        FileOutputStream var3 = new FileOutputStream(dst);
+        byte[] var4 = new byte[1024];
+
+        int var5;
+        while((var5 = var2.read(var4)) > 0) {
+            var3.write(var4, 0, var5);
+        }
+
+        var2.close();
+        var3.close();
+
+        return dst.getAbsolutePath();
+    }
+
+
+
+
+
 
 }

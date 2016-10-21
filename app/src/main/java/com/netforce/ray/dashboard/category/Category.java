@@ -30,6 +30,8 @@ public class Category extends AppCompatActivity
     private Toolbar toolbar;
 
     HashMap<String, String> tabArray  =  new HashMap<String, String>();
+    ArrayList<String> Categories_id=new ArrayList<String>();
+    ArrayList<String> Categories_name=new ArrayList<String>();
 
 
 
@@ -45,31 +47,33 @@ public class Category extends AppCompatActivity
 
     private void getDynamicTab()
     {
-
+        Categories_id.clear();
+        Categories_name.clear();
         tabArray.clear();
         Ion.with(this)
                 .load("http://netforce.biz/seeksell/categories/appcat")
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>()
-                {
+                .setCallback(new FutureCallback<JsonObject>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result)
-                    {
+                    public void onCompleted(Exception e, JsonObject result) {
 
-                        if (result != null)
-                        {
+                        if (result != null) {
 
                             JsonArray re = result.getAsJsonArray("data");
-                            for (int i = 0; i < re.size(); i++)
-                            {
+                            for (int i = 0; i < re.size(); i++) {
 
                                 JsonObject jsonObject = (JsonObject) re.get(i);
                                 JsonObject vo = jsonObject.getAsJsonObject("Category");
-                                String id = vo.get("id").toString();
-                                String cat_name = vo.get("name").toString();
-                                tabArray.put(id,cat_name);
+                                String id = vo.get("id").getAsString();
+                                String cat_name = vo.get("name").getAsString();
+                                Categories_id.add(id);
+                                Categories_name.add(cat_name);
 
-                                System.out.println("imageurl ======================"  + id + cat_name);
+
+                                tabArray.put(id, cat_name);
+
+                                System.out.println("imageurl ======================" + id + cat_name);
+
 
                             }
                             setupTab();
@@ -85,44 +89,54 @@ public class Category extends AppCompatActivity
     private void setupTab()
     {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-
-        for (HashMap.Entry<String,String> array : tabArray.entrySet())
+        for(int i=0;i<Categories_name.size();i++)
         {
-
-            System.out.println("Array list ================="+ array);
-
-            System.out.printf("%s -> %s%n", array.getKey(), array.getValue());
-
-            tabLayout.addTab(tabLayout.newTab().setText(array.getValue()));
+            tabLayout.addTab(tabLayout.newTab().setText(Categories_name.get(i)));
         }
+
+
+
+
+//        for (HashMap.Entry<String,String> array : tabArray.entrySet())
+//        {
+//
+//            System.out.println("Array list ================="+ array);
+//
+//            System.out.printf("%s -> %s%n", array.getKey(), array.getValue());
+//
+//            tabLayout.addTab(tabLayout.newTab().setText(array.getValue()));
+//        }
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final CategoriesAdapter  adapter= new CategoriesAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-
+        Log.e("Categories_id category", Categories_id.toString());
+        final CategoriesAdapter  adapter= new CategoriesAdapter(getSupportFragmentManager(), tabLayout.getTabCount(),Categories_id);
+        viewPager.setOffscreenPageLimit(1);
+        viewPager.setCurrentItem(0);
         viewPager.setAdapter(adapter);
+
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
-        {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab)
-            {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab)
-            {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab)
-            {
-
-            }
-        });
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+//        {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab)
+//            {
+//                viewPager.setCurrentItem(tab.getPosition());
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab)
+//            {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab)
+//            {
+//
+//            }
+//        });
     }
 
     private void setupToolBar()

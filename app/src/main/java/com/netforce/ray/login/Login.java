@@ -122,8 +122,8 @@ public class Login extends AppCompatActivity  implements View.OnClickListener
 
                                         try {
 
-                                            String status = result.get("status").toString();
-                                            String message = result.get("message").toString();
+                                            String status = result.get("status").getAsString();
+                                            String message = result.get("message").getAsString();
                                             System.out.println("result ============" + message + status);
                                             pd.dismiss();
 

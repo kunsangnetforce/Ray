@@ -36,6 +36,7 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.2.7@aar') {
         transitive = true
     }
+    compile project(':ffmpeg4android_lib')
 
 
     compile('com.github.florent37:androidparallax:1.0.1@aar')

@@ -104,7 +104,7 @@ public class Splash extends AppCompatActivity
                 } catch (NoSuchAlgorithmException e) {
 
                 }
-                startActivity(new Intent(Splash.this, LoginSreen.class));
+                startActivity(new Intent(Splash.this,Dashboard.class));
                 overridePendingTransition(R.anim.enter, R.anim.exit);
                 finish();
             }
