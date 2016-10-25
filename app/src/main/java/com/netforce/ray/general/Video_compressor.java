@@ -3,6 +3,7 @@ package com.netforce.ray.general;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.util.Log;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.netcompss.ffmpeg4android.GeneralUtils;
 import com.netcompss.ffmpeg4android.Prefs;
 import com.netcompss.loader.LoadJNI;
+import com.netforce.ray.sell.SellActivity;
 
 /**
  * Created by abcd on 10/21/2016.
@@ -21,6 +23,7 @@ public class Video_compressor extends AsyncTask<String, Integer, Integer>{
     String demoVideoFolder = null;
     String demoVideoPath = null;
     String vkLogPath = null;
+    String source_video_folder;
 
 
         ProgressDialog progressDialog;
@@ -28,6 +31,8 @@ public class Video_compressor extends AsyncTask<String, Integer, Integer>{
 
         public Video_compressor (Activity act) {
             _act = act;
+            workFolder =_act. getApplicationContext().getFilesDir().getAbsolutePath() + "/seek&sell/";
+            source_video_folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/seek&sell/";
         }
 
 
@@ -53,10 +58,11 @@ public class Video_compressor extends AsyncTask<String, Integer, Integer>{
 
 //            EditText commandText = (EditText)findViewById(R.id.CommandText);
 //            String commandStr = commandText.getText().toString();
+            String timestamp= String.valueOf(System.currentTimeMillis());
 
             ///////////// Set Command using code (overriding the UI EditText) /////
             //String commandStr = "ffmpeg -y -i /sdcard/videokit/in.mp4 -strict experimental -s 320x240 -r 30 -aspect 3:4 -ab 48000 -ac 2 -ar 22050 -vcodec mpeg4 -b 2097152 /sdcard/videokit/out.mp4";
-            String[] complexCommand = {"ffmpeg", "-y" ,"-i", "/sdcard/videokit/in.mp4","-strict","experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k", "-ab","48000", "-ac", "2", "-ar", "22050", "/sdcard/videokit/out.mp4"};
+            String[] complexCommand = {"ffmpeg", "-y" ,"-i", SellActivity.videopath,"-strict","experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k", "-ab","48000", "-ac", "2", "-ar", "22050", "/sdcard/seek&sell/"+timestamp+"seek&sell.mp4"};
             ///////////////////////////////////////////////////////////////////////
 
 
@@ -67,7 +73,7 @@ public class Video_compressor extends AsyncTask<String, Integer, Integer>{
                // vk.run(GeneralUtils.utilConvertToComplex(commandStr), workFolder, _act);
 
                 // copying vk.log (internal native log) to the videokit folder
-                GeneralUtils.copyFileToFolder(vkLogPath, demoVideoFolder);
+               // GeneralUtils.copyFileToFolder(vkLogPath, source_video_folder);
 
             } catch (Throwable e) {
                 Log.e(Prefs.TAG, "vk run exeption.", e);
@@ -109,11 +115,14 @@ public class Video_compressor extends AsyncTask<String, Integer, Integer>{
                     }
 
                     // copying vk.log (internal native log) to the sdcard folder
-                    GeneralUtils.copyFileToFolder(vkLogPath, demoVideoFolder);
+                   // GeneralUtils.copyFileToFolder(vkLogPath, source_video_folder);
                 }
             });
 
         }
+
+
+
 
     }
 

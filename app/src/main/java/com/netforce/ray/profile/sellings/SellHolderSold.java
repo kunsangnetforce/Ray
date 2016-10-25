@@ -17,11 +17,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SellHolderSold extends RecyclerView.ViewHolder {
 
     TextView textViewContent, textViewDate;
-    ImageView imageViewProduct;
+
     CircleImageView imageViewProfile;
     View view;
     MaterialRippleLayout materialRippleLayout;
-    RelativeLayout relative_image;
+    ImageView relative_image;
+TextView productname,like_count,price,timeDuration;
 
     public SellHolderSold(View itemView) {
         super(itemView);
@@ -32,7 +33,12 @@ public class SellHolderSold extends RecyclerView.ViewHolder {
         imageViewProfile = (CircleImageView) itemView.findViewById(R.id.profile_image);
         materialRippleLayout = (MaterialRippleLayout) itemView.findViewById(R.id.ripple);*/
 
-        relative_image = (RelativeLayout) itemView.findViewById(R.id.relative_image);
+
+        relative_image = (ImageView) itemView.findViewById(R.id.img_product);
+        productname=(TextView)itemView.findViewById(R.id.product_name);
+        like_count=(TextView)itemView.findViewById(R.id.tv_like_count);
+        price=(TextView)itemView.findViewById(R.id.tv_price);
+        timeDuration=(TextView)itemView.findViewById(R.id.tv_time_duration);
 
         view = itemView;
     }

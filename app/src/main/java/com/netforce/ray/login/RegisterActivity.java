@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
+import com.netforce.ray.Splash;
 import com.netforce.ray.dashboard.Dashboard;
 import com.netforce.ray.home.Home;
 import com.netforce.ray.validation.Validation;
@@ -31,8 +32,9 @@ import java.util.Arrays;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
 
-    public static final String MY_PREFS_NAME = "MyPrefsFile";
-    SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+
+
+
     Button registerButton;
     EditText user_name,email,mobile_no,password,cpassword;
      TextView sign_in;
@@ -135,10 +137,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                                                    try
                                                    {
-
+                                                       SharedPreferences.Editor editor = getSharedPreferences(Splash.MyPREFERENCES, MODE_PRIVATE).edit();
                                                        String status = result.get("status").toString();
                                                        String message = result.get("message").toString();
                                                        String user_id = result.get("token").toString();
+                                                       editor.putString("user_id",user_id);
+                                                       editor.commit();
                                                        System.out.println("result ============" + message + status);
                                                        pd.dismiss();
 
@@ -166,7 +170,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                                                        }
                                                    }
-                                                   catch (Exception e1){}
+                                                   catch (Exception e1){
+
+                                                       Log.e("Exception",e1.toString());
+                                                   }
 
 
                                                 }

@@ -58,6 +58,7 @@ import com.netcompss.ffmpeg4android.Prefs;
 import com.netcompss.loader.LoadJNI;
 import com.netforce.ray.R;
 import com.netforce.ray.general.UserSessionManager;
+import com.netforce.ray.general.Video_compressor;
 import com.netforce.ray.home.PlayVideoActivity;
 import com.netforce.ray.sell.sellproductdetail.Sell_ProductDeatailAcrtivity;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
@@ -107,7 +108,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     protected static ArrayList<SellData> sellDatas = new ArrayList<>();
     List<Part> files = new ArrayList();
     private Toolbar toolbar;
-    String videopath;
+    public static String videopath;
     private MaterialBetterSpinner category;
     private MaterialBetterSpinner currency;
     private ShareDialog shareDialog;
@@ -118,7 +119,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
     String vkLogPath = null;
     String video_conversion_command;
     RelativeLayout anr_button;
-    File videofile;
+   public static File videofile;
     private MaterialDialog dialog,video_dailog;
     ImageView camera_click, video_click;
 
@@ -415,6 +416,12 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
                         videopath= cursor.getString(columnindex);
                         File oldfile=new File(videopath);
+                        if (GeneralUtils.checkIfFileExistAndNotEmpty(file_path)) {
+                            new Video_compressor(this).execute();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), file_path + " not found", Toast.LENGTH_LONG).show();
+                        }
 
 
                         File newFile=new File(source_video_folder);
@@ -423,7 +430,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                         } catch (IOException e) {
                             Log.e("IOException",e.toString());
                         }
-                        videofile=savevideo(videopath);
+                       // videofile=savevideo(videopath);
                         Log.e(getClass().getName(), "file_path"+file_path);
                         Uri   fileUri = Uri.parse("file://" + file_path);
 
@@ -452,7 +459,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
                             String wholeID = DocumentsContract.getDocumentId(selectedImage);
 
-                            String id = wholeID.split(":")[1];
+                            String id = wholeID.split(":")[0];
 
                             String[] column = { MediaStore.Video.Media.DATA };
                             String sel = MediaStore.Video.Media._ID + "=?";
@@ -468,8 +475,14 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
                               String  filePath = cursor.getString(columnIndex);
                                 videopath= cursor.getString(columnIndex);
 
-                                videofile=savevideo(videopath);
+                                //videofile=savevideo(videopath);
                                 Log.e("filePath", filePath);
+                                if (GeneralUtils.checkIfFileExistAndNotEmpty(filePath)) {
+                                    new Video_compressor(this).execute();
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(), filePath + " not found", Toast.LENGTH_LONG).show();
+                                }
 
                                 Bitmap thumb = ThumbnailUtils.createVideoThumbnail(filePath, MediaStore.Video.Thumbnails.MINI_KIND);
 
@@ -1180,7 +1193,7 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
         GeneralUtils.copyDemoVideoFromAssetsToSDIfNeeded(this, source_video_folder);
 
         if (GeneralUtils.checkIfFileExistAndNotEmpty(filePath)) {
-            new TranscdingBackground(this).execute();
+            new Video_compressor(this).execute();
         }
         else {
             Toast.makeText(getApplicationContext(), filePath + " not found", Toast.LENGTH_LONG).show();
@@ -1221,80 +1234,34 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    public class TranscdingBackground extends AsyncTask<String, Integer, Integer>
-    {
-
-        ProgressDialog progressDialog;
-        Activity _act;
-
-        public TranscdingBackground (Activity act) {
-            _act = act;
-        }
-
-
-
-        @Override
-        protected void onPreExecute() {
-            progressDialog = new ProgressDialog(_act);
-            progressDialog.setMessage("FFmpeg4Android Transcoding in progress...");
-            progressDialog.show();
-
-        }
-
-        protected Integer doInBackground(String... paths) {
-
-
-
-
-
-
-
-            Log.i(Prefs.TAG, "doInBackground started...");
-
-            // delete previous log
-            GeneralUtils.deleteFileUtil(workFolder + "/vk.log");
-
-            PowerManager powerManager = (PowerManager)_act.getSystemService(Activity.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "VK_LOCK");
-            Log.d(Prefs.TAG, "Acquire wake lock");
-            wakeLock.acquire();
-
-
-            String[] complexCommand = {"ffmpeg", "-y" ,"-i", source_video_folder,"-strict",
-                    "experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k",
-                    "-ab","48000", "-ac", "2", "-ar", "22050", String.valueOf(paths)};
-
-
-//            EditText commandText = (EditText)findViewById(R.id.CommandText);
-//            String commandStr = commandText.getText().toString();
-
-            ///////////// Set Command using code (overriding the UI EditText) /////
-            //String commandStr = "ffmpeg -y -i /sdcard/videokit/in.mp4 -strict experimental -s 320x240 -r 30 -aspect 3:4 -ab 48000 -ac 2 -ar 22050 -vcodec mpeg4 -b 2097152 /sdcard/videokit/out.mp4";
-            //String[] complexCommand = {"ffmpeg", "-y" ,"-i", "/sdcard/videokit/in.mp4","-strict","experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k", "-ab","48000", "-ac", "2", "-ar", "22050", "/sdcard/videokit/out.mp4"};
-            ///////////////////////////////////////////////////////////////////////
-
-
-            LoadJNI vk = new LoadJNI();
-            try {
-
-                vk.run(complexCommand, workFolder, getApplicationContext());
-               // vk.run(GeneralUtils.utilConvertToComplex(complexCommand), workFolder, getApplicationContext());
-
-                // copying vk.log (internal native log) to the videokit folder
-                GeneralUtils.copyFileToFolder(vkLogPath, source_video_folder);
-
-            } catch (Throwable e) {
-                Log.e(Prefs.TAG, "vk run exeption.", e);
-            }
-            finally {
-                if (wakeLock.isHeld())
-                    wakeLock.release();
-                else{
-                    Log.i(Prefs.TAG, "Wake lock is already released, doing nothing");
-                }
-            }
-            Log.i(Prefs.TAG, "doInBackground finished");
-            return Integer.valueOf(0);
+//    public class TranscdingBackground extends AsyncTask<String, Integer, Integer>
+//    {
+//
+//        ProgressDialog progressDialog;
+//        Activity _act;
+//
+//        public TranscdingBackground (Activity act) {
+//            _act = act;
+//        }
+//
+//
+//
+//        @Override
+//        protected void onPreExecute() {
+//            progressDialog = new ProgressDialog(_act);
+//            progressDialog.setMessage("FFmpeg4Android Transcoding in progress...");
+//            progressDialog.show();
+//
+//        }
+//
+//        protected Integer doInBackground(String... paths) {
+//
+//
+//
+//
+//
+//
+//
 //            Log.i(Prefs.TAG, "doInBackground started...");
 //
 //            // delete previous log
@@ -1305,23 +1272,29 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 //            Log.d(Prefs.TAG, "Acquire wake lock");
 //            wakeLock.acquire();
 //
-//           // EditText commandText = (EditText)findViewById(R.id.CommandText);
-//          //  String commandStr = commandText.getText().toString();
+//
+//            String[] complexCommand = {"ffmpeg", "-y" ,"-i", source_video_folder,"-strict",
+//                    "experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k",
+//                    "-ab","48000", "-ac", "2", "-ar", "22050", String.valueOf(paths)};
+//
+//
+////            EditText commandText = (EditText)findViewById(R.id.CommandText);
+////            String commandStr = commandText.getText().toString();
 //
 //            ///////////// Set Command using code (overriding the UI EditText) /////
 //            //String commandStr = "ffmpeg -y -i /sdcard/videokit/in.mp4 -strict experimental -s 320x240 -r 30 -aspect 3:4 -ab 48000 -ac 2 -ar 22050 -vcodec mpeg4 -b 2097152 /sdcard/videokit/out.mp4";
-//            String[] complexCommand = {"ffmpeg", "-y" ,"-i", "/sdcard/videokit/in.mp4","-strict","experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k", "-ab","48000", "-ac", "2", "-ar", "22050", "/sdcard/videokit/out.mp4"};
+//            //String[] complexCommand = {"ffmpeg", "-y" ,"-i", "/sdcard/videokit/in.mp4","-strict","experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k", "-ab","48000", "-ac", "2", "-ar", "22050", "/sdcard/videokit/out.mp4"};
 //            ///////////////////////////////////////////////////////////////////////
 //
 //
 //            LoadJNI vk = new LoadJNI();
 //            try {
 //
-//                //vk.run(complexCommand, workFolder, getApplicationContext());
-//                vk.run(GeneralUtils.utilConvertToComplex(video_conversion_command), workFolder, getApplicationContext());
+//                vk.run(complexCommand, workFolder, getApplicationContext());
+//               // vk.run(GeneralUtils.utilConvertToComplex(complexCommand), workFolder, getApplicationContext());
 //
 //                // copying vk.log (internal native log) to the videokit folder
-//                GeneralUtils.copyFileToFolder(vkLogPath,source_video_folder );
+//                GeneralUtils.copyFileToFolder(vkLogPath, source_video_folder);
 //
 //            } catch (Throwable e) {
 //                Log.e(Prefs.TAG, "vk run exeption.", e);
@@ -1334,42 +1307,82 @@ public class SellActivity extends AppCompatActivity implements View.OnClickListe
 //                }
 //            }
 //            Log.i(Prefs.TAG, "doInBackground finished");
-            //return Integer.valueOf(0);
-        }
-
-        protected void onProgressUpdate(Integer... progress) {
-        }
-
-        @Override
-        protected void onCancelled() {
-            Log.i(Prefs.TAG, "onCancelled");
-            //progressDialog.dismiss();
-            super.onCancelled();
-        }
-
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            Log.i(Prefs.TAG, "onPostExecute");
-            progressDialog.dismiss();
-            super.onPostExecute(result);
-            final String status = GeneralUtils.getReturnCodeFromLog(workFolder + "/vk.log");
-
-           runOnUiThread(new Runnable() {
-               public void run() {
-                   Toast.makeText(SellActivity.this, status, Toast.LENGTH_LONG).show();
-                   if (status.equals("Transcoding Status: Failed")) {
-                       Toast.makeText(SellActivity.this, "Check: " + workFolder + "/vk.log" + " for more information.", Toast.LENGTH_LONG).show();
-                   }
-
-                   // copying vk.log (internal native log) to the sdcard folder
-                   GeneralUtils.copyFileToFolder(vkLogPath, source_video_folder);
-               }
-           });
-
-        }
-
-    }
+//            return Integer.valueOf(0);
+////            Log.i(Prefs.TAG, "doInBackground started...");
+////
+////            // delete previous log
+////            GeneralUtils.deleteFileUtil(workFolder + "/vk.log");
+////
+////            PowerManager powerManager = (PowerManager)_act.getSystemService(Activity.POWER_SERVICE);
+////            PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "VK_LOCK");
+////            Log.d(Prefs.TAG, "Acquire wake lock");
+////            wakeLock.acquire();
+////
+////           // EditText commandText = (EditText)findViewById(R.id.CommandText);
+////          //  String commandStr = commandText.getText().toString();
+////
+////            ///////////// Set Command using code (overriding the UI EditText) /////
+////            //String commandStr = "ffmpeg -y -i /sdcard/videokit/in.mp4 -strict experimental -s 320x240 -r 30 -aspect 3:4 -ab 48000 -ac 2 -ar 22050 -vcodec mpeg4 -b 2097152 /sdcard/videokit/out.mp4";
+////            String[] complexCommand = {"ffmpeg", "-y" ,"-i", "/sdcard/videokit/in.mp4","-strict","experimental","-s", "160x120","-r","25", "-vcodec", "mpeg4", "-b", "150k", "-ab","48000", "-ac", "2", "-ar", "22050", "/sdcard/videokit/out.mp4"};
+////            ///////////////////////////////////////////////////////////////////////
+////
+////
+////            LoadJNI vk = new LoadJNI();
+////            try {
+////
+////                //vk.run(complexCommand, workFolder, getApplicationContext());
+////                vk.run(GeneralUtils.utilConvertToComplex(video_conversion_command), workFolder, getApplicationContext());
+////
+////                // copying vk.log (internal native log) to the videokit folder
+////                GeneralUtils.copyFileToFolder(vkLogPath,source_video_folder );
+////
+////            } catch (Throwable e) {
+////                Log.e(Prefs.TAG, "vk run exeption.", e);
+////            }
+////            finally {
+////                if (wakeLock.isHeld())
+////                    wakeLock.release();
+////                else{
+////                    Log.i(Prefs.TAG, "Wake lock is already released, doing nothing");
+////                }
+////            }
+////            Log.i(Prefs.TAG, "doInBackground finished");
+//            //return Integer.valueOf(0);
+//        }
+//
+//        protected void onProgressUpdate(Integer... progress) {
+//        }
+//
+//        @Override
+//        protected void onCancelled() {
+//            Log.i(Prefs.TAG, "onCancelled");
+//            //progressDialog.dismiss();
+//            super.onCancelled();
+//        }
+//
+//
+//        @Override
+//        protected void onPostExecute(Integer result) {
+//            Log.i(Prefs.TAG, "onPostExecute");
+//            progressDialog.dismiss();
+//            super.onPostExecute(result);
+//            final String status = GeneralUtils.getReturnCodeFromLog(workFolder + "/vk.log");
+//
+//           runOnUiThread(new Runnable() {
+//               public void run() {
+//                   Toast.makeText(SellActivity.this, status, Toast.LENGTH_LONG).show();
+//                   if (status.equals("Transcoding Status: Failed")) {
+//                       Toast.makeText(SellActivity.this, "Check: " + workFolder + "/vk.log" + " for more information.", Toast.LENGTH_LONG).show();
+//                   }
+//
+//                   // copying vk.log (internal native log) to the sdcard folder
+//                   GeneralUtils.copyFileToFolder(vkLogPath, source_video_folder);
+//               }
+//           });
+//
+//        }
+//
+//    }
 
     public static String copyFile(File src, File dst) throws IOException {
         FileInputStream var2 = new FileInputStream(src);

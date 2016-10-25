@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
+import com.netforce.ray.Splash;
 import com.netforce.ray.dashboard.Dashboard;
 import com.netforce.ray.home.home2.HeaderFragment;
 import com.netforce.ray.validation.Validation;
@@ -31,6 +32,7 @@ public class Login extends AppCompatActivity  implements View.OnClickListener
     EditText Email_txt,Password_txt;
     ImageView Email_image,Password_image;
     ProgressDialog pd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -124,6 +126,7 @@ public class Login extends AppCompatActivity  implements View.OnClickListener
 
                                             String status = result.get("status").getAsString();
                                             String message = result.get("message").getAsString();
+
                                             System.out.println("result ============" + message + status);
                                             pd.dismiss();
 
@@ -136,10 +139,22 @@ public class Login extends AppCompatActivity  implements View.OnClickListener
 
                                                 }
                                                 else{
+                                                    String user_id = result.get("id").getAsString();
+                                               String shared_user_id=Splash.sharedpreferences.getString("user_id", null);
+                                                    if(shared_user_id!=null)
+                                                    {
+
+                                                    }
+                                                    else
+                                                    {
+                                                        Splash.sharedpreferences.edit().putString("user_id",user_id).commit();
+                                                    }
+
 
                                                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                                                     Intent login= new Intent(Login.this,Dashboard.class);
                                                     startActivity(login);
+                                                    finish();
                                                 }
                                             }
                                             else

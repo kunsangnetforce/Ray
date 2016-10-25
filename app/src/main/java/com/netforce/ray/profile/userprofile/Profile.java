@@ -3,6 +3,7 @@ package com.netforce.ray.profile.userprofile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -27,6 +28,7 @@ import com.facebook.share.model.AppInviteContent;
 import com.facebook.share.widget.AppInviteDialog;
 import com.google.android.gms.plus.PlusShare;
 import com.netforce.ray.R;
+import com.netforce.ray.Splash;
 import com.netforce.ray.dashboard.Dashboard;
 import com.netforce.ray.general.UserSessionManager;
 import com.netforce.ray.profile.UserProfile;
@@ -56,6 +58,7 @@ public class Profile extends Fragment implements View.OnClickListener {
     private String twitter_user_name="asknetforce";
     private Bundle bundle;
     private Intent intent;
+
 
     public Profile() {
         // Required empty public constructor
@@ -197,10 +200,11 @@ public class Profile extends Fragment implements View.OnClickListener {
 
                 startActivity(new Intent(context, SettingActivity.class));
                 break;
-           /*  case R.id.textViewLogout:
-               logout();
+             case R.id.textViewLogout:
+                 userlogout();
+               //logout();
                 break;
-            case R.id.textViewFollowFB:
+          /*  case R.id.textViewFollowFB:
                followFacebook();
                 break;
             case R.id.textViewFollowTwitter:
@@ -220,6 +224,22 @@ public class Profile extends Fragment implements View.OnClickListener {
                 openOtherActivity("About");
                 break;*/
         }
+    }
+
+    private void userlogout() {
+        String checked_userid=Splash.sharedpreferences.getString("user_id",null);
+        if(checked_userid!=null)
+        {
+            Splash.sharedpreferences.edit().remove("user_id");
+            Toast.makeText(getActivity(), "sharedpref delete", Toast.LENGTH_SHORT).show();
+            getActivity().finish();
+        }
+        else{
+            Toast.makeText(getActivity(),"null sharedpref",Toast.LENGTH_SHORT).show();
+        }
+
+
+
     }
 
     private void followFacebook() {

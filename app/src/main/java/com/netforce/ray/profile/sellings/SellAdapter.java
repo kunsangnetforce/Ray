@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
 import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.SellerProductActivity;
 import com.netforce.ray.profile.sellings.offer_list.OfferAdapter;
@@ -86,16 +87,20 @@ public class SellAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 break;
         }*/
+viewHolder.like_count.setText(itemList.get(position).like);
+        viewHolder.price.setText(itemList.get(position).price);
+        viewHolder.productname.setText(itemList.get(position).name);
+        viewHolder.timeDuration.setText(itemList.get(position).created);
+        Ion.with(viewHolder.relative_image).load(itemList.get(position).product_image);
 
-        viewHolder.relative_image.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent i = new Intent(context,SellerProductActivity.class);
-                context.startActivity(i);
-            }
-        });
+
+                viewHolder.relative_image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(context, SellerProductActivity.class);
+                        context.startActivity(i);
+                    }
+                });
     }
 
     private void showMessage(String s) {

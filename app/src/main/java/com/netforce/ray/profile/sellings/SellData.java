@@ -9,11 +9,28 @@ import java.util.ArrayList;
  */
 public class SellData {
 
-    public String status;
-    public ArrayList<OfferData> offerDatas;
 
-    SellData(ArrayList<OfferData> offerDatas, String status) {
-        this.offerDatas = offerDatas;
-        this.status=status;
+    public String id;
+    public String name;
+    public String price;
+    public String like;
+    public String created;
+    public String discount_flag;
+    public String product_image;
+
+    public SellData( String id, String name, String price, String like, String created, String discount_flag, String product_image) {
+
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.like = like;
+        this.created = created;
+        this.discount_flag = discount_flag;
+        this.product_image = product_image;
     }
+
+    // public ArrayList<OfferData> offerDatas;
+
+
+
 }
