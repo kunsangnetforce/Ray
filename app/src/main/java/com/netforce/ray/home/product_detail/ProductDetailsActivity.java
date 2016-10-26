@@ -50,7 +50,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
     ImageView seller_profile_image,like_image;
     TextView seller_name;
 
-
+    String product_id;
 
     private int[] mImageResources = {
                     R.drawable.motorcycle,
@@ -66,6 +66,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
+        Bundle extras = getIntent().getExtras();
+
+         product_id=  extras.getString("productid");
+        setupwebservice();
+
 
         setupToolBar();
 
@@ -76,6 +81,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
         setupoffer_list_layout();
 
         setup_question_layout();
+    }
+
+    private void setupwebservice() {
     }
 
     private void setuplayout() {

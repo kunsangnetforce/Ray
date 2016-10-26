@@ -68,28 +68,24 @@ public class SpecialFragment extends Fragment
 
 
         try {
-            String url="http://netforce.biz/seeksell/products/product_list?cat_id=52";
+            String url="http://netforce.biz/seeksell/products/product_list/cat_id/2.json";
             Log.e("url",url);
             Ion.with(getActivity())
                     .load(url)
-                    .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+                    .asString().setCallback(new FutureCallback<String>() {
                 @Override
-                public void onCompleted(Exception e, JsonObject result) {
+                public void onCompleted(Exception e, String result) {
                     try {
 
 
+                        if (result != null) {
+                            Log.e("result", result.toString());
 
-                    if (result != null) {
-                        Log.e("result", result.toString());
 
-
-                    } else {
-                        Log.e("result null", "result is null");
-                    }
-                    }
-
-                    catch (Exception e1)
-                    {
+                        } else {
+                            Log.e("result null", "result is null");
+                        }
+                    } catch (Exception e1) {
                         Log.e("Exception", e1.toString());
                     }
 

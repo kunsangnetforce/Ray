@@ -9,12 +9,15 @@ import android.os.Parcelable;
 public class HomeData {
 
 
-    public String image, title, price;
+    public String image, title, price,productid;
 
-    HomeData(String image, String title, String price) {
+    HomeData(String image, String title, String price,String productid) {
         this.image = image;
         this.title = title;
         this.price = price;
+        this.productid=productid;
+
+
     }
 
 
