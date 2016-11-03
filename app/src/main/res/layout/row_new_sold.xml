@@ -10,8 +10,13 @@
         android:id="@+id/relative_image"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@drawable/motorcycle"
+
         >
+<ImageView
+    android:layout_width="match_parent"
+
+    android:id="@+id/img_product"
+    android:layout_height="match_parent" />
 
         <Button
             android:layout_width="wrap_content"
@@ -38,7 +43,7 @@
           android:layout_height="wrap_content"
           android:text="Sport Bike"
           android:textColor="@color/black"
-          />
+          android:id="@+id/product_name" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -53,7 +58,7 @@
                 android:text="5"
                 android:textColor="@color/black"
                 android:layout_marginRight="5dp"
-                />
+                android:id="@+id/tv_like_count" />
 
             <ImageView
                 android:layout_width="35dp"
@@ -79,7 +84,7 @@
             android:layout_height="wrap_content"
             android:text="$800"
             android:textColor="@color/colorPrimary"
-            />
+            android:id="@+id/tv_price" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -129,7 +134,7 @@
             android:text="2 week ago"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            />
+            android:id="@+id/tv_time_duration" />
 
 
     </LinearLayout>

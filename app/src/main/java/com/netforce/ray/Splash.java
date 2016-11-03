@@ -2,6 +2,7 @@ package com.netforce.ray;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -23,7 +24,9 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.netforce.ray.dashboard.Dashboard;
 import com.netforce.ray.general.NoInternet;
 import com.netforce.ray.login.Login;
+import com.netforce.ray.login.LoginActivity;
 import com.netforce.ray.login.LoginSreen;
+import com.netforce.ray.login.RegisterActivity;
 import com.nineoldandroids.animation.Animator;
 
 import java.security.MessageDigest;
@@ -31,10 +34,12 @@ import java.security.NoSuchAlgorithmException;
 
 public class Splash extends AppCompatActivity
 {
-
+   public static SharedPreferences sharedpreferences;
+    public  static  String MyPREFERENCES="Seek&Sell";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
         Window window = getWindow();
 
@@ -49,6 +54,7 @@ public class Splash extends AppCompatActivity
         }
 
         setContentView(R.layout.activity_main);
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
        /* YoYo.with(Techniques.ZoomIn)
                 .withListener(new Animator.AnimatorListener() {
@@ -104,9 +110,20 @@ public class Splash extends AppCompatActivity
                 } catch (NoSuchAlgorithmException e) {
 
                 }
-                startActivity(new Intent(Splash.this, LoginSreen.class));
-                overridePendingTransition(R.anim.enter, R.anim.exit);
-                finish();
+
+
+String checked_shared_pref=sharedpreferences.getString("user_id",null);
+                if(checked_shared_pref!=null)
+                { startActivity(new Intent(Splash.this,Dashboard.class));
+                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                    finish();}
+                else {
+
+
+                    startActivity(new Intent(Splash.this, LoginSreen.class));
+                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                    finish();
+                }
             }
         }, 2000);
 

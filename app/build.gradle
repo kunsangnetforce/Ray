@@ -36,6 +36,7 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.2.7@aar') {
         transitive = true
     }
+    compile project(':ffmpeg4android_lib')
 
 
     compile('com.github.florent37:androidparallax:1.0.1@aar')
@@ -77,5 +78,6 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'se.emilsjolander:stickylistheaders:2.7.0'
     compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.github.Mariovc:ImagePicker:1.0.3'
 
 }

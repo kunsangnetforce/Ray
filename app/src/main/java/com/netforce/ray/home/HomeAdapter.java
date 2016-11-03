@@ -71,11 +71,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         System.out.println("n=============" + n);
 
-        Ion.with(homeHolder.product_image).load(n);
+        Ion.with(homeHolder.product_image).load(itemList.get(position).image);
 
         ((HomeHolder) holder).product_name.setText(itemList.get(position).title);
 
-        homeHolder.product_price.setText(itemList.get(position).title);
+        homeHolder.product_price.setText(itemList.get(position).price);
+
 
         homeHolder.materialRippleLayout.setOnClickListener(new View.OnClickListener()
         {
@@ -84,6 +85,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             {
 
                 Intent i = new Intent(context, ProductDetailsActivity.class);
+                i.putExtra("productid",itemList.get(position).productid);
                 context.startActivity(i);
             }
         });

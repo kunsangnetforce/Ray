@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
     RelativeLayout relativlayoutSearch;
     LinearLayoutManager filterlinearlayoutManager;
     public FilterAdapter filterAdapter;
-
+    int    count = 0;
 
     public HomeFragment()
     {
@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
         homeDatas.clear();
 
         Ion.with(this)
-                .load("http://netforce.biz/seeksell/?action=home&category=33&distance=1km&minprice=100&maxprice=10000&counter=10")
+                .load("http://netforce.biz/seeksell/?action=home&category=&distance=1km&minprice=100&maxprice=10000&counter=10")
 
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -171,11 +171,25 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
 
                                 JsonObject jsonObject = (JsonObject) re.get(i);
                                 JsonObject vo = jsonObject.getAsJsonObject("Product");
-                                String name = vo.get("name").toString();
-                                String price = vo.get("price").toString();
-                                homeDatas.add(new HomeData("url", name, price));
+                                String name = vo.get("name").getAsString();
+                                String price = vo.get("price").getAsString();
+                                String id = vo.get("id").getAsString();
+                                JsonArray js_product_image = jsonObject.getAsJsonArray("ProductImage");
+                                for(int k=0;k<js_product_image.size();k++) {
+                                    // JsonObject js_product_image = jsonObject.getAsJsonObject("ProductImage");
+                                    JsonObject jsonObject2 = (JsonObject) js_product_image.get(k);
+                                    if (jsonObject2.get("name").isJsonNull()) {
 
-                                System.out.println("imageurl ======================"  + name);
+                                    } else {
+                                        String ProductImage_url = getString(R.string.imageurl) + jsonObject2.get("name").getAsString();
+                                        System.out.println("imageurl ======================" + name);
+                                        homeDatas.add(new HomeData(ProductImage_url, name, price, id));
+                                    }
+                                }
+
+
+
+
 
                             }
 
@@ -244,7 +258,8 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
                             //loadMore();//your HTTP stuff goes in this method
                             //loadingProgress.setVisibility(View.VISIBLE);
 
-                            load(20);
+                            count=   count + 10;
+                            load(count);
                         }
                         else
                         {
@@ -285,7 +300,7 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
     {
 
         Ion.with(this)
-                .load("http://netforce.biz/seeksell/?action=home&category=33&distance=1km&minprice=100&maxprice=10000&counter=10")
+                .load("http://netforce.biz/seeksell/?action=home&category=&distance=1km&minprice=100&maxprice=10000&counter="+b)
 
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -299,15 +314,31 @@ public class HomeFragment extends Fragment implements  View.OnClickListener,OnRe
                             JsonArray re = result.getAsJsonArray("data");
                             System.out.println("imageurl ======================" + result);
 
-                            for (int i = 0; i < re.size(); i++) {
+                            for (int i = 0; i < re.size(); i++)
+                            {
 
                                 JsonObject jsonObject = (JsonObject) re.get(i);
                                 JsonObject vo = jsonObject.getAsJsonObject("Product");
-                                String name = vo.get("name").toString();
-                                String price = vo.get("price").toString();
-                                homeDatas.add(new HomeData("url", name, price));
+                                String name = vo.get("name").getAsString();
+                                String price = vo.get("price").getAsString();
+                                String id = vo.get("id").getAsString();
+                                JsonArray js_product_image = jsonObject.getAsJsonArray("ProductImage");
+                                for(int k=0;k<js_product_image.size();k++) {
+                                    // JsonObject js_product_image = jsonObject.getAsJsonObject("ProductImage");
+                                    JsonObject jsonObject2 = (JsonObject) js_product_image.get(k);
+                                    if (jsonObject2.get("name").isJsonNull()) {
 
-                                System.out.println("imageurl ======================" + name);
+                                    } else {
+                                        String ProductImage_url = getString(R.string.imageurl) + jsonObject2.get("name").getAsString();
+                                        System.out.println("imageurl ======================" + ProductImage_url);
+                                        homeDatas.add(new HomeData(ProductImage_url, name, price, id));
+                                    }
+                                }
+
+
+
+
+
                             }
 
                             mSwipyRefreshLayout.setRefreshing(false);
