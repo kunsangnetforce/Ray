@@ -116,13 +116,15 @@ String checked_shared_pref=sharedpreferences.getString("user_id",null);
                 if(checked_shared_pref!=null)
                 { startActivity(new Intent(Splash.this,Dashboard.class));
                     overridePendingTransition(R.anim.enter, R.anim.exit);
-                    finish();}
+                    Log.e("checked_shared_pref",checked_shared_pref);
+                   // finish();
+                }
                 else {
 
 
                     startActivity(new Intent(Splash.this, LoginSreen.class));
                     overridePendingTransition(R.anim.enter, R.anim.exit);
-                    finish();
+                   // finish();
                 }
             }
         }, 2000);

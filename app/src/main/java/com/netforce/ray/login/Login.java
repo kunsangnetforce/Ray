@@ -86,7 +86,7 @@ public class Login extends AppCompatActivity  implements View.OnClickListener
 
 
         }
-        Toast.makeText(getApplicationContext(), "I'm clicked!", Toast.LENGTH_SHORT).show();;
+
     }
 
     private void login_validation() {

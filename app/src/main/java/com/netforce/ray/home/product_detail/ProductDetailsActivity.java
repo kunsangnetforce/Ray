@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.netforce.ray.R;
+import com.netforce.ray.home.HomeData;
 import com.netforce.ray.home.private_offer.PrivateOffer;
 import com.netforce.ray.home.ViewPagerAdapter;
 import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.offer_adapter.OfferAdapter;
@@ -25,6 +31,8 @@ import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.offer_adapter.OfferD
 import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.question_adapter.QuestionAdapter;
 import com.netforce.ray.home.offer_Adapter_Ouestion_Adapter.question_adapter.QuestionData;
 import com.netforce.ray.home.seller_shop.SellerShopActivity;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -38,27 +46,23 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
     private LinearLayout pager_indicator;
     private int dotsCount;
     private ImageView[] dots;
-    private ViewPagerAdapter mAdapter;
+
     Button aks_button,private_button;
     RecyclerView offer_list,question_list;
     OfferAdapter adapter;
+    ViewPagerAdapter_product_detail viewPagerAdapter_product_detail;
     QuestionAdapter questionAdapter;
     public ArrayList<OfferData> offerDatas = new ArrayList<>();
     public ArrayList<QuestionData> questionDatas = new ArrayList<>();
+    public ArrayList<String>Imagedatas=new ArrayList<>();
     LinearLayoutManager layoutManager,questionlayoutManager;
     CollapsingToolbarLayout collapsingToolbarLayout;
     ImageView seller_profile_image,like_image;
-    TextView seller_name;
+    TextView seller_name,like_text,productTitle,product_price,product_description;
 
     String product_id;
 
-    private int[] mImageResources = {
-                    R.drawable.motorcycle,
-                    R.drawable.motorcycle,
-                    R.drawable.motorcycle,
-                    R.drawable.motorcycle,
-                    R.drawable.motorcycle
-            };
+
 
 
     @Override
@@ -67,23 +71,96 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
         Bundle extras = getIntent().getExtras();
+        if(extras!=null) {
+            product_id = extras.getString("productid");
+            setupwebservice(product_id);
+            setupToolBar();
 
-         product_id=  extras.getString("productid");
-        setupwebservice();
+            setupviewpager();
+
+            setuplayout();
+
+            setupoffer_list_layout();
+
+            setup_question_layout();
+        }
 
 
-        setupToolBar();
 
-        setupviewpager();
 
-        setuplayout();
-
-        setupoffer_list_layout();
-
-        setup_question_layout();
     }
 
-    private void setupwebservice() {
+    private void setupwebservice(String product_id) {
+        String Product_cat_url="http://netforce.biz/seeksell/products/product_details?action=details&id="+product_id;
+        Log.e("Product_cat_url",Product_cat_url);
+        Ion.with(this).load(Product_cat_url)
+
+                .asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                String status=result.get("status").getAsString();
+                if (status.contains("success"))
+                {
+                    JsonObject data=result.getAsJsonObject("data");
+                    JsonObject Product=data.getAsJsonObject("Product");
+                    String product_name=Product.get("name").getAsString();
+                    String description=Product.get("description").getAsString();
+                    product_description.setText(description);
+                    String like=Product.get("like").getAsString();
+                    String price=Product.get("price").getAsString();
+                    JsonObject User=data.getAsJsonObject("User");
+                    String product_user_id=User.get("id").getAsString();
+                    String product_username=User.get("name").getAsString();
+                    seller_name.setText(product_username);
+                    if (User.get("profile_photo").isJsonNull()) {
+
+                    } else {
+
+
+                        String profile_photo = getString(R.string.profile_url)+User.get("profile_photo").getAsString();
+                        Ion.with(seller_profile_image)
+                                //.placeholder(R.drawable.placeholder_image)
+
+                                .load(profile_photo);
+
+                    }
+//                    JsonObject Json_ProductImage=result.getAsJsonObject("ProductImage");
+//                    String product_image=getString(R.string.imageurl)+Json_ProductImage.get("name").getAsString();
+//                    Log.e("product_name",product_name);
+
+
+
+                    JsonArray js_product_image = data.getAsJsonArray("ProductImage");
+                    for(int k=0;k<js_product_image.size();k++) {
+                        // JsonObject js_product_image = jsonObject.getAsJsonObject("ProductImage");
+                        JsonObject jsonObject2 = (JsonObject) js_product_image.get(k);
+                        if (jsonObject2.get("name").isJsonNull()) {
+
+                        } else {
+                            String ProductImage_url = getString(R.string.imageurl) + jsonObject2.get("name").getAsString();
+                            Imagedatas.add(ProductImage_url);
+                            System.out.println("imageurl ======================" + ProductImage_url);
+                            productTitle.setText(product_name);
+                            like_text.setText(like);
+                            product_price.setText(price);
+
+
+                            //homeDatas.add(new HomeData(ProductImage_url, name, price, id));
+                        }
+
+
+                    }}
+
+                viewPagerAdapter_product_detail = new ViewPagerAdapter_product_detail(ProductDetailsActivity.this, Imagedatas);
+                intro_images.setAdapter(viewPagerAdapter_product_detail);
+                intro_images.setCurrentItem(0);
+                setUiPageViewController();
+                intro_images.setOnPageChangeListener(ProductDetailsActivity.this);
+
+
+            }
+        });
+
     }
 
     private void setuplayout() {
@@ -94,6 +171,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
         like_image = (ImageView) findViewById(R.id.like_image);
 
         seller_name = (TextView) findViewById(R.id.seller_name);
+        like_text=(TextView) findViewById(R.id.like_txt);
+        productTitle=(TextView)findViewById(R.id.productTitle);
+        product_price=(TextView)findViewById(R.id.product_price);
+        product_description=(TextView)findViewById(R.id.product_description);
 
         seller_profile_image.setOnClickListener(this);
 
@@ -184,19 +265,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 
-        mAdapter = new ViewPagerAdapter(ProductDetailsActivity.this, mImageResources);
-
-
 
         collapsingToolbarLayout.setTitle("Motorcycle");
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent)); // transperent color = #00000000
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
 
 
-        intro_images.setAdapter(mAdapter);
-        intro_images.setCurrentItem(0);
-        intro_images.setOnPageChangeListener(ProductDetailsActivity.this);
-        setUiPageViewController();
+
+
 
 
 
@@ -237,7 +313,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements ViewPag
 
     private void setUiPageViewController() {
 
-        dotsCount = mAdapter.getCount();
+        dotsCount = viewPagerAdapter_product_detail.getCount();
         dots = new ImageView[dotsCount];
 
         for (int i = 0; i < dotsCount; i++) {

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.netforce.ray.R;
+import com.netforce.ray.Splash;
 import com.netforce.ray.dashboard.category.Category;
 import com.netforce.ray.dashboard.navigation.Special.SpecialActivity;
 import com.netforce.ray.dashboard.navigation.wanted.WantedActivity;
@@ -289,7 +290,9 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         switch (v.getId())
         {
             case R.id.textviewFooter:
-                showMessage("Clicked");
+                userlogout();
+
+                //showMessage("Clicked");
                 break;
             case R.id.header:
                 showMessage("header");
@@ -326,5 +329,23 @@ public class NavigationFragment extends Fragment implements RecyclerAdapterDrawe
         specialAndCategoryFragment.setArguments(args);
         replaceFragment(specialAndCategoryFragment, tagName);
     }*/
+
+
+    private void userlogout() {
+        String checked_userid= Splash.sharedpreferences.getString("user_id",null);
+        if(checked_userid!=null)
+        {
+
+            Splash.sharedpreferences.edit().remove("user_id").apply();
+            Toast.makeText(getActivity(), "sharedpref delete", Toast.LENGTH_SHORT).show();
+            getActivity().finish();
+        }
+        else{
+            Toast.makeText(getActivity(),"null sharedpref",Toast.LENGTH_SHORT).show();
+        }
+
+
+
+    }
 }
 

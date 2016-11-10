@@ -87,6 +87,7 @@
 
     <string name="title">Please select an action:</string>
     <string name="imageurl">http://netforce.biz/seeksell/files/products/</string>
+    <string name="profile_url">http://netforce.biz/seeksell/files/profile/</string>
 
 
     <string-array name="items">

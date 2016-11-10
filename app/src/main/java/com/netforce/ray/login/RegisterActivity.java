@@ -145,84 +145,88 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             if(mobile_no.getText().toString().length()== 10)
                             {
 
-                                if(!password.getText().toString().equals("") )
+                                if(!password.getText().toString().equals("") ||!cpassword.getText().toString().equals(""))
                                 {
-                                    if(imageFile!=null)
-                                        if(isReadStorageAllowed()){
-                                            //If permission is already having then showing the toast
-                                            Toast.makeText(this,"You already have the permission",Toast.LENGTH_LONG).show();
+                                    if(checkPassWordAndConfirmPassword(password.getText().toString(),cpassword.getText().toString())) {
+                                        if (imageFile != null) {
+                                            if (isReadStorageAllowed()) {
+                                                //If permission is already having then showing the toast
+                                                //Toast.makeText(this,"You already have the permission",Toast.LENGTH_LONG).show();
 
 
+                                                //Existing the method with return
 
 
-                                            //Existing the method with return
+                                                pd = new ProgressDialog(RegisterActivity.this);
+                                                pd.setMessage("loading");
+                                                pd.show();
+                                                String url = "http://netforce.biz/seeksell/users/register_user";
+
+                                                Ion.with(RegisterActivity.this)
+                                                        .load(url)
+                                                        .setMultipartFile("profile_photo", "image/*", imageFile)
+
+                                                        .setMultipartParameter("user_name", user_name.getText().toString())
+                                                        .setMultipartParameter("email", email.getText().toString())
+                                                        .setMultipartParameter("password", password.getText().toString())
+                                                        .setMultipartParameter("action", "registration")
+                                                        .setMultipartParameter("mobile", mobile_no.getText().toString())
+
+                                                        .asJsonObject()
+                                                        .setCallback(new FutureCallback<JsonObject>() {
+                                                            @Override
+                                                            public void onCompleted(Exception e, JsonObject result) {
 
 
+                                                                try {
+                                                                    SharedPreferences.Editor editor = getSharedPreferences(Splash.MyPREFERENCES, MODE_PRIVATE).edit();
+                                                                    String status = result.get("status").toString();
+                                                                    String message = result.get("message").toString();
+                                                                    String user_id = result.get("token").getAsString();
+                                                                    editor.putString("user_id", user_id);
+                                                                    editor.commit();
+                                                                    System.out.println("result ============" + message + status);
+                                                                    pd.dismiss();
 
-                                    pd = new ProgressDialog(RegisterActivity.this);
-                                    pd.setMessage("loading");
-                                    pd.show();
-                                    String url = "http://netforce.biz/seeksell/users/register_user";
+                                                                    if (!status.toString().equals("")) {
+                                                                        if (status.toString().equals("error")) {
 
-                                    Ion.with(RegisterActivity.this)
-                                            .load(url)
-                                            .setMultipartFile("profile_photo", "image/*",imageFile )
+                                                                            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                                                                        } else {
 
-                                            .setMultipartParameter("user_name", user_name.getText().toString())
-                                            .setMultipartParameter("email", email.getText().toString())
-                                            .setMultipartParameter("password", password.getText().toString())
-                                            .setMultipartParameter("action", "registration")
-                                            .setMultipartParameter("mobile",mobile_no.getText().toString())
+                                                                            Toast.makeText(getApplicationContext(), message + user_id, Toast.LENGTH_SHORT).show();
+                                                                            editor.putString("user_id", user_id);
+                                                                            Intent sign = new Intent(RegisterActivity.this, Dashboard.class);
+                                                                            startActivity(sign);
 
-                                            .asJsonObject()
-                                            .setCallback(new FutureCallback<JsonObject>() {
-                                                @Override
-                                                public void onCompleted(Exception e, JsonObject result) {
+                                                                        }
+                                                                    } else {
 
 
+                                                                    }
+                                                                } catch (Exception e1) {
+                                                                    pd.dismiss();
+                                                                    Log.e("ex registration", e1.toString());
+                                                                }
 
-                                                    try {
-                                                        SharedPreferences.Editor editor = getSharedPreferences(Splash.MyPREFERENCES, MODE_PRIVATE).edit();
-                                                        String status = result.get("status").toString();
-                                                        String message = result.get("message").toString();
-                                                        String user_id = result.get("token").toString();
-                                                        editor.putString("user_id", user_id);
-                                                        editor.commit();
-                                                        System.out.println("result ============" + message + status);
-                                                        pd.dismiss();
-
-                                                        if (!status.toString().equals("")) {
-                                                            if (status.toString().equals("error")) {
-
-                                                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-                                                            } else {
-
-                                                                Toast.makeText(getApplicationContext(), message + user_id, Toast.LENGTH_SHORT).show();
-                                                                editor.putString("", user_id);
-                                                                Intent sign = new Intent(RegisterActivity.this, Dashboard.class);
-                                                                startActivity(sign);
 
                                                             }
-                                                        } else {
 
-
-                                                        }
-                                                    } catch (Exception e1) {
-                                                        pd.dismiss();
-                                                        Log.e("Exception in registration", e1.toString());
-                                                    }
-
-
-                                                }
-
-                                            });
-                                            return;
-                                        }
-                                        else {
+                                                        });
+                                                return;
+                                            } else {
+                                                requestStoragePermission();
+                                            }
+                                        } else {
+                                            Toast.makeText(this, "Please Select Image first then try again", Toast.LENGTH_SHORT).show();
 
                                             //If the app has not the permission then asking for the permission
-                                            requestStoragePermission();
+
                                         }
+                                    }
+                                    else{
+                                        Toast.makeText(this, "Please Enter Same Password & Confirm Password", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                                 else
                                 {
@@ -290,37 +294,39 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == RESULT_OK) {
+            Log.e("resultCode if",resultCode+"");
 
+            Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
+            user_pic.setImageBitmap(bitmap);
 
-        Bitmap bitmap = ImagePicker.getImageFromResult(this, requestCode, resultCode, data);
-        user_pic.setImageBitmap(bitmap);
+            if (data == null) {
+                File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES), "MyApplication");
 
-        if (data==null)
-        {
-            File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_PICTURES), "MyApplication");
+                /**Create the storage directory if it does not exist*/
+                if (!mediaStorageDir.exists()) {
+                    if (!mediaStorageDir.mkdirs()) {
 
-            /**Create the storage directory if it does not exist*/
-            if (! mediaStorageDir.exists()){
-                if (! mediaStorageDir.mkdirs()){
-
+                    }
                 }
+
+                /**Create a media file name*/
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+
+                imageFile = new File(mediaStorageDir.getPath() + File.separator +
+                        "IMG_" + timeStamp + ".png");
+            } else {
+                Uri selectedImageURI = data.getData();
+                imageFile = new File(getRealPathFromURI(selectedImageURI));
+                String path = selectedImageURI.getPath();
+                Log.e("path", path);
             }
-
-            /**Create a media file name*/
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-
-
-            imageFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "IMG_" + timeStamp + ".png");
         }
         else{
-            Uri selectedImageURI = data.getData();
-            imageFile = new File(getRealPathFromURI(selectedImageURI));
-            String path = selectedImageURI.getPath();
-            Log.e("path", path);
+            Log.e("resultCode else",resultCode+"");
         }
-
 
 
     }
@@ -389,5 +395,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //If permission is not granted returning false
         return false;
     }
-
+    public boolean checkPassWordAndConfirmPassword(String password,String confirmPassword)
+    {
+        boolean pstatus = false;
+        if (confirmPassword != null && password != null)
+        {
+            if (password.equals(confirmPassword))
+            {
+                pstatus = true;
+            }
+        }
+        return pstatus;
+    }
 }

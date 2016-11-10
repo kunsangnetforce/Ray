@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.netforce.ray.R;
 import com.netforce.ray.dashboard.navigation.NavigationFragment;
+import com.netforce.ray.general.Mylocation;
 import com.netforce.ray.general.UserSessionManager;
 import com.netforce.ray.home.HomeFragment;
 import com.netforce.ray.login.LoginActivity;
@@ -46,6 +48,7 @@ public class Dashboard extends AppCompatActivity
     private NavigationFragment drawer;
     private UserSessionManager userSessionManager;
     ImageView imageview ;
+    Mylocation mm;
 
 
     @Override
@@ -54,7 +57,13 @@ public class Dashboard extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        mm=new Mylocation(this);
+        Log.e("mm",mm.getLocation().getLongitude()+""+mm.getLocation().getLongitude());
+
+    //    mm.getproviders();
+
         setupToolBar();
+
         //setupNavigation();
         setupNavigationCustom();
         setupHomeFragment();

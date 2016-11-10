@@ -217,6 +217,7 @@
                 android:layout_marginRight="5dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:id="@+id/product_price"
                 android:layout_marginTop="5dp"
                 />
 
@@ -233,6 +234,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
+                    android:id="@+id/product_description"
                     android:layout_height="wrap_content"
                     android:text="Newly purchase and rarely used.... awesome conditions just like new one.."
                     />
